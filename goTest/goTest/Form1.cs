@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
+using goTest.SecurityComponent.Encryption.Realization;
 
 namespace goTest
 {
@@ -16,32 +17,9 @@ namespace goTest
         public Form1()
         {
             InitializeComponent();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                SQLiteConnection conn = new SQLiteConnection(@"Data Source=filename.db; Version=3;");
-                try
-                {
-                    conn.Open();
-                }
-                catch (Exception ex)
-                {
-
-                }
-                SQLiteDataAdapter adapt = new SQLiteDataAdapter("select * from test", conn);
-                DataSet ds = new DataSet();
-                adapt.Fill(ds);
-                int id = int.Parse(ds.Tables[0].Rows[0].ItemArray[0].ToString());
-                string name = ds.Tables[0].Rows[0].ItemArray[1].ToString();
-                int dfs = 0;
-            }
-            catch(Exception ex)
-            {
-                int fsf =0;
-            }
+            EncryptWorker a = new EncryptWorker();
+            string en_text = a.encrypt("testiiiiiiiiiiii");
+            string de_text = a.decrypt(en_text);
         }
     }
 }
