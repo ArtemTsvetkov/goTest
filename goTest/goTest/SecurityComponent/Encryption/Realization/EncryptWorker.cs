@@ -13,63 +13,74 @@ namespace goTest.SecurityComponent.Encryption.Realization
     {
         private EncryptConfig config;
         private GeneralConverter converter = new GeneralConverter();
-        //вектор инициализации
-        private static byte[] IV = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
-        //ключ шифрования
-        private static byte[] key = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09,
-            0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0x10 };
 
-        public string decrypt(string message)
+        byte[] encryptAes(byte[] data, byte[] key, byte[] initVector)
         {
-            return converter.fromBytesBufToString(Decrypt(converter.
-                fromStringToBytesBuf(message), key, IV));
-        }
-
-        public string encrypt(string message)
-        {
-            return converter.fromBytesBufToString(
-                Encrypt(converter.fromStringToBytesBuf(message), key, IV));
-        }
-
-        private static byte[] Encrypt(byte[] ENC, byte[] AES_KEY, byte[] AES_IV)
-        {
-            using (Rijndael AES = Rijndael.Create())
+            using (var aes = new AesManaged())
             {
-                AES.KeySize = 128;
-                AES.BlockSize = 128;
-                AES.Padding = PaddingMode.None;
-
-                MemoryStream MS = new MemoryStream();
-                CryptoStream CS = new CryptoStream(MS, AES.CreateEncryptor(AES_KEY, AES_IV), CryptoStreamMode.Write);
-
-                CS.Write(ENC, 0, ENC.Length);
-                CS.Close();
-
-                return MS.ToArray();
+                aes.Key = key;
+                aes.IV = initVector;
+                var encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+                using (var encryptedStream = new MemoryStream())
+                {
+                    using (var cryptoStream = new CryptoStream(encryptedStream, 
+                        encryptor, CryptoStreamMode.Write))
+                    {
+                        cryptoStream.Write(data, 0, data.Length);
+                    }
+                    return encryptedStream.ToArray();
+                }
             }
         }
-        private static byte[] Decrypt(byte[] DEC, byte[] AES_KEY, byte[] AES_IV)
+
+        byte[] decryptAes(byte[] data, byte[] key, byte[] initVector)
         {
-            using (Rijndael AES = Rijndael.Create())
+            using (var aes = new AesManaged())
             {
-                AES.KeySize = 128;
-                AES.BlockSize = 128;
-                AES.Padding = PaddingMode.None;
-
-                MemoryStream MS = new MemoryStream();
-                CryptoStream CS = new CryptoStream(MS, AES.CreateDecryptor(AES_KEY, AES_IV), CryptoStreamMode.Write);
-
-                CS.Write(DEC, 0, DEC.Length);
-                CS.Close();
-
-                return MS.ToArray();
+                aes.Key = key;
+                aes.IV = initVector;
+                var decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
+                using (var dataStream = new MemoryStream(data))
+                {
+                    using (var cryptoStream = new CryptoStream(dataStream, decryptor, 
+                        CryptoStreamMode.Read))
+                    {
+                        using (var decryptedStream = new MemoryStream())
+                        {
+                            cryptoStream.CopyTo(decryptedStream);
+                            return decryptedStream.ToArray();
+                        }
+                    }
+                }
             }
         }
 
         public void setConfig(EncryptConfig config)
         {
             this.config = config.copy();
+        }
+
+        public string encrypt(string message)
+        {
+            using (Rijndael myRijndael = Rijndael.Create())
+            {
+                myRijndael.Key = config.getKey();
+                myRijndael.IV = config.getIV();
+                byte[] encrypted = encryptAes(converter.fromStringToBytesBufUtf8(message), 
+                    myRijndael.Key, myRijndael.IV);
+                return converter.fromByteBufToString(encrypted);
+            }
+        }
+
+        public string decrypt(string message)
+        {
+            using (Rijndael myRijndael = Rijndael.Create())
+            {
+                myRijndael.Key = config.getKey();
+                myRijndael.IV = config.getIV();
+                return converter.fromBytesBufToStringUtf8(decryptAes(
+                    converter.fromStringToBytesBuf(message), myRijndael.Key, myRijndael.IV));
+            }
         }
     }
 }

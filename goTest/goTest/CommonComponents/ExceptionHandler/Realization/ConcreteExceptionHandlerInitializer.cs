@@ -3,6 +3,7 @@ using goTest.CommonComponents.ExceptionHandler.Interfaces;
 using goTest.CommonComponents.Exceptions;
 using goTest.CommonComponents.WorkWithData.Exceptions.DataBasesExceptions;
 using goTest.Navigator.Exceptions;
+using goTest.SecurityComponent.Encryption.Realization.Exceptions;
 using goTest.SecurityComponent.Exceptions;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,7 @@ namespace goTest.CommonComponents.ExceptionHandler.Realization
                 handler.addException(new ViewsHistoryIsEmtptyException());
                 handler.addException(new NoDataBaseConnection());
                 handler.addException(new DatabaseQueryError());
+                handler.addException(new NotSupportKeysLength());
             }
             catch (Exception ex)
             {

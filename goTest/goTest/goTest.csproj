@@ -119,6 +119,7 @@
     <Compile Include="SecurityComponent\Encryption\EncryptWorkerInterface.cs" />
     <Compile Include="SecurityComponent\Encryption\Realization\EncryptConfig.cs" />
     <Compile Include="SecurityComponent\Encryption\Realization\EncryptWorker.cs" />
+    <Compile Include="SecurityComponent\Encryption\Realization\Exceptions\NotSupportKeysLength.cs" />
     <Compile Include="SecurityComponent\Exceptions\IncorrectOldPassword.cs" />
     <Compile Include="SecurityComponent\Exceptions\IncorrectUserData.cs" />
     <Compile Include="SecurityComponent\Exceptions\InsufficientPermissionsException.cs" />
