@@ -13,5 +13,6 @@ namespace goTest.SecurityComponent.Interfaces
         void changeUserPassword(string oldPassword, string newPassword);
         void addNewUser(string login, string password);
         void setConfig(string login, string password);
+        void checkDataBase();
     }
 }

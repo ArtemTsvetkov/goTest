@@ -11,6 +11,8 @@ using System.Data.SQLite;
 using goTest.SecurityComponent.Encryption.Realization;
 using goTest.CommonComponents.DataConverters.Realization;
 using goTest.CommonComponents.InitialyzerComponent;
+using goTest.CommonComponents.ExceptionHandler.Realization;
+using goTest.SecurityComponent.Exceptions;
 
 namespace goTest
 {
@@ -35,6 +37,72 @@ namespace goTest
         public TextBox textBox2Elem
         {
             get { return textBox2Elem; }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                iniComponents.securityController.setConfig(textBox1.Text, textBox2.Text);
+                iniComponents.securityController.signIn();
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.getInstance().processing(ex);
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (textBox5.Text.Equals(textBox3.Text) & textBox5.Text != "")
+            {
+                try
+                {
+                    iniComponents.securityController.addNewUser(textBox4.Text,
+                        textBox5.Text);
+                    iniComponents.securityController.checkDataBase();
+                }
+                catch (Exception ex)
+                {
+                    ExceptionHandler.getInstance().processing(ex);
+                }
+            }
+            else
+            {
+                try
+                {
+                    throw new BadCheckedPasswords();
+                }
+                catch (Exception ex)
+                {
+                    ExceptionHandler.getInstance().processing(ex);
+                }
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (textBox6.Text.Equals(textBox7.Text) & textBox6.Text != "" & textBox8.Text != "")
+            {
+                iniComponents.securityController.changeUserPassword(textBox8.Text,
+                    textBox7.Text);
+            }
+            else
+            {
+                try
+                {
+                    throw new BadCheckedPasswords();
+                }
+                catch (Exception ex)
+                {
+                    ExceptionHandler.getInstance().processing(ex);
+                }
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Navigator.Navigator.getInstance().navigateTo("ChangePasswordView");
         }
     }
 }

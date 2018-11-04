@@ -10,8 +10,11 @@ namespace goTest.SecurityComponent.Interfaces
     {
         string checkUser(string login, string password);
         string changePassword(string login, string newPassword);
-        string checkUserStatus(string login);
         string addNewUser(string login, string password, string sult);
         string getSult(string login);
+        string checkDbTables();
+        string checkExistAdmin();
+        string[] clearDataBase();
+        string[] createDataBase();
     }
 }

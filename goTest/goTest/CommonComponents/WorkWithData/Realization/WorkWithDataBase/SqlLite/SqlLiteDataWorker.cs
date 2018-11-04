@@ -63,22 +63,35 @@ namespace goTest.CommonComponents.WorkWithData.Realization.WorkWithDataBase.SqlL
                 try
                 {
                     conn.Open();
-                    SQLiteDataAdapter adapt = new SQLiteDataAdapter(query, conn);
-                    DataSet ds = new DataSet();
-                    try
-                    {
-                        adapt.Fill(ds);
-
-                        return ds;
-                    }
-                    catch(Exception ex)
-                    {
-                        throw new DatabaseQueryError("Database query error");
-                    }
                 }
                 catch (Exception ex)
                 {
+                    if (conn != null)
+                    {
+                        conn.Close();
+                    }
                     throw new NoDataBaseConnection("There is no database connection");
+                }
+                SQLiteDataAdapter adapt = new SQLiteDataAdapter(query, conn);
+                DataSet ds = new DataSet();
+                try
+                {
+                    adapt.Fill(ds);
+
+                    return ds;
+                }
+                catch(Exception ex)
+                {
+                    //Table is not exist
+                    if (ex.Message.Contains("SQL logic error\r\nno such table"))
+                    {
+                        throw ex;
+                    }
+                    //incorrect query
+                    else
+                    {
+                        throw new DatabaseQueryError("Database query error");
+                    }
                 }
                 finally
                 {

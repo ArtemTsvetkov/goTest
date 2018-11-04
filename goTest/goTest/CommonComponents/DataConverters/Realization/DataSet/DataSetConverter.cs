@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace goTest.CommonComponents.DataConverters.Realization
 {
-    class DataSetConverter
+    static class DataSetConverter
     {
-        public FromDsToSingle fromDsToSingle = new FromDsToSingle();
-        public FromDsToBuf fromDsToBuf = new FromDsToBuf();
+        public static FromDsToSingle fromDsToSingle = new FromDsToSingle();
+        public static FromDsToBuf fromDsToBuf = new FromDsToBuf();
     }
 }

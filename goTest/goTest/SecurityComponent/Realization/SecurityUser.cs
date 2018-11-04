@@ -32,6 +32,11 @@ namespace goTest.SecurityComponent.Realization
             enterIntoSystem = isEnter;
         }
 
+        public void setAdmin(bool isAdmin)
+        {
+            this.admin = isAdmin;
+        }
+
         public string getLogin()
         {
             return login;
@@ -45,6 +50,11 @@ namespace goTest.SecurityComponent.Realization
         public bool isEnterIntoSystem()
         {
             return enterIntoSystem;
+        }
+
+        public bool isAdmin()
+        {
+            return admin;
         }
 
         public SecurityUserInterface copy()
