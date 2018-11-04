@@ -1,9 +1,12 @@
 ﻿using goTest.CommonComponents.BasicObjects;
 using goTest.CommonComponents.DataConverters;
 using goTest.CommonComponents.DataConverters.Realization;
+using goTest.CommonComponents.ExceptionHandler.Realization;
 using goTest.CommonComponents.ExceptionHandler.View.Information.PopupWindow;
+using goTest.CommonComponents.InitialyzerComponent.ReadConfig;
 using goTest.CommonComponents.WorkWithData;
 using goTest.CommonComponents.WorkWithData.Realization.WorkWithDataBase.SqlLite;
+using goTest.SecurityComponent.Configs;
 using goTest.SecurityComponent.Exceptions;
 using goTest.SecurityComponent.Hashing;
 using goTest.SecurityComponent.Hashing.Realization;
@@ -20,10 +23,10 @@ namespace goTest.SecurityComponent.Realization
     class SecurityModel : BasicModel<SecurityUserInterface, SecurityUserInterface>,
         SecurityModelInterface<SecurityUserInterface>
     {
-        private DataSetConverter dataSetConverter = new DataSetConverter();
         private SecurityQueryConfigurator queryConfigurator;
         private SecurityUserInterface currentUser;
         private HashWorkerInterface<HashConfig> hashWorker;
+        private DataBaseChecker<SqlLiteCheckerConfig> dbCheker;
 
         public SecurityModel()
         {
@@ -33,43 +36,21 @@ namespace goTest.SecurityComponent.Realization
             hc.numberOfHashing = 100000;
             hc.sultLength = 20;
             hashWorker.setConfig(hc);
+            dbCheker = new SqlLiteDbChecker(queryConfigurator);
         }
 
         public void addNewUser(SecurityUserInterface user)
         {
-            if (currentUser.isEnterIntoSystem())
-            {
-                string sult = hashWorker.getSult(user);
-                //Проверка, есть ли уже такой пользователь
-                if (dataSetConverter.fromDsToSingle.toString.convert(
-                        configDataWorkerForWorkWithBDAndExecute(queryConfigurator.getSult(
-                        currentUser.getLogin()))) == null)
-                {
+            string sult = hashWorker.getSult(user);
 
-                    configDataWorkerForWorkWithBDAndExecute(queryConfigurator.addNewUser(
-                        user.getLogin(), hashWorker.getHash(user.getPassword(), sult),
-                        sult));
-                    InformationPopupWindow view = new InformationPopupWindow();
-                    InformationPopupWindowConfig config = new InformationPopupWindowConfig(
-                        "Пользователь: " + user.getLogin() + " успешно добавлен!");
-                    view.setConfig(config);
-                    view.show();
-                }
-                else
-                {
-                    InformationPopupWindow view = new InformationPopupWindow();
-                    InformationPopupWindowConfig config = new InformationPopupWindowConfig(
-                        "Логин: " + user.getLogin() + " был ранее добавлен в систему, " +
-                        "пожалуйста, придумайте другой");
-                    view.setConfig(config);
-                    view.show();
-                }
-            }
-            else
-            {
-                throw new InsufficientPermissionsException("This user does not"
-                   + "have sufficient rights to perform the specified operation");
-            }
+            SqlLiteSimpleExecute.execute(queryConfigurator.addNewUser(
+                user.getLogin(), hashWorker.getHash(user.getPassword(), sult),
+                sult));
+            InformationPopupWindow view = new InformationPopupWindow();
+            InformationPopupWindowConfig config = new InformationPopupWindowConfig(
+                "Пользователь: " + user.getLogin() + " успешно добавлен!");
+            view.setConfig(config);
+            view.show();
         }
 
         public void changeUserPassword(string oldPassword, string newPassword)
@@ -78,11 +59,11 @@ namespace goTest.SecurityComponent.Realization
             {
                 string currentPassword = hashWorker.getHash(oldPassword, getSultForCurrentUser());
 
-                if (dataSetConverter.fromDsToSingle.toInt.convert(
-                        configDataWorkerForWorkWithBDAndExecute(queryConfigurator.checkUser(
+                if (DataSetConverter.fromDsToSingle.toInt.convert(
+                        SqlLiteSimpleExecute.execute(queryConfigurator.checkUser(
                         currentUser.getLogin(), currentPassword))) == 1)
                 {
-                    configDataWorkerForWorkWithBDAndExecute(
+                    SqlLiteSimpleExecute.execute(
                         queryConfigurator.changePassword(currentUser.getLogin(),
                         hashWorker.getHash(newPassword, getSultForCurrentUser())));
 
@@ -108,8 +89,8 @@ namespace goTest.SecurityComponent.Realization
 
         private string getSultForCurrentUser()
         {
-            string currentSult = dataSetConverter.fromDsToSingle.toString.convert(
-                configDataWorkerForWorkWithBDAndExecute(queryConfigurator.getSult(
+            string currentSult = DataSetConverter.fromDsToSingle.toString.convert(
+                SqlLiteSimpleExecute.execute(queryConfigurator.getSult(
                 currentUser.getLogin())));
 
             return currentSult;
@@ -122,7 +103,22 @@ namespace goTest.SecurityComponent.Realization
 
         public override void loadStore()
         {
-            throw new NotImplementedException();
+            SqlLiteCheckerConfig config = new SqlLiteCheckerConfig();
+            config.dbPath = ConfigReader.getInstance().getDbPath();
+            try
+            {
+                dbCheker.check(config);
+            }
+            catch(NotEnoughTablesExeption ex)
+            {
+                ExceptionHandler.getInstance().processing(ex);
+                createTables();
+                loadStore();
+            }
+            catch(AdminIsNotExist ex)
+            {
+                Navigator.Navigator.getInstance().navigateTo("CreateAdminView");
+            }
         }
 
         public override void setConfig(SecurityUserInterface configData)
@@ -135,17 +131,7 @@ namespace goTest.SecurityComponent.Realization
             currentUser.setEnterIntoSystem(true);
 
             notifyObservers();
-        }
-
-        private DataSet configDataWorkerForWorkWithBDAndExecute(string query)
-        {
-            DataWorker<SqlLiteStateFields, DataSet> dataWorker = new SqlLiteDataWorker();
-            SqlLiteStateFields configProxy =
-                new SqlLiteStateFields(query);
-            dataWorker.setConfig(configProxy);
-            dataWorker.execute();
-            return dataWorker.getResult();
-        }
+        } 
 
         public bool checkUser()
         {
@@ -155,8 +141,8 @@ namespace goTest.SecurityComponent.Realization
             }
             else
             {
-                if (dataSetConverter.fromDsToSingle.toString.convert(
-                        configDataWorkerForWorkWithBDAndExecute(queryConfigurator.getSult(
+                if (DataSetConverter.fromDsToSingle.toString.convert(
+                        SqlLiteSimpleExecute.execute(queryConfigurator.getSult(
                         currentUser.getLogin()))) == null)
                 {
                     return false;
@@ -166,8 +152,8 @@ namespace goTest.SecurityComponent.Realization
                     getSultForCurrentUser());
 
 
-                if (dataSetConverter.fromDsToSingle.toInt.convert(
-                        configDataWorkerForWorkWithBDAndExecute(queryConfigurator.checkUser(
+                if (DataSetConverter.fromDsToSingle.toInt.convert(
+                        SqlLiteSimpleExecute.execute(queryConfigurator.checkUser(
                         currentUser.getLogin(), currentPassword))) == 1)
                 {
                     return true;
@@ -185,6 +171,39 @@ namespace goTest.SecurityComponent.Realization
             currentUser.setPassword("");
 
             notifyObservers();
+        }
+
+        public void createTables()
+        {
+            //Previous delete all tables
+            string[] querys = queryConfigurator.clearDataBase();
+            for (int i = 0; i < querys.Count(); i++)
+            {
+                try
+                {
+                    SqlLiteSimpleExecute.execute(querys[i]);
+                }
+                catch(Exception ex)
+                {
+                    if(!ex.Message.Contains("SQL logic error\r\nno such table"))
+                    {
+                        ExceptionHandler.getInstance().processing(ex);
+                    }
+                }
+            }
+            //Create tables
+            querys = queryConfigurator.createDataBase();
+            for (int i = 0; i < querys.Count(); i++)
+            {
+                try
+                {
+                    SqlLiteSimpleExecute.execute(querys[i]);
+                }
+                catch (Exception ex)
+                {
+                    ExceptionHandler.getInstance().processing(ex);
+                }
+            }
         }
     }
 }

@@ -25,6 +25,7 @@ namespace goTest.SecurityComponent.Realization
                 SecurityUserInterface user = new SecurityUser(login, password);
 
                 model.addNewUser(user);
+                Navigator.Navigator.getInstance().navigateToPreviousView();
             }
             catch (Exception ex)
             {
@@ -37,11 +38,17 @@ namespace goTest.SecurityComponent.Realization
             try
             {
                 model.changeUserPassword(oldPassword, newPassword);
+                Navigator.Navigator.getInstance().navigateToPreviousView();
             }
             catch (Exception ex)
             {
                 ExceptionHandler.getInstance().processing(ex);
             }
+        }
+
+        public void checkDataBase()
+        {
+            model.loadStore();
         }
 
         public void setConfig(string login, string password)
@@ -57,6 +64,7 @@ namespace goTest.SecurityComponent.Realization
                 if (model.checkUser())
                 {
                     model.signIn();
+                    Navigator.Navigator.getInstance().navigateTo("MenuView");
                 }
                 else
                 {

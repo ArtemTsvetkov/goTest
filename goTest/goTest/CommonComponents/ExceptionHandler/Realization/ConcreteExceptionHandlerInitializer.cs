@@ -30,6 +30,9 @@ namespace goTest.CommonComponents.ExceptionHandler.Realization
                 handler.addException(new NoDataBaseConnection());
                 handler.addException(new DatabaseQueryError());
                 handler.addException(new NotSupportKeysLength());
+                handler.addException(new NotEnoughTablesExeption());
+                handler.addException(new AdminIsNotExist());
+                handler.addException(new BadCheckedPasswords());
             }
             catch (Exception ex)
             {
