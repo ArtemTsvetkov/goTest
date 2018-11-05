@@ -79,35 +79,44 @@
             this.label13 = new System.Windows.Forms.Label();
             this.button11 = new System.Windows.Forms.Button();
             this.tabPage7 = new System.Windows.Forms.TabPage();
-            this.label14 = new System.Windows.Forms.Label();
-            this.tabPage8 = new System.Windows.Forms.TabPage();
-            this.label15 = new System.Windows.Forms.Label();
-            this.tabPage9 = new System.Windows.Forms.TabPage();
-            this.label16 = new System.Windows.Forms.Label();
             this.button17 = new System.Windows.Forms.Button();
             this.button18 = new System.Windows.Forms.Button();
             this.textBox10 = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.tabPage8 = new System.Windows.Forms.TabPage();
             this.label25 = new System.Windows.Forms.Label();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.button13 = new System.Windows.Forms.Button();
             this.button20 = new System.Windows.Forms.Button();
             this.textBox12 = new System.Windows.Forms.TextBox();
             this.label26 = new System.Windows.Forms.Label();
-            this.button12 = new System.Windows.Forms.Button();
-            this.button14 = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Questions = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label23 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.label24 = new System.Windows.Forms.Label();
-            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.tabPage9 = new System.Windows.Forms.TabPage();
+            this.button21 = new System.Windows.Forms.Button();
+            this.button19 = new System.Windows.Forms.Button();
+            this.label27 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label27 = new System.Windows.Forms.Label();
-            this.button19 = new System.Windows.Forms.Button();
-            this.button21 = new System.Windows.Forms.Button();
+            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Questions = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button12 = new System.Windows.Forms.Button();
+            this.button14 = new System.Windows.Forms.Button();
+            this.label16 = new System.Windows.Forms.Label();
+            this.tabPage10 = new System.Windows.Forms.TabPage();
+            this.label28 = new System.Windows.Forms.Label();
+            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.button22 = new System.Windows.Forms.Button();
+            this.button23 = new System.Windows.Forms.Button();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.button24 = new System.Windows.Forms.Button();
             this.tabPage5.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -120,8 +129,9 @@
             this.tabPage7.SuspendLayout();
             this.tabPage8.SuspendLayout();
             this.tabPage9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.tabPage10.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabPage5
@@ -184,6 +194,7 @@
             this.button10.TabIndex = 25;
             this.button10.Text = "Изменить дисциплину";
             this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // button9
             // 
@@ -194,6 +205,7 @@
             this.button9.TabIndex = 24;
             this.button9.Text = "Создать дисциплину";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // button7
             // 
@@ -204,6 +216,7 @@
             this.button7.TabIndex = 23;
             this.button7.Text = "Изменить тест";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button6
             // 
@@ -214,6 +227,7 @@
             this.button6.TabIndex = 22;
             this.button6.Text = "Создать тест";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // label11
             // 
@@ -240,6 +254,7 @@
             // tabPage3
             // 
             this.tabPage3.BackgroundImage = global::goTest.Properties.Resources.bg;
+            this.tabPage3.Controls.Add(this.button24);
             this.tabPage3.Controls.Add(this.textBox8);
             this.tabPage3.Controls.Add(this.textBox6);
             this.tabPage3.Controls.Add(this.textBox7);
@@ -330,7 +345,7 @@
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button3.Location = new System.Drawing.Point(474, 345);
+            this.button3.Location = new System.Drawing.Point(648, 562);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(149, 38);
             this.button3.TabIndex = 14;
@@ -529,6 +544,7 @@
             this.tabControl1.Controls.Add(this.tabPage7);
             this.tabControl1.Controls.Add(this.tabPage8);
             this.tabControl1.Controls.Add(this.tabPage9);
+            this.tabControl1.Controls.Add(this.tabPage10);
             this.tabControl1.Location = new System.Drawing.Point(1, 1);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -576,7 +592,7 @@
             this.button15.Name = "button15";
             this.button15.Size = new System.Drawing.Size(131, 38);
             this.button15.TabIndex = 36;
-            this.button15.Text = "Создать";
+            this.button15.Text = "Готово";
             this.button15.UseVisualStyleBackColor = true;
             // 
             // numericUpDown2
@@ -672,11 +688,11 @@
             this.label13.AutoSize = true;
             this.label13.BackColor = System.Drawing.Color.Transparent;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label13.Location = new System.Drawing.Point(459, 126);
+            this.label13.Location = new System.Drawing.Point(518, 126);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(173, 26);
+            this.label13.Size = new System.Drawing.Size(57, 26);
             this.label13.TabIndex = 23;
-            this.label13.Text = "Создание теста";
+            this.label13.Text = "Тест";
             // 
             // button11
             // 
@@ -685,8 +701,9 @@
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(215, 38);
             this.button11.TabIndex = 22;
-            this.button11.Text = "Создать вопросы";
+            this.button11.Text = "Вопросы";
             this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
             // tabPage7
             // 
@@ -703,80 +720,6 @@
             this.tabPage7.TabIndex = 6;
             this.tabPage7.Text = "tabPage7";
             this.tabPage7.UseVisualStyleBackColor = true;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.BackColor = System.Drawing.Color.Transparent;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label14.Location = new System.Drawing.Point(424, 126);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(244, 26);
-            this.label14.TabIndex = 23;
-            this.label14.Text = "Создание дисциплины";
-            // 
-            // tabPage8
-            // 
-            this.tabPage8.BackgroundImage = global::goTest.Properties.Resources.bg;
-            this.tabPage8.Controls.Add(this.label25);
-            this.tabPage8.Controls.Add(this.comboBox3);
-            this.tabPage8.Controls.Add(this.button13);
-            this.tabPage8.Controls.Add(this.button20);
-            this.tabPage8.Controls.Add(this.textBox12);
-            this.tabPage8.Controls.Add(this.label26);
-            this.tabPage8.Controls.Add(this.label15);
-            this.tabPage8.Location = new System.Drawing.Point(4, 22);
-            this.tabPage8.Name = "tabPage8";
-            this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(1092, 700);
-            this.tabPage8.TabIndex = 7;
-            this.tabPage8.Text = "tabPage8";
-            this.tabPage8.UseVisualStyleBackColor = true;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.BackColor = System.Drawing.Color.Transparent;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label15.Location = new System.Drawing.Point(417, 126);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(259, 26);
-            this.label15.TabIndex = 23;
-            this.label15.Text = "Изменение дисциплины";
-            // 
-            // tabPage9
-            // 
-            this.tabPage9.BackgroundImage = global::goTest.Properties.Resources.bg;
-            this.tabPage9.Controls.Add(this.button21);
-            this.tabPage9.Controls.Add(this.button19);
-            this.tabPage9.Controls.Add(this.label27);
-            this.tabPage9.Controls.Add(this.dataGridView2);
-            this.tabPage9.Controls.Add(this.textBox11);
-            this.tabPage9.Controls.Add(this.label24);
-            this.tabPage9.Controls.Add(this.label23);
-            this.tabPage9.Controls.Add(this.comboBox2);
-            this.tabPage9.Controls.Add(this.dataGridView1);
-            this.tabPage9.Controls.Add(this.button12);
-            this.tabPage9.Controls.Add(this.button14);
-            this.tabPage9.Controls.Add(this.label16);
-            this.tabPage9.Location = new System.Drawing.Point(4, 22);
-            this.tabPage9.Name = "tabPage9";
-            this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage9.Size = new System.Drawing.Size(1092, 700);
-            this.tabPage9.TabIndex = 8;
-            this.tabPage9.Text = "tabPage9";
-            this.tabPage9.UseVisualStyleBackColor = true;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.BackColor = System.Drawing.Color.Transparent;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label16.Location = new System.Drawing.Point(495, 11);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(102, 26);
-            this.label16.TabIndex = 23;
-            this.label16.Text = "Вопросы";
             // 
             // button17
             // 
@@ -817,6 +760,35 @@
             this.label22.TabIndex = 38;
             this.label22.Text = "Название";
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.BackColor = System.Drawing.Color.Transparent;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label14.Location = new System.Drawing.Point(424, 126);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(244, 26);
+            this.label14.TabIndex = 23;
+            this.label14.Text = "Создание дисциплины";
+            // 
+            // tabPage8
+            // 
+            this.tabPage8.BackgroundImage = global::goTest.Properties.Resources.bg;
+            this.tabPage8.Controls.Add(this.label25);
+            this.tabPage8.Controls.Add(this.comboBox3);
+            this.tabPage8.Controls.Add(this.button13);
+            this.tabPage8.Controls.Add(this.button20);
+            this.tabPage8.Controls.Add(this.textBox12);
+            this.tabPage8.Controls.Add(this.label26);
+            this.tabPage8.Controls.Add(this.label15);
+            this.tabPage8.Location = new System.Drawing.Point(4, 22);
+            this.tabPage8.Name = "tabPage8";
+            this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage8.Size = new System.Drawing.Size(1092, 700);
+            this.tabPage8.TabIndex = 7;
+            this.tabPage8.Text = "tabPage8";
+            this.tabPage8.UseVisualStyleBackColor = true;
+            // 
             // label25
             // 
             this.label25.AutoSize = true;
@@ -832,7 +804,7 @@
             // 
             this.comboBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(525, 247);
+            this.comboBox3.Location = new System.Drawing.Point(526, 197);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(236, 33);
             this.comboBox3.TabIndex = 50;
@@ -860,7 +832,7 @@
             // textBox12
             // 
             this.textBox12.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox12.Location = new System.Drawing.Point(525, 197);
+            this.textBox12.Location = new System.Drawing.Point(526, 250);
             this.textBox12.Name = "textBox12";
             this.textBox12.Size = new System.Drawing.Size(236, 32);
             this.textBox12.TabIndex = 47;
@@ -876,86 +848,70 @@
             this.label26.TabIndex = 46;
             this.label26.Text = "Старое название";
             // 
-            // button12
+            // label15
             // 
-            this.button12.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button12.Location = new System.Drawing.Point(281, 563);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(131, 38);
-            this.button12.TabIndex = 43;
-            this.button12.Text = "Отмена";
-            this.button12.UseVisualStyleBackColor = true;
+            this.label15.AutoSize = true;
+            this.label15.BackColor = System.Drawing.Color.Transparent;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label15.Location = new System.Drawing.Point(417, 126);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(259, 26);
+            this.label15.TabIndex = 23;
+            this.label15.Text = "Изменение дисциплины";
             // 
-            // button14
+            // tabPage9
             // 
-            this.button14.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button14.Location = new System.Drawing.Point(681, 563);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(131, 38);
-            this.button14.TabIndex = 42;
-            this.button14.Text = "Обновить";
-            this.button14.UseVisualStyleBackColor = true;
+            this.tabPage9.BackgroundImage = global::goTest.Properties.Resources.bg;
+            this.tabPage9.Controls.Add(this.button21);
+            this.tabPage9.Controls.Add(this.button19);
+            this.tabPage9.Controls.Add(this.label27);
+            this.tabPage9.Controls.Add(this.dataGridView2);
+            this.tabPage9.Controls.Add(this.textBox11);
+            this.tabPage9.Controls.Add(this.label24);
+            this.tabPage9.Controls.Add(this.label23);
+            this.tabPage9.Controls.Add(this.comboBox2);
+            this.tabPage9.Controls.Add(this.dataGridView1);
+            this.tabPage9.Controls.Add(this.button12);
+            this.tabPage9.Controls.Add(this.button14);
+            this.tabPage9.Controls.Add(this.label16);
+            this.tabPage9.Location = new System.Drawing.Point(4, 22);
+            this.tabPage9.Name = "tabPage9";
+            this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage9.Size = new System.Drawing.Size(1092, 700);
+            this.tabPage9.TabIndex = 8;
+            this.tabPage9.Text = "tabPage9";
+            this.tabPage9.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // button21
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Questions});
-            this.dataGridView1.Location = new System.Drawing.Point(689, 120);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(375, 421);
-            this.dataGridView1.TabIndex = 44;
+            this.button21.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button21.Location = new System.Drawing.Point(1002, 60);
+            this.button21.Name = "button21";
+            this.button21.Size = new System.Drawing.Size(62, 38);
+            this.button21.TabIndex = 60;
+            this.button21.Text = "-";
+            this.button21.UseVisualStyleBackColor = true;
             // 
-            // Questions
+            // button19
             // 
-            this.Questions.HeaderText = "                                  Краткое содержание вопроса";
-            this.Questions.MinimumWidth = 371;
-            this.Questions.Name = "Questions";
-            this.Questions.ReadOnly = true;
-            this.Questions.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Questions.Width = 371;
+            this.button19.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button19.Location = new System.Drawing.Point(934, 60);
+            this.button19.Name = "button19";
+            this.button19.Size = new System.Drawing.Size(62, 38);
+            this.button19.TabIndex = 59;
+            this.button19.Text = "+";
+            this.button19.UseVisualStyleBackColor = true;
             // 
-            // label23
+            // label27
             // 
-            this.label23.AutoSize = true;
-            this.label23.BackColor = System.Drawing.Color.Transparent;
-            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label23.Location = new System.Drawing.Point(13, 67);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(137, 26);
-            this.label23.TabIndex = 53;
-            this.label23.Text = "Тип вопроса";
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "с изображением",
-            "без изображения"});
-            this.comboBox2.Location = new System.Drawing.Point(176, 64);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(236, 33);
-            this.comboBox2.TabIndex = 52;
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.BackColor = System.Drawing.Color.Transparent;
-            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label24.Location = new System.Drawing.Point(13, 120);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(141, 26);
-            this.label24.TabIndex = 55;
-            this.label24.Text = "Содержание";
-            // 
-            // textBox11
-            // 
-            this.textBox11.Location = new System.Drawing.Point(176, 120);
-            this.textBox11.Multiline = true;
-            this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(381, 178);
-            this.textBox11.TabIndex = 56;
+            this.label27.AutoSize = true;
+            this.label27.BackColor = System.Drawing.Color.Transparent;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label27.Location = new System.Drawing.Point(684, 67);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(134, 26);
+            this.label27.TabIndex = 58;
+            this.label27.Text = "Вопрос 5/32";
             // 
             // dataGridView2
             // 
@@ -982,36 +938,197 @@
             this.Column2.Name = "Column2";
             this.Column2.Width = 143;
             // 
-            // label27
+            // textBox11
             // 
-            this.label27.AutoSize = true;
-            this.label27.BackColor = System.Drawing.Color.Transparent;
-            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label27.Location = new System.Drawing.Point(684, 67);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(134, 26);
-            this.label27.TabIndex = 58;
-            this.label27.Text = "Вопрос 5/32";
+            this.textBox11.Location = new System.Drawing.Point(176, 120);
+            this.textBox11.Multiline = true;
+            this.textBox11.Name = "textBox11";
+            this.textBox11.Size = new System.Drawing.Size(381, 178);
+            this.textBox11.TabIndex = 56;
             // 
-            // button19
+            // label24
             // 
-            this.button19.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button19.Location = new System.Drawing.Point(934, 60);
-            this.button19.Name = "button19";
-            this.button19.Size = new System.Drawing.Size(62, 38);
-            this.button19.TabIndex = 59;
-            this.button19.Text = "+";
-            this.button19.UseVisualStyleBackColor = true;
+            this.label24.AutoSize = true;
+            this.label24.BackColor = System.Drawing.Color.Transparent;
+            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label24.Location = new System.Drawing.Point(13, 120);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(141, 26);
+            this.label24.TabIndex = 55;
+            this.label24.Text = "Содержание";
             // 
-            // button21
+            // label23
             // 
-            this.button21.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button21.Location = new System.Drawing.Point(1002, 60);
-            this.button21.Name = "button21";
-            this.button21.Size = new System.Drawing.Size(62, 38);
-            this.button21.TabIndex = 60;
-            this.button21.Text = "-";
-            this.button21.UseVisualStyleBackColor = true;
+            this.label23.AutoSize = true;
+            this.label23.BackColor = System.Drawing.Color.Transparent;
+            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label23.Location = new System.Drawing.Point(13, 67);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(137, 26);
+            this.label23.TabIndex = 53;
+            this.label23.Text = "Тип вопроса";
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "с изображением",
+            "без изображения"});
+            this.comboBox2.Location = new System.Drawing.Point(176, 64);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(236, 33);
+            this.comboBox2.TabIndex = 52;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Questions});
+            this.dataGridView1.Location = new System.Drawing.Point(689, 120);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(375, 421);
+            this.dataGridView1.TabIndex = 44;
+            // 
+            // Questions
+            // 
+            this.Questions.HeaderText = "                                  Краткое содержание вопроса";
+            this.Questions.MinimumWidth = 371;
+            this.Questions.Name = "Questions";
+            this.Questions.ReadOnly = true;
+            this.Questions.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Questions.Width = 371;
+            // 
+            // button12
+            // 
+            this.button12.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button12.Location = new System.Drawing.Point(281, 563);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(131, 38);
+            this.button12.TabIndex = 43;
+            this.button12.Text = "Отмена";
+            this.button12.UseVisualStyleBackColor = true;
+            // 
+            // button14
+            // 
+            this.button14.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button14.Location = new System.Drawing.Point(681, 563);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(131, 38);
+            this.button14.TabIndex = 42;
+            this.button14.Text = "Обновить";
+            this.button14.UseVisualStyleBackColor = true;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.BackColor = System.Drawing.Color.Transparent;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label16.Location = new System.Drawing.Point(495, 11);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(102, 26);
+            this.label16.TabIndex = 23;
+            this.label16.Text = "Вопросы";
+            // 
+            // tabPage10
+            // 
+            this.tabPage10.BackgroundImage = global::goTest.Properties.Resources.bg;
+            this.tabPage10.Controls.Add(this.comboBox5);
+            this.tabPage10.Controls.Add(this.label28);
+            this.tabPage10.Controls.Add(this.comboBox4);
+            this.tabPage10.Controls.Add(this.button22);
+            this.tabPage10.Controls.Add(this.button23);
+            this.tabPage10.Controls.Add(this.label29);
+            this.tabPage10.Controls.Add(this.label30);
+            this.tabPage10.Location = new System.Drawing.Point(4, 22);
+            this.tabPage10.Name = "tabPage10";
+            this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage10.Size = new System.Drawing.Size(1092, 700);
+            this.tabPage10.TabIndex = 9;
+            this.tabPage10.Text = "tabPage10";
+            this.tabPage10.UseVisualStyleBackColor = true;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.BackColor = System.Drawing.Color.Transparent;
+            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label28.Location = new System.Drawing.Point(332, 250);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(57, 26);
+            this.label28.TabIndex = 51;
+            this.label28.Text = "Тест";
+            // 
+            // comboBox4
+            // 
+            this.comboBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Location = new System.Drawing.Point(476, 243);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(236, 33);
+            this.comboBox4.TabIndex = 50;
+            // 
+            // button22
+            // 
+            this.button22.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button22.Location = new System.Drawing.Point(282, 564);
+            this.button22.Name = "button22";
+            this.button22.Size = new System.Drawing.Size(131, 38);
+            this.button22.TabIndex = 49;
+            this.button22.Text = "Отмена";
+            this.button22.UseVisualStyleBackColor = true;
+            // 
+            // button23
+            // 
+            this.button23.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button23.Location = new System.Drawing.Point(680, 564);
+            this.button23.Name = "button23";
+            this.button23.Size = new System.Drawing.Size(131, 38);
+            this.button23.TabIndex = 48;
+            this.button23.Text = "Обновить";
+            this.button23.UseVisualStyleBackColor = true;
+            this.button23.Click += new System.EventHandler(this.button23_Click);
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.BackColor = System.Drawing.Color.Transparent;
+            this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label29.Location = new System.Drawing.Point(332, 200);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(138, 26);
+            this.label29.TabIndex = 46;
+            this.label29.Text = "Дисциплина";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.BackColor = System.Drawing.Color.Transparent;
+            this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label30.Location = new System.Drawing.Point(452, 126);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(188, 26);
+            this.label30.TabIndex = 23;
+            this.label30.Text = "Изменение теста";
+            // 
+            // comboBox5
+            // 
+            this.comboBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBox5.FormattingEnabled = true;
+            this.comboBox5.Location = new System.Drawing.Point(476, 197);
+            this.comboBox5.Name = "comboBox5";
+            this.comboBox5.Size = new System.Drawing.Size(236, 33);
+            this.comboBox5.TabIndex = 52;
+            // 
+            // button24
+            // 
+            this.button24.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button24.Location = new System.Drawing.Point(295, 562);
+            this.button24.Name = "button24";
+            this.button24.Size = new System.Drawing.Size(149, 38);
+            this.button24.TabIndex = 23;
+            this.button24.Text = "Отмена";
+            this.button24.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -1044,8 +1161,10 @@
             this.tabPage8.PerformLayout();
             this.tabPage9.ResumeLayout(false);
             this.tabPage9.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.tabPage10.ResumeLayout(false);
+            this.tabPage10.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1132,6 +1251,15 @@
         private System.Windows.Forms.Button button21;
         private System.Windows.Forms.Button button19;
         private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.TabPage tabPage10;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.Button button22;
+        private System.Windows.Forms.Button button23;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.ComboBox comboBox5;
+        private System.Windows.Forms.Button button24;
     }
 }
 

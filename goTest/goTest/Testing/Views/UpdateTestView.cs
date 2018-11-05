@@ -5,25 +5,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace goTest.MenuComponent
+namespace goTest.Testing.Views
 {
-    class AdminMenuView : NavigatorsView
+    class UpdateTestView : NavigatorsView
     {
         private Form1 form;
 
-        public AdminMenuView(Form1 form)
+        public UpdateTestView(Form1 form)
         {
             this.form = form;
         }
 
         public void show()
         {
-            form.tabControl1Elem.SelectTab(3);
+            form.tabControl1Elem.SelectTab(9);
         }
 
         public string getName()
         {
-            return "AdminMenuView";
+            return "UpdateTestView";
         }
 
         public void reset()

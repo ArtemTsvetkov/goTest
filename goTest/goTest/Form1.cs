@@ -34,14 +34,15 @@ namespace goTest
         //Getters and setters
         //
 
-        public DataGridView dataGridView2Elem
-        {
-            get { return dataGridView2; }
-        }
 
         public DataGridView dataGridView1Elem
         {
             get { return dataGridView1; }
+        }
+
+        public DataGridView dataGridView2Elem
+        {
+            get { return dataGridView2; }
         }
 
         public TabControl tabControl1Elem
@@ -49,11 +50,65 @@ namespace goTest
             get { return tabControl1; }
         }
 
-        public TextBox textBox2Elem
+        public TextBox textBox1Elem
         {
-            get { return textBox2Elem; }
+            get { return textBox1; }
         }
 
+        public TextBox textBox2Elem
+        {
+            get { return textBox2; }
+        }
+
+        public TextBox textBox6Elem
+        {
+            get { return textBox6; }
+        }
+
+        public TextBox textBox7Elem
+        {
+            get { return textBox7; }
+        }
+
+        public TextBox textBox8Elem
+        {
+            get { return textBox8; }
+        }
+
+        public TextBox textBox9Elem
+        {
+            get { return textBox9; }
+        }
+
+        public TextBox textBox10Elem
+        {
+            get { return textBox10; }
+        }
+
+        public TextBox textBox11Elem
+        {
+            get { return textBox11; }
+        }
+
+        public TextBox textBox12Elem
+        {
+            get { return textBox12; }
+        }
+
+        public NumericUpDown numericUpDown1Elem
+        {
+            get { return numericUpDown1; }
+        }
+
+        public NumericUpDown numericUpDown2Elem
+        {
+            get { return numericUpDown2; }
+        }
+
+        public Label label27Elem
+        {
+            get { return label27; }
+        }
 
         //
         //Events
@@ -142,6 +197,42 @@ namespace goTest
             {
                 ExceptionHandler.getInstance().processing(ex);
             }
+        }
+
+        //Go to create test view button
+        private void button6_Click(object sender, EventArgs e)
+        {
+            Navigator.Navigator.getInstance().navigateTo("CreateTestView");
+        }
+
+        //Go to create subject view button
+        private void button9_Click(object sender, EventArgs e)
+        {
+            Navigator.Navigator.getInstance().navigateTo("CreateSubjectView");
+        }
+
+        //Go to update subject view button
+        private void button10_Click(object sender, EventArgs e)
+        {
+            Navigator.Navigator.getInstance().navigateTo("UpdateSubjectView");
+        }
+
+        //Go to update test view button
+        private void button7_Click(object sender, EventArgs e)
+        {
+            Navigator.Navigator.getInstance().navigateTo("UpdateTestView");
+        }
+
+        //Go to questions view button
+        private void button11_Click(object sender, EventArgs e)
+        {
+            Navigator.Navigator.getInstance().navigateTo("QuestionsView");
+        }
+
+        //Go to next update test view
+        private void button23_Click(object sender, EventArgs e)
+        {
+            Navigator.Navigator.getInstance().navigateTo("CreateTestView");
         }
     }
 }

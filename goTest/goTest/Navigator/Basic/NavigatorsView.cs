@@ -10,5 +10,6 @@ namespace goTest.Navigator.Basic
     {
         void show();
         string getName();
+        void reset();
     }
 }

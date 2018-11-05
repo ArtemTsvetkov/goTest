@@ -51,6 +51,7 @@ namespace goTest.SecurityComponent.Views
                 else
                 {
                     form.textBox2Elem.Text = "";
+                    form.textBox1Elem.Text = "";
                     Navigator.Navigator.getInstance().navigateTo("AutorizationSecurityView");
                 }
             }
@@ -64,6 +65,12 @@ namespace goTest.SecurityComponent.Views
         public string getName()
         {
             return "AutorizationSecurityView";
+        }
+
+        public void reset()
+        {
+            form.textBox2Elem.Text = "";
+            form.textBox1Elem.Text = "";
         }
     }
 }

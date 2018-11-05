@@ -3,6 +3,7 @@ using goTest.CommonComponents.InitialyzerComponent.ReadConfig;
 using goTest.MenuComponent;
 using goTest.SecurityComponent.Realization;
 using goTest.SecurityComponent.Views;
+using goTest.Testing.Views;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -43,7 +44,6 @@ namespace goTest.CommonComponents.InitialyzerComponent
             //
             form.dataGridView1Elem.RowHeadersVisible = false;
             form.dataGridView2Elem.RowHeadersVisible = false;
-            form.tabControl1Elem.SelectTab(8);
             //
             //ReadConfig
             //
@@ -60,10 +60,15 @@ namespace goTest.CommonComponents.InitialyzerComponent
             Navigator.Navigator.getInstance().addView(new AdminMenuView(form));
             Navigator.Navigator.getInstance().addView(new StudentMenuView(form));
             Navigator.Navigator.getInstance().addView(new ChangePasswordView(form));
+            Navigator.Navigator.getInstance().addView(new UpdateTestView(form));
+            Navigator.Navigator.getInstance().addView(new UpdateSubjectView(form));
+            Navigator.Navigator.getInstance().addView(new CreateSubjectView(form));
+            Navigator.Navigator.getInstance().addView(new CreateTestView(form));
+            Navigator.Navigator.getInstance().addView(new QuestionsView(form));
             //
             //Navigator
             //
-            //Navigator.Navigator.getInstance().navigateTo("AutorizationSecurityView");
+            Navigator.Navigator.getInstance().navigateTo("AutorizationSecurityView");
             //
             //Check database
             //

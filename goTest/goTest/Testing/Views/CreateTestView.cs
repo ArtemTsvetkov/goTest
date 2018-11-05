@@ -5,30 +5,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace goTest.MenuComponent
+namespace goTest.Testing.Views
 {
-    class AdminMenuView : NavigatorsView
+    class CreateTestView : NavigatorsView
     {
         private Form1 form;
 
-        public AdminMenuView(Form1 form)
+        public CreateTestView(Form1 form)
         {
             this.form = form;
         }
 
         public void show()
         {
-            form.tabControl1Elem.SelectTab(3);
+            form.tabControl1Elem.SelectTab(5);
         }
 
         public string getName()
         {
-            return "AdminMenuView";
+            return "CreateTestView";
         }
 
         public void reset()
         {
-            throw new NotImplementedException();
+            form.textBox9Elem.Text = "";
+            form.numericUpDown1Elem.Value = 0;
+            form.numericUpDown2Elem.Value = 0;
         }
     }
 }

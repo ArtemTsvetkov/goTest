@@ -25,5 +25,10 @@ namespace goTest.MenuComponent
         {
             return "StudentMenuView";
         }
+
+        public void reset()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

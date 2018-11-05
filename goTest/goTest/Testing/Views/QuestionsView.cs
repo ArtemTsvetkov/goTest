@@ -5,30 +5,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace goTest.SecurityComponent.Views
+namespace goTest.Testing.Views
 {
-    class CreateAdminView : NavigatorsView
+    class QuestionsView : NavigatorsView
     {
         private Form1 form;
 
-        public CreateAdminView(Form1 form)
+        public QuestionsView(Form1 form)
         {
             this.form = form;
         }
 
         public void show()
         {
-            form.tabControl1Elem.SelectTab(1);
+            form.tabControl1Elem.SelectTab(8);
         }
 
         public string getName()
         {
-            return "CreateAdminView";
+            return "QuestionsView";
         }
 
         public void reset()
         {
-            throw new NotImplementedException();
+            form.textBox11Elem.Text = "";
+            form.dataGridView1Elem.Rows.Clear();
+            form.dataGridView2Elem.Rows.Clear();
+            form.label27Elem.Text = "Вопрос 0/0";
         }
     }
 }
