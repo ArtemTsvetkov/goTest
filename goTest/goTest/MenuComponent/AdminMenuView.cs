@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace goTest.MenuComponent
 {
-    class MenuView : NavigatorsView
+    class AdminMenuView : NavigatorsView
     {
         private Form1 form;
 
-        public MenuView(Form1 form)
+        public AdminMenuView(Form1 form)
         {
             this.form = form;
         }
@@ -23,7 +23,7 @@ namespace goTest.MenuComponent
 
         public string getName()
         {
-            return "MenuView";
+            return "AdminMenuView";
         }
     }
 }

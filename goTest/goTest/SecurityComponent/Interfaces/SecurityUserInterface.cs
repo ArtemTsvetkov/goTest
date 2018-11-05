@@ -14,5 +14,7 @@ namespace goTest.SecurityComponent.Interfaces
         void setEnterIntoSystem(bool isEnter);
         SecurityUserInterface copy();
         void setPassword(string password);
+        void setAdmin(bool isAdmin);
+        bool isAdmin();
     }
 }

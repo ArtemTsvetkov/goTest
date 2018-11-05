@@ -50,7 +50,8 @@ namespace goTest.CommonComponents.InitialyzerComponent
                 new AutorizationSecurityView(form, securityModel);
             Navigator.Navigator.getInstance().addView(securityView);
             Navigator.Navigator.getInstance().addView(new CreateAdminView(form));
-            Navigator.Navigator.getInstance().addView(new MenuView(form));
+            Navigator.Navigator.getInstance().addView(new AdminMenuView(form));
+            Navigator.Navigator.getInstance().addView(new StudentMenuView(form));
             Navigator.Navigator.getInstance().addView(new ChangePasswordView(form));
             //
             //Navigator

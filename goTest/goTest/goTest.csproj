@@ -109,7 +109,8 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="MenuComponent\MenuView.cs" />
+    <Compile Include="MenuComponent\AdminMenuView.cs" />
+    <Compile Include="MenuComponent\StudentMenuView.cs" />
     <Compile Include="Navigator\Basic\NavigatorInterface.cs" />
     <Compile Include="Navigator\Basic\NavigatorsView.cs" />
     <Compile Include="Navigator\Exceptions\NotFoundView.cs" />

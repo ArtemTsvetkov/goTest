@@ -1,5 +1,6 @@
 ﻿using goTest.CommonComponents.BasicObjects;
 using goTest.CommonComponents.DataConverters;
+using goTest.CommonComponents.DataConverters.Exceptions;
 using goTest.CommonComponents.DataConverters.Realization;
 using goTest.CommonComponents.ExceptionHandler.Realization;
 using goTest.CommonComponents.ExceptionHandler.View.Information.PopupWindow;
@@ -129,6 +130,7 @@ namespace goTest.SecurityComponent.Realization
         public void signIn()
         {
             currentUser.setEnterIntoSystem(true);
+            currentUser.setAdmin(true);
 
             notifyObservers();
         } 
@@ -141,9 +143,13 @@ namespace goTest.SecurityComponent.Realization
             }
             else
             {
-                if (DataSetConverter.fromDsToSingle.toString.convert(
+                try
+                {
+                    DataSetConverter.fromDsToSingle.toString.convert(
                         SqlLiteSimpleExecute.execute(queryConfigurator.getSult(
-                        currentUser.getLogin()))) == null)
+                        currentUser.getLogin())));
+                }
+                catch(СonversionError ex)
                 {
                     return false;
                 }
@@ -204,6 +210,13 @@ namespace goTest.SecurityComponent.Realization
                     ExceptionHandler.getInstance().processing(ex);
                 }
             }
+        }
+
+        public void signInAsStudent()
+        {
+            currentUser.setEnterIntoSystem(true);
+
+            notifyObservers();
         }
     }
 }

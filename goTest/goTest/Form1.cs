@@ -29,6 +29,12 @@ namespace goTest
             init.init();
         }
 
+
+        //
+        //Getters and setters
+        //
+
+
         public TabControl tabControl1Elem
         {
             get { return tabControl1; }
@@ -39,6 +45,13 @@ namespace goTest
             get { return textBox2Elem; }
         }
 
+
+        //
+        //Events
+        //
+
+
+        //Enter as admin button
         private void button1_Click(object sender, EventArgs e)
         {
             try
@@ -52,6 +65,7 @@ namespace goTest
             }
         }
 
+        //Add password for Admin user button
         private void button2_Click(object sender, EventArgs e)
         {
             if (textBox5.Text.Equals(textBox3.Text) & textBox5.Text != "")
@@ -80,6 +94,7 @@ namespace goTest
             }
         }
 
+        //Change password button
         private void button3_Click(object sender, EventArgs e)
         {
             if (textBox6.Text.Equals(textBox7.Text) & textBox6.Text != "" & textBox8.Text != "")
@@ -100,9 +115,24 @@ namespace goTest
             }
         }
 
+        //Go to change password view button
         private void button4_Click(object sender, EventArgs e)
         {
             Navigator.Navigator.getInstance().navigateTo("ChangePasswordView");
+        }
+
+        //Inter as student button
+        private void button8_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                iniComponents.securityController.setConfig("Student", "Student");
+                iniComponents.securityController.signInAsStudent();
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.getInstance().processing(ex);
+            }
         }
     }
 }

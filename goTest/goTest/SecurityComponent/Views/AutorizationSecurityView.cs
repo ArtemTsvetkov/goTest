@@ -34,7 +34,14 @@ namespace goTest.SecurityComponent.Views
                 {
                     try
                     {
-                        //Navigator.Navigator.getInstance().navigateTo("ModelingView");
+                        if (currentUser.isAdmin())
+                        {
+                            Navigator.Navigator.getInstance().navigateTo("AdminMenuView");
+                        }
+                        else
+                        {
+                            Navigator.Navigator.getInstance().navigateTo("StudentMenuView");
+                        }
                     }
                     catch (Exception ex)
                     {
