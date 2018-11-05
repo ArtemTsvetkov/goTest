@@ -34,6 +34,15 @@ namespace goTest
         //Getters and setters
         //
 
+        public DataGridView dataGridView2Elem
+        {
+            get { return dataGridView2; }
+        }
+
+        public DataGridView dataGridView1Elem
+        {
+            get { return dataGridView1; }
+        }
 
         public TabControl tabControl1Elem
         {
