@@ -13,8 +13,11 @@ namespace goTest.Testing.Interfaces
             int requeredUnswersNumber);
         void updateSubject(string oldName, string newName);
         void addEmptyQuestonArea();
-        void deleteQuestion(int row);
+        void deleteQuestion();
         void addEmptyUnswerArea();
-        void deleteUnswer(int row);
+        void deleteUnswer();
+        void setQuestionSelection(int position);
+        void setAnswerSelection(int position);
+        void getFullQuestionContent();
     }
 }

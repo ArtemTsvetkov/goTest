@@ -334,8 +334,7 @@ namespace goTest
         {
             try
             {
-                iniComponents.goTestController.deleteQuestion(dataGridView1.
-                    SelectedRows[0].Cells[0].RowIndex);
+                iniComponents.goTestController.deleteQuestion();
             }
             catch (Exception ex)
             {
@@ -361,8 +360,33 @@ namespace goTest
         {
             try
             {
-                iniComponents.goTestController.deleteUnswer(dataGridView2.
-                    SelectedRows[0].Cells[0].RowIndex);
+                iniComponents.goTestController.deleteUnswer();
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.getInstance().processing(ex);
+            }
+        }
+
+        //Update question selection
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                iniComponents.goTestController.setQuestionSelection(e.RowIndex);
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.getInstance().processing(ex);
+            }
+        }
+
+        //Update answer selection
+        private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                iniComponents.goTestController.setAnswerSelection(e.RowIndex);
             }
             catch (Exception ex)
             {

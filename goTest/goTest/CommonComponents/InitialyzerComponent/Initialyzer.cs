@@ -3,6 +3,7 @@ using goTest.CommonComponents.InitialyzerComponent.ReadConfig;
 using goTest.MenuComponent;
 using goTest.SecurityComponent.Realization;
 using goTest.SecurityComponent.Views;
+using goTest.Testing.Realization;
 using goTest.Testing.Views;
 using System;
 using System.Collections.Generic;
@@ -55,6 +56,13 @@ namespace goTest.CommonComponents.InitialyzerComponent
             components.securityController = new SecurityController(securityModel);
             AutorizationSecurityView securityView =
                 new AutorizationSecurityView(form, securityModel);
+            //
+            //goTest component
+            //
+            components.goTestController = new GoTestController();
+            //
+            //Navigator
+            //
             Navigator.Navigator.getInstance().addView(securityView);
             Navigator.Navigator.getInstance().addView(new CreateAdminView(form));
             Navigator.Navigator.getInstance().addView(new AdminMenuView(form));
@@ -65,9 +73,6 @@ namespace goTest.CommonComponents.InitialyzerComponent
             Navigator.Navigator.getInstance().addView(new CreateSubjectView(form));
             Navigator.Navigator.getInstance().addView(new CreateTestView(form));
             Navigator.Navigator.getInstance().addView(new QuestionsView(form));
-            //
-            //Navigator
-            //
             Navigator.Navigator.getInstance().navigateTo("AutorizationSecurityView");
             //
             //Check database
