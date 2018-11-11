@@ -234,5 +234,140 @@ namespace goTest
         {
             Navigator.Navigator.getInstance().navigateTo("CreateTestView");
         }
+
+        //Cancel from create subject view
+        private void button17_Click(object sender, EventArgs e)
+        {
+            Navigator.Navigator.getInstance().resetCurrentView();
+            Navigator.Navigator.getInstance().navigateToPreviousView();
+        }
+
+        //Cancel from create test view
+        private void button16_Click(object sender, EventArgs e)
+        {
+            Navigator.Navigator.getInstance().resetCurrentView();
+            Navigator.Navigator.getInstance().navigateToPreviousView();
+        }
+
+        //Cancel from change subject view
+        private void button13_Click(object sender, EventArgs e)
+        {
+            Navigator.Navigator.getInstance().resetCurrentView();
+            Navigator.Navigator.getInstance().navigateToPreviousView();
+        }
+
+        //Cancel from questions view
+        private void button12_Click(object sender, EventArgs e)
+        {
+            Navigator.Navigator.getInstance().resetCurrentView();
+            Navigator.Navigator.getInstance().navigateToPreviousView();
+        }
+
+        //Cancel from change test view
+        private void button22_Click(object sender, EventArgs e)
+        {
+            Navigator.Navigator.getInstance().resetCurrentView();
+            Navigator.Navigator.getInstance().navigateToPreviousView();
+        }
+
+        //Create subject button
+        private void button18_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                iniComponents.goTestController.createSubject(textBox10.Text);
+            }
+            catch(Exception ex)
+            {
+                ExceptionHandler.getInstance().processing(ex);
+            }
+        }
+
+        //Create test button
+        private void button15_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                iniComponents.goTestController.createTest(textBox9.Text, 
+                    comboBox1.Text, int.Parse(numericUpDown1.Value.ToString()), 
+                    int.Parse(numericUpDown2.Value.ToString()));
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.getInstance().processing(ex);
+            }
+        }
+
+        private void button20_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                iniComponents.goTestController.updateSubject(comboBox3.Text, textBox12.Text);
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.getInstance().processing(ex);
+            }
+        }
+
+        //Save questions (not cleaning)
+        private void button14_Click(object sender, EventArgs e)
+        {
+            Navigator.Navigator.getInstance().navigateToPreviousView();
+        }
+
+        //Add queston into table
+        private void button19_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                iniComponents.goTestController.addEmptyQuestonArea();
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.getInstance().processing(ex);
+            }
+        }
+
+        //Delete queston from table
+        private void button21_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                iniComponents.goTestController.deleteQuestion(dataGridView1.
+                    SelectedRows[0].Cells[0].RowIndex);
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.getInstance().processing(ex);
+            }
+        }
+
+        //Add unswer into table
+        private void button26_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                iniComponents.goTestController.addEmptyUnswerArea();
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.getInstance().processing(ex);
+            }
+        }
+
+        //Delete unswer from table
+        private void button25_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                iniComponents.goTestController.deleteUnswer(dataGridView2.
+                    SelectedRows[0].Cells[0].RowIndex);
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.getInstance().processing(ex);
+            }
+        }
     }
 }

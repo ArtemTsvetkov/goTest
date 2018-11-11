@@ -39,6 +39,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.button24 = new System.Windows.Forms.Button();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.textBox7 = new System.Windows.Forms.TextBox();
@@ -109,14 +110,15 @@
             this.button14 = new System.Windows.Forms.Button();
             this.label16 = new System.Windows.Forms.Label();
             this.tabPage10 = new System.Windows.Forms.TabPage();
+            this.comboBox5 = new System.Windows.Forms.ComboBox();
             this.label28 = new System.Windows.Forms.Label();
             this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.button22 = new System.Windows.Forms.Button();
             this.button23 = new System.Windows.Forms.Button();
             this.label29 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
-            this.comboBox5 = new System.Windows.Forms.ComboBox();
-            this.button24 = new System.Windows.Forms.Button();
+            this.button25 = new System.Windows.Forms.Button();
+            this.button26 = new System.Windows.Forms.Button();
             this.tabPage5.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -270,6 +272,16 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // button24
+            // 
+            this.button24.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button24.Location = new System.Drawing.Point(295, 562);
+            this.button24.Name = "button24";
+            this.button24.Size = new System.Drawing.Size(149, 38);
+            this.button24.TabIndex = 23;
+            this.button24.Text = "Отмена";
+            this.button24.UseVisualStyleBackColor = true;
             // 
             // textBox8
             // 
@@ -584,6 +596,7 @@
             this.button16.TabIndex = 37;
             this.button16.Text = "Отмена";
             this.button16.UseVisualStyleBackColor = true;
+            this.button16.Click += new System.EventHandler(this.button16_Click);
             // 
             // button15
             // 
@@ -594,6 +607,7 @@
             this.button15.TabIndex = 36;
             this.button15.Text = "Готово";
             this.button15.UseVisualStyleBackColor = true;
+            this.button15.Click += new System.EventHandler(this.button15_Click);
             // 
             // numericUpDown2
             // 
@@ -730,6 +744,7 @@
             this.button17.TabIndex = 41;
             this.button17.Text = "Отмена";
             this.button17.UseVisualStyleBackColor = true;
+            this.button17.Click += new System.EventHandler(this.button17_Click);
             // 
             // button18
             // 
@@ -740,6 +755,7 @@
             this.button18.TabIndex = 40;
             this.button18.Text = "Создать";
             this.button18.UseVisualStyleBackColor = true;
+            this.button18.Click += new System.EventHandler(this.button18_Click);
             // 
             // textBox10
             // 
@@ -818,6 +834,7 @@
             this.button13.TabIndex = 49;
             this.button13.Text = "Отмена";
             this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
             // 
             // button20
             // 
@@ -828,6 +845,7 @@
             this.button20.TabIndex = 48;
             this.button20.Text = "Обновить";
             this.button20.UseVisualStyleBackColor = true;
+            this.button20.Click += new System.EventHandler(this.button20_Click);
             // 
             // textBox12
             // 
@@ -862,6 +880,8 @@
             // tabPage9
             // 
             this.tabPage9.BackgroundImage = global::goTest.Properties.Resources.bg;
+            this.tabPage9.Controls.Add(this.button25);
+            this.tabPage9.Controls.Add(this.button26);
             this.tabPage9.Controls.Add(this.button21);
             this.tabPage9.Controls.Add(this.button19);
             this.tabPage9.Controls.Add(this.label27);
@@ -891,6 +911,7 @@
             this.button21.TabIndex = 60;
             this.button21.Text = "-";
             this.button21.UseVisualStyleBackColor = true;
+            this.button21.Click += new System.EventHandler(this.button21_Click);
             // 
             // button19
             // 
@@ -901,6 +922,7 @@
             this.button19.TabIndex = 59;
             this.button19.Text = "+";
             this.button19.UseVisualStyleBackColor = true;
+            this.button19.Click += new System.EventHandler(this.button19_Click);
             // 
             // label27
             // 
@@ -919,9 +941,9 @@
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2});
-            this.dataGridView2.Location = new System.Drawing.Point(176, 320);
+            this.dataGridView2.Location = new System.Drawing.Point(176, 366);
             this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(381, 221);
+            this.dataGridView2.Size = new System.Drawing.Size(381, 175);
             this.dataGridView2.TabIndex = 57;
             // 
             // Column1
@@ -1008,6 +1030,7 @@
             this.button12.TabIndex = 43;
             this.button12.Text = "Отмена";
             this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
             // button14
             // 
@@ -1018,6 +1041,7 @@
             this.button14.TabIndex = 42;
             this.button14.Text = "Обновить";
             this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.button14_Click);
             // 
             // label16
             // 
@@ -1048,6 +1072,15 @@
             this.tabPage10.Text = "tabPage10";
             this.tabPage10.UseVisualStyleBackColor = true;
             // 
+            // comboBox5
+            // 
+            this.comboBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBox5.FormattingEnabled = true;
+            this.comboBox5.Location = new System.Drawing.Point(476, 197);
+            this.comboBox5.Name = "comboBox5";
+            this.comboBox5.Size = new System.Drawing.Size(236, 33);
+            this.comboBox5.TabIndex = 52;
+            // 
             // label28
             // 
             this.label28.AutoSize = true;
@@ -1077,6 +1110,7 @@
             this.button22.TabIndex = 49;
             this.button22.Text = "Отмена";
             this.button22.UseVisualStyleBackColor = true;
+            this.button22.Click += new System.EventHandler(this.button22_Click);
             // 
             // button23
             // 
@@ -1111,24 +1145,27 @@
             this.label30.TabIndex = 23;
             this.label30.Text = "Изменение теста";
             // 
-            // comboBox5
+            // button25
             // 
-            this.comboBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.comboBox5.FormattingEnabled = true;
-            this.comboBox5.Location = new System.Drawing.Point(476, 197);
-            this.comboBox5.Name = "comboBox5";
-            this.comboBox5.Size = new System.Drawing.Size(236, 33);
-            this.comboBox5.TabIndex = 52;
+            this.button25.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button25.Location = new System.Drawing.Point(495, 322);
+            this.button25.Name = "button25";
+            this.button25.Size = new System.Drawing.Size(62, 38);
+            this.button25.TabIndex = 62;
+            this.button25.Text = "-";
+            this.button25.UseVisualStyleBackColor = true;
+            this.button25.Click += new System.EventHandler(this.button25_Click);
             // 
-            // button24
+            // button26
             // 
-            this.button24.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button24.Location = new System.Drawing.Point(295, 562);
-            this.button24.Name = "button24";
-            this.button24.Size = new System.Drawing.Size(149, 38);
-            this.button24.TabIndex = 23;
-            this.button24.Text = "Отмена";
-            this.button24.UseVisualStyleBackColor = true;
+            this.button26.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button26.Location = new System.Drawing.Point(427, 322);
+            this.button26.Name = "button26";
+            this.button26.Size = new System.Drawing.Size(62, 38);
+            this.button26.TabIndex = 61;
+            this.button26.Text = "+";
+            this.button26.UseVisualStyleBackColor = true;
+            this.button26.Click += new System.EventHandler(this.button26_Click);
             // 
             // Form1
             // 
@@ -1260,6 +1297,8 @@
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.ComboBox comboBox5;
         private System.Windows.Forms.Button button24;
+        private System.Windows.Forms.Button button25;
+        private System.Windows.Forms.Button button26;
     }
 }
 

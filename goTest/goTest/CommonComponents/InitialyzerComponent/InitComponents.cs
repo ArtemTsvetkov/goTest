@@ -1,4 +1,5 @@
 ﻿using goTest.SecurityComponent.Interfaces;
+using goTest.Testing.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace goTest.CommonComponents.InitialyzerComponent
     class InitComponents
     {
         public SecurityControllerInterface securityController;
+        public GoTestControllerI goTestController;
     }
 }

@@ -142,5 +142,16 @@ namespace goTest.Navigator
         {
             return currentViewsName;
         }
+
+        public void resetCurrentView()
+        {
+            for (int i = 0; i < navigator.views.Count; i++)
+            {
+                if (navigator.views.ElementAt(i).getName().Equals(currentViewsName))
+                {
+                    navigator.views.ElementAt(i).reset();
+                }
+            }
+        }
     }
 }
