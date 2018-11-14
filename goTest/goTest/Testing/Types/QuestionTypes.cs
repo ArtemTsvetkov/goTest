@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace goTest.Testing.Types
 {
-    class QuestionTypes
+    static class QuestionTypes
     {
-        public QuestionType multiplyAnswer = new MultiplyAnswer();
-        public QuestionType singleAnswer = new SingleAnswer();
+        public static QuestionType multiplyAnswer = new MultiplyAnswer();
+        public static QuestionType singleAnswer = new SingleAnswer();
     }
 }

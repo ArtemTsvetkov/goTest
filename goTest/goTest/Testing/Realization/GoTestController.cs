@@ -1,4 +1,5 @@
 ﻿using goTest.Testing.Interfaces;
+using goTest.Testing.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace goTest.Testing.Realization
 
         public void addEmptyQuestonArea()
         {
-            model.addQueston("");
+            model.addQuestion("", QuestionTypes.singleAnswer);
         }
 
         public void addEmptyUnswerArea()

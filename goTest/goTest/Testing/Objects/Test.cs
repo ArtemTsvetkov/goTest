@@ -9,7 +9,6 @@ namespace goTest.Testing.Objects
     class Test
     {
         private Subject subject;
-        private List<Unswer> unswers;
         private List<Question> questions;
         private string name;
         private int questionsNumber;
@@ -25,19 +24,6 @@ namespace goTest.Testing.Objects
             set
             {
                 subject = value;
-            }
-        }
-
-        internal List<Unswer> Unswers
-        {
-            get
-            {
-                return unswers;
-            }
-
-            set
-            {
-                unswers = value;
             }
         }
 

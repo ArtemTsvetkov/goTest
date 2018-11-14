@@ -9,7 +9,6 @@ namespace goTest.Testing.Objects
     class Unswer
     {
         private string content;
-        private int position;
         private bool isRight;
 
         public string Content
@@ -25,17 +24,18 @@ namespace goTest.Testing.Objects
             }
         }
 
-        public int Position
+        public bool compare(Unswer unswer)
         {
-            get
+            if (!unswer.content.Equals(content))
             {
-                return position;
+                return false;
+            }
+            if (!unswer.isRight.Equals(isRight))
+            {
+                return false;
             }
 
-            set
-            {
-                position = value;
-            }
+            return true;
         }
 
         public bool IsRight

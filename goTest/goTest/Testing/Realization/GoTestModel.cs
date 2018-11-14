@@ -2,8 +2,10 @@
 using goTest.CommonComponents.DataConverters;
 using goTest.CommonComponents.DataConverters.Realization;
 using goTest.CommonComponents.WorkWithData.Realization.WorkWithDataBase.SqlLite;
+using goTest.Testing.Exceptions;
 using goTest.Testing.Interfaces;
 using goTest.Testing.Objects;
+using goTest.Testing.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +17,8 @@ namespace goTest.Testing.Realization
     class GoTestModel : BasicModel<NullType, NullType>, GoTestModelI 
     {
         private Test currentTest;
+        private Question selectedQuestion;
+        private Unswer selectedUnswer;
         private GoTestQueryConfiguratorI queryConfigurator;
         private TestCreator testCreator;
 
@@ -24,14 +28,32 @@ namespace goTest.Testing.Realization
             currentTest = new Test();
         }
 
-        public void addQueston(string shortContent)
+        public void addQuestion(string shortContent, QuestionType questionsType)
         {
-            throw new NotImplementedException();
+            Question queston = new Question();
+            queston.QuestionsContent = shortContent;
+            queston.QuestionsType = questionsType;
+
+            currentTest.Questions.Add(queston);
         }
 
         public void addUnswer(string content, bool isRightAnswer)
         {
-            throw new NotImplementedException();
+            //ДОБАВИТЬ ПРОВЕРКУ, ЭТОТ ВОПРОС С ЕДИНСТВЕННЫМ ОТВЕТОМ, ИЛИ С МНОЖЕСТВЕННЫМ
+            Unswer unswer = new Unswer();
+            unswer.Content = content;
+            unswer.IsRight = isRightAnswer;
+            //ДОБАВИТЬ ЕДИНЫЙ МЕТОД ПОИСКА ВМЕСТО ЭТОГО И АНАЛОГИЧНЫХ БЛОКОВ МОДЕЛИ
+            for (int i = 0; i < currentTest.Questions.Count; i++)
+            {
+                if (currentTest.Questions.ElementAt(i).compare(selectedQuestion))
+                {
+                    currentTest.Questions.ElementAt(i).Unswers.Add(unswer);
+                    selectedQuestion.Unswers.Add(unswer);
+                }
+            }
+
+            throw new GoTestObjectNotFound();
         }
 
         public void createSubject(string name)
@@ -58,16 +80,47 @@ namespace goTest.Testing.Realization
 
         public void deleteQuestion()
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < currentTest.Questions.Count; i++)
+            {
+                if (currentTest.Questions.ElementAt(i).compare(selectedQuestion))
+                {
+                    selectedQuestion = null;
+                    currentTest.Questions.RemoveAt(i);
+                    return;
+                }
+            }
+
+            throw new GoTestObjectNotFound();
         }
 
         public void deleteUnswer()
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < currentTest.Questions.Count; i++)
+            {
+                if (currentTest.Questions.ElementAt(i).compare(selectedQuestion))
+                {
+                    for (int h = 0; h < currentTest.Questions.ElementAt(i).Unswers.Count; h++)
+                    {
+                        if (currentTest.Questions.ElementAt(i).Unswers.ElementAt(i).
+                                compare(selectedUnswer))
+                        {
+                            selectedUnswer = null;
+                            currentTest.Questions.ElementAt(i).Unswers.RemoveAt(i);
+                            return;
+                        }
+                    }
+
+                    throw new GoTestObjectNotFound();
+                }
+            }
+
+            throw new GoTestObjectNotFound();
         }
 
         public void getQuestionsFullContent()
         {
+            //ВМЕСТО ЭТОГО УВЕДОМИТЬ ОБСЕРВЕРА ЧТО ЕСТЬ ИЗМЕНЕНИЕ
+            //ПОСЛЕ ЧЕГО ОБСЕРВЕР ЧЕРЕЗ ГЕТ РЕЗУЛЬТ ВОЗЬМЕТ ПОЛНЫЙ КОНТЕНТ ОТВЕТА
             throw new NotImplementedException();
         }
 
@@ -81,9 +134,28 @@ namespace goTest.Testing.Realization
             throw new NotImplementedException();
         }
 
-        public void setAnswerSelection(int position)
+        public void setUnswerSelection(Unswer unswer)
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < currentTest.Questions.Count; i++)
+            {
+                if (currentTest.Questions.ElementAt(i).compare(selectedQuestion))
+                {
+                    for (int h = 0; h < currentTest.Questions.ElementAt(i).Unswers.Count; h++)
+                    {
+                        if (currentTest.Questions.ElementAt(i).Unswers.ElementAt(i).
+                                compare(unswer))
+                        {
+                            selectedUnswer = currentTest.Questions.ElementAt(i).
+                                Unswers.ElementAt(i);
+                            return;
+                        }
+                    }
+
+                    throw new GoTestObjectNotFound();
+                }
+            }
+
+            throw new GoTestObjectNotFound();
         }
 
         public override void setConfig(NullType configData)
@@ -91,14 +163,24 @@ namespace goTest.Testing.Realization
             throw new NotImplementedException();
         }
 
-        public void setQuestionSelection(int position)
+        public void setQuestionSelection(Question question)
         {
-            throw new NotImplementedException();
+            for(int i=0; i<currentTest.Questions.Count; i++)
+            {
+                if(currentTest.Questions.ElementAt(i).compare(question))
+                {
+                    selectedQuestion = currentTest.Questions.ElementAt(i);
+                    return;
+                }
+            }
+
+            throw new GoTestObjectNotFound();
         }
 
         public void updateSubject(string oldName, string newName)
         {
-            throw new NotImplementedException();
+            SqlLiteSimpleExecute.execute(queryConfigurator.updateSubject(
+            oldName, newName));
         }
     }
 }

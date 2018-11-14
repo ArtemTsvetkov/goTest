@@ -146,6 +146,7 @@
     <Compile Include="SecurityComponent\Views\AutorizationSecurityView.cs" />
     <Compile Include="SecurityComponent\Views\ChangePasswordView.cs" />
     <Compile Include="SecurityComponent\Views\CreateAdminView.cs" />
+    <Compile Include="Testing\Exceptions\GoTestObjectNotFound.cs" />
     <Compile Include="Testing\Interfaces\GoTestControllerI.cs" />
     <Compile Include="Testing\Interfaces\GoTestModelI.cs" />
     <Compile Include="Testing\Interfaces\GoTestQueryConfiguratorI.cs" />

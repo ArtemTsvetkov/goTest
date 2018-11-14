@@ -10,6 +10,7 @@ namespace goTest.Testing.Objects
     class Question
     {
         private string questionsContent;
+        private List<Unswer> unswers;
         private QuestionType questionsType;
 
         public string QuestionsContent
@@ -25,6 +26,27 @@ namespace goTest.Testing.Objects
             }
         }
 
+        public bool compare(Question question)
+        {
+            if(!question.questionsContent.Equals(questionsContent))
+            {
+                return false;
+            }
+            if (!question.questionsType.getType().Equals(questionsType.getType()))
+            {
+                return false;
+            }
+            for(int i=0; i<unswers.Count; i++)
+            {
+                if(!unswers.ElementAt(i).compare(question.unswers.ElementAt(i)))
+                {
+                    return false;
+                }
+            }
+
+           return true;
+        }
+
         internal QuestionType QuestionsType
         {
             get
@@ -35,6 +57,19 @@ namespace goTest.Testing.Objects
             set
             {
                 questionsType = value;
+            }
+        }
+
+        internal List<Unswer> Unswers
+        {
+            get
+            {
+                return unswers;
+            }
+
+            set
+            {
+                unswers = value;
             }
         }
     }

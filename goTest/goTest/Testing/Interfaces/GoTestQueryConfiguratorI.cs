@@ -8,5 +8,8 @@ namespace goTest.Testing.Interfaces
 {
     interface GoTestQueryConfiguratorI
     {
+        string updateSubject(string oldName, string newName);
+        string createSubject(string name);
+        string getSubjectId(string subjectName);
     }
 }
