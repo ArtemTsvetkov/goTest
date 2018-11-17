@@ -151,13 +151,14 @@
     <Compile Include="Testing\Interfaces\GoTestModelI.cs" />
     <Compile Include="Testing\Interfaces\GoTestQueryConfiguratorI.cs" />
     <Compile Include="Testing\Interfaces\TestCreator.cs" />
+    <Compile Include="Testing\Interfaces\TestLoader.cs" />
     <Compile Include="Testing\Objects\Question.cs" />
     <Compile Include="Testing\Objects\Subject.cs" />
     <Compile Include="Testing\Objects\Test.cs" />
     <Compile Include="Testing\Objects\Unswer.cs" />
     <Compile Include="Testing\Realization\GoTestController.cs" />
     <Compile Include="Testing\Realization\GoTestModel.cs" />
-    <Compile Include="Testing\Realization\NullType.cs" />
+    <Compile Include="Testing\Realization\Workers\TestObjectsSearcher.cs" />
     <Compile Include="Testing\Types\Interfaces\QuestionType.cs" />
     <Compile Include="Testing\Types\QuestionTypes.cs" />
     <Compile Include="Testing\Types\Realization\MultiplyAnswer.cs" />

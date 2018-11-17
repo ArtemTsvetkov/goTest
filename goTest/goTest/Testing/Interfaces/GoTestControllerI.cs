@@ -1,4 +1,6 @@
-﻿using System;
+﻿using goTest.Testing.Objects;
+using goTest.Testing.Types;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,8 +18,10 @@ namespace goTest.Testing.Interfaces
         void deleteQuestion();
         void addEmptyUnswerArea();
         void deleteUnswer();
-        void setQuestionSelection(int position);
-        void setAnswerSelection(int position);
+        void setQuestionSelection(string questionsContent, List<Unswer> unswers, 
+            QuestionType questionsType);
+        void setUnswerSelectio(string content, bool IsRight);
         void getFullQuestionContent();
+        void getFullTestContent(int testsId);
     }
 }

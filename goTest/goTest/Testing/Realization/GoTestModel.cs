@@ -5,6 +5,7 @@ using goTest.CommonComponents.WorkWithData.Realization.WorkWithDataBase.SqlLite;
 using goTest.Testing.Exceptions;
 using goTest.Testing.Interfaces;
 using goTest.Testing.Objects;
+using goTest.Testing.Realization.Workers;
 using goTest.Testing.Types;
 using System;
 using System.Collections.Generic;
@@ -14,18 +15,22 @@ using System.Threading.Tasks;
 
 namespace goTest.Testing.Realization
 {
-    class GoTestModel : BasicModel<NullType, NullType>, GoTestModelI 
+    class GoTestModel : BasicModel<Test, int>, GoTestModelI 
     {
         private Test currentTest;
+        private Test result;
         private Question selectedQuestion;
         private Unswer selectedUnswer;
+        private TestObjectsSearcher searcher;
         private GoTestQueryConfiguratorI queryConfigurator;
         private TestCreator testCreator;
+        private TestLoader testLoader;
 
         public GoTestModel()
         {
             //queryConfigurator = new GoTestQueryConfigurator();
             currentTest = new Test();
+            searcher = new TestObjectsSearcher();
         }
 
         public void addQuestion(string shortContent, QuestionType questionsType)
@@ -43,17 +48,10 @@ namespace goTest.Testing.Realization
             Unswer unswer = new Unswer();
             unswer.Content = content;
             unswer.IsRight = isRightAnswer;
-            //ДОБАВИТЬ ЕДИНЫЙ МЕТОД ПОИСКА ВМЕСТО ЭТОГО И АНАЛОГИЧНЫХ БЛОКОВ МОДЕЛИ
-            for (int i = 0; i < currentTest.Questions.Count; i++)
-            {
-                if (currentTest.Questions.ElementAt(i).compare(selectedQuestion))
-                {
-                    currentTest.Questions.ElementAt(i).Unswers.Add(unswer);
-                    selectedQuestion.Unswers.Add(unswer);
-                }
-            }
 
-            throw new GoTestObjectNotFound();
+            int pos = searcher.getQuestionPosition(currentTest.Questions, selectedQuestion);
+            currentTest.Questions.ElementAt(pos).Unswers.Add(unswer);
+            selectedQuestion = currentTest.Questions.ElementAt(pos);
         }
 
         public void createSubject(string name)
@@ -80,101 +78,58 @@ namespace goTest.Testing.Realization
 
         public void deleteQuestion()
         {
-            for (int i = 0; i < currentTest.Questions.Count; i++)
-            {
-                if (currentTest.Questions.ElementAt(i).compare(selectedQuestion))
-                {
-                    selectedQuestion = null;
-                    currentTest.Questions.RemoveAt(i);
-                    return;
-                }
-            }
-
-            throw new GoTestObjectNotFound();
+            int pos = searcher.getQuestionPosition(currentTest.Questions, selectedQuestion);
+            
+            selectedQuestion = null;
+            currentTest.Questions.RemoveAt(pos);
         }
 
         public void deleteUnswer()
         {
-            for (int i = 0; i < currentTest.Questions.Count; i++)
-            {
-                if (currentTest.Questions.ElementAt(i).compare(selectedQuestion))
-                {
-                    for (int h = 0; h < currentTest.Questions.ElementAt(i).Unswers.Count; h++)
-                    {
-                        if (currentTest.Questions.ElementAt(i).Unswers.ElementAt(i).
-                                compare(selectedUnswer))
-                        {
-                            selectedUnswer = null;
-                            currentTest.Questions.ElementAt(i).Unswers.RemoveAt(i);
-                            return;
-                        }
-                    }
+            int[] arg = searcher.getUnswerPosition(currentTest.Questions, selectedQuestion,
+                selectedUnswer);
 
-                    throw new GoTestObjectNotFound();
-                }
-            }
-
-            throw new GoTestObjectNotFound();
+            selectedUnswer = null;
+            currentTest.Questions.ElementAt(arg[0]).Unswers.RemoveAt(arg[1]);
         }
 
         public void getQuestionsFullContent()
         {
-            //ВМЕСТО ЭТОГО УВЕДОМИТЬ ОБСЕРВЕРА ЧТО ЕСТЬ ИЗМЕНЕНИЕ
-            //ПОСЛЕ ЧЕГО ОБСЕРВЕР ЧЕРЕЗ ГЕТ РЕЗУЛЬТ ВОЗЬМЕТ ПОЛНЫЙ КОНТЕНТ ОТВЕТА
-            throw new NotImplementedException();
+            result = new Test();
+            result.Questions.Add(selectedQuestion);
+
+            notifyObservers();
         }
 
-        public override NullType getResult()
+        public override Test getResult()
         {
-            throw new NotImplementedException();
+            return result;
         }
 
         public override void loadStore()
         {
-            throw new NotImplementedException();
+            currentTest = testLoader.load(config);
+            notifyObservers();
         }
 
         public void setUnswerSelection(Unswer unswer)
         {
-            for (int i = 0; i < currentTest.Questions.Count; i++)
-            {
-                if (currentTest.Questions.ElementAt(i).compare(selectedQuestion))
-                {
-                    for (int h = 0; h < currentTest.Questions.ElementAt(i).Unswers.Count; h++)
-                    {
-                        if (currentTest.Questions.ElementAt(i).Unswers.ElementAt(i).
-                                compare(unswer))
-                        {
-                            selectedUnswer = currentTest.Questions.ElementAt(i).
-                                Unswers.ElementAt(i);
-                            return;
-                        }
-                    }
+            int[] arg = searcher.getUnswerPosition(currentTest.Questions, selectedQuestion,
+                selectedUnswer);
 
-                    throw new GoTestObjectNotFound();
-                }
-            }
-
-            throw new GoTestObjectNotFound();
+            selectedUnswer = currentTest.Questions.ElementAt(arg[0]).
+                Unswers.ElementAt(arg[1]);
         }
 
-        public override void setConfig(NullType configData)
+        public override void setConfig(int configData)
         {
-            throw new NotImplementedException();
+            config = configData;
         }
 
         public void setQuestionSelection(Question question)
         {
-            for(int i=0; i<currentTest.Questions.Count; i++)
-            {
-                if(currentTest.Questions.ElementAt(i).compare(question))
-                {
-                    selectedQuestion = currentTest.Questions.ElementAt(i);
-                    return;
-                }
-            }
-
-            throw new GoTestObjectNotFound();
+            int pos = searcher.getQuestionPosition(currentTest.Questions, selectedQuestion);
+            selectedQuestion = currentTest.Questions.ElementAt(pos);
         }
 
         public void updateSubject(string oldName, string newName)

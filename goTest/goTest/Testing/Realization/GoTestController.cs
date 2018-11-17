@@ -1,4 +1,5 @@
 ﻿using goTest.Testing.Interfaces;
+using goTest.Testing.Objects;
 using goTest.Testing.Types;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace goTest.Testing.Realization
 {
     class GoTestController : GoTestControllerI
     {
+        //ДОБАВИТЬ БЛОКИ TRY CATCH
         private GoTestModel model;
 
         public GoTestController()
@@ -17,6 +19,7 @@ namespace goTest.Testing.Realization
             model = new GoTestModel();
         }
 
+        //УБРАТЬ ПУСТОЕ СОЗДАНИЕ ВОПРОС И ОТВЕТОВ
         public void addEmptyQuestonArea()
         {
             model.addQuestion("", QuestionTypes.singleAnswer);
@@ -52,19 +55,35 @@ namespace goTest.Testing.Realization
             model.getQuestionsFullContent();
         }
 
-        public void setAnswerSelection(int position)
+        public void setUnswerSelectio(string content, bool IsRight)
         {
-            model.setAnswerSelection(position);
+            Unswer unswer = new Unswer();
+            unswer.Content = content;
+            unswer.IsRight = IsRight;
+
+            model.setUnswerSelection(unswer);
         }
 
-        public void setQuestionSelection(int position)
+        public void setQuestionSelection(string questionsContent, 
+            List<Unswer> unswers, QuestionType questionsType)
         {
-            model.setQuestionSelection(position);
+            Question question = new Question();
+            question.QuestionsContent = questionsContent;
+            question.QuestionsType = questionsType;
+            question.Unswers = unswers;
+
+            model.setQuestionSelection(question);
         }
 
         public void updateSubject(string oldName, string newName)
         {
             model.updateSubject(oldName, newName);
+        }
+
+        public void getFullTestContent(int testsId)
+        {
+            model.setConfig(testsId);
+            model.loadStore();
         }
     }
 }
