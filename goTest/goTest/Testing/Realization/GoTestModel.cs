@@ -44,12 +44,21 @@ namespace goTest.Testing.Realization
 
         public void addUnswer(string content, bool isRightAnswer)
         {
-            //ДОБАВИТЬ ПРОВЕРКУ, ЭТОТ ВОПРОС С ЕДИНСТВЕННЫМ ОТВЕТОМ, ИЛИ С МНОЖЕСТВЕННЫМ
             Unswer unswer = new Unswer();
             unswer.Content = content;
             unswer.IsRight = isRightAnswer;
 
             int pos = searcher.getQuestionPosition(currentTest.Questions, selectedQuestion);
+            if(selectedQuestion.QuestionsType.getType().Equals("SingleAnswer") & unswer.IsRight)
+            {
+                for(int i=0; i< selectedQuestion.Unswers.Count; i++)
+                {
+                    if(selectedQuestion.Unswers.ElementAt(i).IsRight)
+                    {
+                        throw new QuestionTypeException();
+                    }
+                }
+            }
             currentTest.Questions.ElementAt(pos).Unswers.Add(unswer);
             selectedQuestion = currentTest.Questions.ElementAt(pos);
         }
@@ -114,6 +123,10 @@ namespace goTest.Testing.Realization
 
         public void setUnswerSelection(Unswer unswer)
         {
+            if (selectedUnswer != null)
+            {
+                selectedUnswer = null;
+            }
             int[] arg = searcher.getUnswerPosition(currentTest.Questions, selectedQuestion,
                 selectedUnswer);
 
@@ -128,6 +141,10 @@ namespace goTest.Testing.Realization
 
         public void setQuestionSelection(Question question)
         {
+            if (selectedQuestion != null)
+            {
+                selectedQuestion = null;
+            }
             int pos = searcher.getQuestionPosition(currentTest.Questions, selectedQuestion);
             selectedQuestion = currentTest.Questions.ElementAt(pos);
         }
@@ -136,6 +153,41 @@ namespace goTest.Testing.Realization
         {
             SqlLiteSimpleExecute.execute(queryConfigurator.updateSubject(
             oldName, newName));
+        }
+
+        public void updateSelected(Question newVersion)
+        {
+            if (selectedQuestion != null)
+            {
+                int pos = searcher.getQuestionPosition(currentTest.Questions, selectedQuestion);
+
+                currentTest.Questions.RemoveAt(pos);
+                currentTest.Questions.Insert(pos, newVersion);
+            }
+            else
+            {
+                currentTest.Questions.Add(newVersion);
+                selectedQuestion = currentTest.Questions.Last();
+            }
+        }
+
+        public void updateSelected(Unswer newVersion)
+        {
+            if (selectedUnswer != null)
+            {
+                int[] pos = searcher.getUnswerPosition(currentTest.Questions, selectedQuestion,
+                selectedUnswer);
+
+                currentTest.Questions.ElementAt(pos[0]).Unswers.RemoveAt(pos[1]);
+                currentTest.Questions.ElementAt(pos[0]).Unswers.Insert(pos[1], newVersion);
+            }
+            else
+            {
+                int pos = searcher.getQuestionPosition(currentTest.Questions, selectedQuestion);
+
+                currentTest.Questions.ElementAt(pos).Unswers.Add(newVersion);
+                selectedUnswer = currentTest.Questions.ElementAt(pos).Unswers.Last();
+            }
         }
     }
 }

@@ -35,6 +35,7 @@ namespace goTest.CommonComponents.ExceptionHandler.Realization
                 handler.addException(new AdminIsNotExist());
                 handler.addException(new BadCheckedPasswords());
                 handler.addException(new GoTestObjectNotFound());
+                handler.addException(new QuestionTypeException());
             }
             catch (Exception ex)
             {

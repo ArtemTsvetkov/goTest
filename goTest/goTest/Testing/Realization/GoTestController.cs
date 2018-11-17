@@ -19,15 +19,14 @@ namespace goTest.Testing.Realization
             model = new GoTestModel();
         }
 
-        //УБРАТЬ ПУСТОЕ СОЗДАНИЕ ВОПРОС И ОТВЕТОВ
-        public void addEmptyQuestonArea()
+        public void addQueston(string shortContent, QuestionType questionsType)
         {
-            model.addQuestion("", QuestionTypes.singleAnswer);
+            model.addQuestion(shortContent, questionsType);
         }
 
-        public void addEmptyUnswerArea()
+        public void addUnswer(string content, bool isRightAnswer)
         {
-            model.addUnswer("", false);
+            model.addUnswer(content, isRightAnswer);
         }
 
         public void createSubject(string name)
@@ -55,7 +54,7 @@ namespace goTest.Testing.Realization
             model.getQuestionsFullContent();
         }
 
-        public void setUnswerSelectio(string content, bool IsRight)
+        public void setUnswerSelection(string content, bool IsRight)
         {
             Unswer unswer = new Unswer();
             unswer.Content = content;
@@ -84,6 +83,16 @@ namespace goTest.Testing.Realization
         {
             model.setConfig(testsId);
             model.loadStore();
+        }
+
+        public void updateSelected(Question newVersion)
+        {
+            model.updateSelected(newVersion);
+        }
+
+        public void updateSelected(Unswer newVersion)
+        {
+            model.updateSelected(newVersion);
         }
     }
 }

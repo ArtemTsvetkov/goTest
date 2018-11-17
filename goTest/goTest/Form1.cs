@@ -13,6 +13,9 @@ using goTest.CommonComponents.DataConverters.Realization;
 using goTest.CommonComponents.InitialyzerComponent;
 using goTest.CommonComponents.ExceptionHandler.Realization;
 using goTest.SecurityComponent.Exceptions;
+using goTest.Testing.Objects;
+using goTest.Testing.Types;
+using goTest.Testing.Exceptions;
 
 namespace goTest
 {
@@ -319,14 +322,14 @@ namespace goTest
         //Add queston into table
         private void button19_Click(object sender, EventArgs e)
         {
-            try
+            for (int i = 0; i < dataGridView1.RowCount; i++)
             {
-                iniComponents.goTestController.addEmptyQuestonArea();
+                if (dataGridView1.Rows[i].Cells[1].Value.ToString().Equals(""))
+                {
+                    return;
+                }
             }
-            catch (Exception ex)
-            {
-                ExceptionHandler.getInstance().processing(ex);
-            }
+            dataGridView1.Rows.Add(1);
         }
 
         //Delete queston from table
@@ -345,13 +348,25 @@ namespace goTest
         //Add unswer into table
         private void button26_Click(object sender, EventArgs e)
         {
-            try
+            for(int i=0; i<dataGridView2.RowCount; i++)
             {
-                iniComponents.goTestController.addEmptyUnswerArea();
+                if(dataGridView2.Rows[i].Cells[1].Value.ToString().Equals(""))
+                {
+                    return;
+                }
             }
-            catch (Exception ex)
+            if (!dataGridView1.Rows[dataGridView1.SelectedRows[0].Index].Cells[0].Value.
+                ToString().Equals(""))
             {
-                ExceptionHandler.getInstance().processing(ex);
+                dataGridView2.Rows.Add(1);
+            }
+            else
+            {
+                MessageBox.Show(
+                    "Задайте текст для выбранного вопроса, прежде чем создавать ответ",
+                    "Сообщение", MessageBoxButtons.OK,MessageBoxIcon.Information,
+                    MessageBoxDefaultButton.Button1,
+                    MessageBoxOptions.DefaultDesktopOnly);
             }
         }
 
@@ -373,7 +388,41 @@ namespace goTest
         {
             try
             {
-                iniComponents.goTestController.setQuestionSelection(e.RowIndex);
+                List<Unswer> unswers = new List<Unswer>();
+                for(int i=0; i<dataGridView2.RowCount; i++)
+                {
+                    Unswer unswer = new Unswer();
+                    unswer.Content = dataGridView2.Rows[i].Cells[0].Value.ToString();
+                    if (dataGridView2.Rows[i].Cells[1].Value.ToString().Equals("+"))
+                    {
+                        unswer.IsRight = true;
+                    }
+                    else
+                    {
+                        unswer.IsRight = false;
+                    }
+                    unswers.Add(unswer);
+                }
+                QuestionType questionsType;
+                if (comboBox2.Text.Equals("Единственный ответ"))
+                {
+                    questionsType = QuestionTypes.singleAnswer;
+                }
+                else
+                {
+                    questionsType = QuestionTypes.multiplyAnswer;
+                }
+
+                iniComponents.goTestController.setQuestionSelection(
+                    dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString(), unswers, 
+                    questionsType);
+            }
+            catch (GoTestObjectNotFound ex)
+            {
+                if(!dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString().Equals(""))
+                {
+                    ExceptionHandler.getInstance().processing(ex);
+                }
             }
             catch (Exception ex)
             {
@@ -386,11 +435,96 @@ namespace goTest
         {
             try
             {
-                iniComponents.goTestController.setAnswerSelection(e.RowIndex);
+                if(dataGridView2.Rows[e.RowIndex].Cells[1].Value.Equals("+"))
+                {
+                    iniComponents.goTestController.setUnswerSelection(
+                    dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString(), true);
+                }
+                else
+                {
+                    iniComponents.goTestController.setUnswerSelection(
+                    dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString(), false);
+                }
+            }
+            catch (GoTestObjectNotFound ex)
+            {
+                if (!dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString().Equals(""))
+                {
+                    ExceptionHandler.getInstance().processing(ex);
+                }
             }
             catch (Exception ex)
             {
                 ExceptionHandler.getInstance().processing(ex);
+            }
+        }
+
+        //Update or create Unswer
+        private void dataGridView2_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            Unswer unswer = new Unswer();
+            if (dataGridView2.Rows[e.RowIndex].Cells[1].Value.ToString().Equals(""))
+            {
+                return;
+            }
+            else
+            {
+                unswer.Content = dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString();
+                if (dataGridView2.Rows[e.RowIndex].Cells[1].Value.ToString().Equals("+"))
+                {
+                    unswer.IsRight = true;
+                }
+                else
+                {
+                    unswer.IsRight = false;
+                }
+                try
+                {
+                    iniComponents.goTestController.updateSelected(unswer);
+                }
+                catch (Exception ex)
+                {
+                    ExceptionHandler.getInstance().processing(ex);
+                }
+            }
+        }
+
+        //Update or create Question
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            Question question = new Question();
+            question.Unswers = new List<Unswer>();
+            for (int i = 0; i < dataGridView2.RowCount; i++)
+            {
+                Unswer unswer = new Unswer();
+                unswer.Content = dataGridView2.Rows[i].Cells[0].Value.ToString();
+                if (dataGridView2.Rows[i].Cells[1].Value.ToString().Equals("+"))
+                {
+                    unswer.IsRight = true;
+                }
+                else
+                {
+                    unswer.IsRight = false;
+                }
+                question.Unswers.Add(unswer);
+            }
+            if (comboBox2.Text.Equals("Единственный ответ"))
+            {
+                question.QuestionsType = QuestionTypes.singleAnswer;
+            }
+            else
+            {
+                question.QuestionsType = QuestionTypes.multiplyAnswer;
+            }
+            if (dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString().Equals(""))
+            {
+                return;
+            }
+            else
+            {
+                question.QuestionsContent = dataGridView2.Rows[e.RowIndex].Cells[1].
+                    Value.ToString();
+                iniComponents.goTestController.updateSelected(question);
             }
         }
     }

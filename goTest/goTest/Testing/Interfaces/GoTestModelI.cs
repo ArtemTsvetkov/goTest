@@ -21,5 +21,7 @@ namespace goTest.Testing.Interfaces
         void getQuestionsFullContent();
         void setQuestionSelection(Question question);
         void setUnswerSelection(Unswer unswer);
+        void updateSelected(Question newVersion);
+        void updateSelected(Unswer newVersion);
     }
 }
