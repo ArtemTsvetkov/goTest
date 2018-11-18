@@ -117,7 +117,6 @@ namespace goTest
         //Events
         //
 
-
         //Enter as admin button
         private void button1_Click(object sender, EventArgs e)
         {
@@ -235,6 +234,7 @@ namespace goTest
         //Go to next update test view
         private void button23_Click(object sender, EventArgs e)
         {
+            iniComponents.goTestController.getFullTestContent(textBox5.Text, textBox4.Text);
             Navigator.Navigator.getInstance().navigateTo("CreateTestView");
         }
 
@@ -301,6 +301,7 @@ namespace goTest
             }
         }
 
+        //Update subject button
         private void button20_Click(object sender, EventArgs e)
         {
             try
@@ -416,6 +417,7 @@ namespace goTest
                 iniComponents.goTestController.setQuestionSelection(
                     dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString(), unswers, 
                     questionsType);
+                iniComponents.goTestController.getFullQuestionContent();
             }
             catch (GoTestObjectNotFound ex)
             {

@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace goTest.Testing.Interfaces
 {
-    interface TestCreator
+    interface TestManipulatorI
     {
+        Test load(string subject, string testName);
         void create(Test test);
+        void update(Test test);
     }
 }

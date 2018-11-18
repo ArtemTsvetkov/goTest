@@ -1,4 +1,5 @@
-﻿using goTest.Testing.Interfaces;
+﻿using goTest.CommonComponents.ExceptionHandler.Realization;
+using goTest.Testing.Interfaces;
 using goTest.Testing.Objects;
 using goTest.Testing.Types;
 using System;
@@ -17,16 +18,6 @@ namespace goTest.Testing.Realization
         public GoTestController()
         {
             model = new GoTestModel();
-        }
-
-        public void addQueston(string shortContent, QuestionType questionsType)
-        {
-            model.addQuestion(shortContent, questionsType);
-        }
-
-        public void addUnswer(string content, bool isRightAnswer)
-        {
-            model.addUnswer(content, isRightAnswer);
         }
 
         public void createSubject(string name)
@@ -79,20 +70,37 @@ namespace goTest.Testing.Realization
             model.updateSubject(oldName, newName);
         }
 
-        public void getFullTestContent(int testsId)
+        public void getFullTestContent(string subject, string testName)
         {
-            model.setConfig(testsId);
+            string[] config = new string[2];
+            config[0] = subject;
+            config[1] = testName;
+            model.setConfig(config);
             model.loadStore();
         }
 
         public void updateSelected(Question newVersion)
         {
-            model.updateSelected(newVersion);
+            try
+            {
+                model.updateSelected(newVersion);
+            }
+            catch(Exception ex)
+            {
+                ExceptionHandler.getInstance().processing(ex);
+            }
         }
 
         public void updateSelected(Unswer newVersion)
         {
-            model.updateSelected(newVersion);
+            try
+            {
+                model.updateSelected(newVersion);
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.getInstance().processing(ex);
+            }
         }
     }
 }

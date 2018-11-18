@@ -36,6 +36,8 @@ namespace goTest.CommonComponents.ExceptionHandler.Realization
                 handler.addException(new BadCheckedPasswords());
                 handler.addException(new GoTestObjectNotFound());
                 handler.addException(new QuestionTypeException());
+                handler.addException(new NotEnoughQuestions());
+                handler.addException(new EqualsQuestionsExceptions());
             }
             catch (Exception ex)
             {

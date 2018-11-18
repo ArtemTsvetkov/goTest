@@ -14,15 +14,13 @@ namespace goTest.Testing.Interfaces
         void createTest(string name, string subject, int questionsNumber, 
             int requeredUnswersNumber);
         void updateSubject(string oldName, string newName);
-        void addUnswer(string content, bool isRightAnswer);
-        void deleteQuestion();
-        void addQueston(string shortContent, QuestionType questionsType);      
+        void deleteQuestion();   
         void deleteUnswer();
         void setQuestionSelection(string questionsContent, List<Unswer> unswers, 
             QuestionType questionsType);
         void setUnswerSelection(string content, bool IsRight);
         void getFullQuestionContent();
-        void getFullTestContent(int testsId);
+        void getFullTestContent(string subject, string testName);
         void updateSelected(Question newVersion);
         void updateSelected(Unswer newVersion);
     }

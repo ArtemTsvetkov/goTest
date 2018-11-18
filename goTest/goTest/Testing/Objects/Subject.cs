@@ -9,7 +9,7 @@ namespace goTest.Testing.Objects
     class Subject
     {
         private string name;
-        private string id;
+        private int id;
 
         public string Name
         {
@@ -24,7 +24,7 @@ namespace goTest.Testing.Objects
             }
         }
 
-        public string Id
+        public int Id
         {
             get
             {
