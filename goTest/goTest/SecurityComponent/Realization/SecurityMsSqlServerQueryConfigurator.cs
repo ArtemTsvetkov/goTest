@@ -53,26 +53,24 @@ namespace goTest.SecurityComponent.Realization
             result[3] = "drop table Questions";
             result[4] = "drop table Parameters_types";
             result[5] = "drop table Parameters";
-            result[6] = "drop table Unswers";
+            result[6] = "drop table Test_params";
 
             return result;
         }
 
         public string[] createDataBase()
         {
-            string[] result = new string[7];
+            string[] result = new string[9];
             result[0] = "create table Users(id integer PRIMARY KEY AUTOINCREMENT NOT " + 
                 "NULL,login text NOT NULL, password text NOT NULL, sult text NOT NULL)";
             result[1] = "create table Disciplines(id integer PRIMARY KEY AUTOINCREMENT " + 
                 "NOT NULL, name text NOT NULL)";
-            result[2] = "create table Tests(id integer PRIMARY KEY AUTOINCREMENT " +
-                "NOT NULL, disciplines_id integer NOT NULL, name text NOT NULL, " +
-                "questions_count integer, required_questions_count integer, " + 
-                "FOREIGN KEY (disciplines_id) REFERENCES Disciplines(id))";
-            result[3] = "create table Questions(id integer PRIMARY KEY " +
-                "AUTOINCREMENT NOT NULL, disciplines_id integer NOT NULL, " +
-                "content text NOT NULL, FOREIGN KEY (disciplines_id) REFERENCES " + 
-                "Disciplines(id))";
+            result[2] = "create table Tests(id integer PRIMARY KEY AUTOINCREMENT NOT "+
+                "NULL, disciplines_id integer NOT NULL, name text NOT NULL, FOREIGN "+
+                "KEY (disciplines_id) REFERENCES Disciplines(id))";
+            result[3] = "create table Questions(id integer PRIMARY KEY AUTOINCREMENT "+
+                "NOT NULL, tests_id integer NOT NULL, content text NOT NULL, FOREIGN "+
+                "KEY (tests_id) REFERENCES Tests(id))";
             result[4] = "create table Parameters_types(id integer PRIMARY KEY " + 
                 "AUTOINCREMENT NOT NULL, name text NOT NULL)";
             result[5] = "create table Parameters(id integer PRIMARY KEY " +
@@ -80,9 +78,11 @@ namespace goTest.SecurityComponent.Realization
                 "parameters_type_id integer NOT NULL, value text NOT NULL, " +
                 "FOREIGN KEY (questions_id) REFERENCES Questions(id), " + 
                 "FOREIGN KEY (parameters_type_id) REFERENCES Parameters_types(id))";
-            result[6] = "create table Unswers(id integer PRIMARY KEY " +
-                "AUTOINCREMENT NOT NULL, parameters_id integer NOT NULL, " + 
-                "FOREIGN KEY (parameters_id ) REFERENCES Parameters(id))";
+            result[6] = "create table Test_params(tests_id integer, questions_count" +
+                " integer, required_questions_count integer, FOREIGN KEY (tests_id) "+
+                "REFERENCES Tests(id))";
+            result[7] = "INSERT INTO Parameters_types VALUES(null, 'unswer')";
+            result[8] = "INSERT INTO Parameters_types VALUES(null, 'rightUnswer')";
 
             return result;
         }

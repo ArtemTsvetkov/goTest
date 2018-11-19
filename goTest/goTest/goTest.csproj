@@ -150,6 +150,7 @@
     <Compile Include="Testing\Exceptions\EqualsQuestionsExceptions.cs" />
     <Compile Include="Testing\Exceptions\GoTestObjectNotFound.cs" />
     <Compile Include="Testing\Exceptions\NotEnoughQuestions.cs" />
+    <Compile Include="Testing\Exceptions\ParamsTypesExceptions.cs" />
     <Compile Include="Testing\Exceptions\QuestionTypeException.cs" />
     <Compile Include="Testing\Interfaces\GoTestControllerI.cs" />
     <Compile Include="Testing\Interfaces\GoTestModelI.cs" />

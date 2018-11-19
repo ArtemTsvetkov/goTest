@@ -37,6 +37,15 @@ namespace goTest
         //Getters and setters
         //
 
+        public Button button1Elem
+        {
+            get { return button1; }
+        }
+
+        public Button button8Elem
+        {
+            get { return button8; }
+        }
 
         public DataGridView dataGridView1Elem
         {
@@ -464,29 +473,32 @@ namespace goTest
         //Update or create Unswer
         private void dataGridView2_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            Unswer unswer = new Unswer();
-            if (dataGridView2.Rows[e.RowIndex].Cells[1].Value.ToString().Equals(""))
+            if (e.RowIndex != -1)
             {
-                return;
-            }
-            else
-            {
-                unswer.Content = dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString();
-                if (dataGridView2.Rows[e.RowIndex].Cells[1].Value.ToString().Equals("+"))
+                Unswer unswer = new Unswer();
+                if (dataGridView2.Rows[e.RowIndex].Cells[1].Value.ToString().Equals(""))
                 {
-                    unswer.IsRight = true;
+                    return;
                 }
                 else
                 {
-                    unswer.IsRight = false;
-                }
-                try
-                {
-                    iniComponents.goTestController.updateSelected(unswer);
-                }
-                catch (Exception ex)
-                {
-                    ExceptionHandler.getInstance().processing(ex);
+                    unswer.Content = dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString();
+                    if (dataGridView2.Rows[e.RowIndex].Cells[1].Value.ToString().Equals("+"))
+                    {
+                        unswer.IsRight = true;
+                    }
+                    else
+                    {
+                        unswer.IsRight = false;
+                    }
+                    try
+                    {
+                        iniComponents.goTestController.updateSelected(unswer);
+                    }
+                    catch (Exception ex)
+                    {
+                        ExceptionHandler.getInstance().processing(ex);
+                    }
                 }
             }
         }
@@ -498,6 +510,10 @@ namespace goTest
             question.Unswers = new List<Unswer>();
             for (int i = 0; i < dataGridView2.RowCount; i++)
             {
+                if (dataGridView2.Rows[i].Cells[0].Value == null)
+                {
+                    return;
+                }
                 Unswer unswer = new Unswer();
                 unswer.Content = dataGridView2.Rows[i].Cells[0].Value.ToString();
                 if (dataGridView2.Rows[i].Cells[1].Value.ToString().Equals("+"))

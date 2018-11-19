@@ -12,47 +12,57 @@ namespace goTest.Testing.Realization
     {
         public string addQuestionParam(int questionId, int parametersTypeId, string value)
         {
-            throw new NotImplementedException();
+            return "INSERT INTO Parameters VALUES(null, "+questionId+", "+parametersTypeId+
+                ", "+value+")";
         }
 
         public string checkEqualsQuestions(int testId, string content)
         {
-            throw new NotImplementedException();
+            return "SELECT COUNT(*) FROM Questions WHERE tests_id="+testId+
+                " AND content="+content+"";
         }
 
         public string createQuestion(int testId, string content)
         {
-            throw new NotImplementedException();
+            return "INSERT INTO Questions values(null, "+testId+", "+content+")";
         }
 
         public string createSubject(string name)
         {
-            throw new NotImplementedException();
+            return "INSERT INTO Disciplines VALUES(null, "+name+");";
         }
 
         public string createTest(int subjectId, string name)
         {
-            throw new NotImplementedException();
+            return "INSERT INTO Tests VALUES(null, "+subjectId+", "+name+");";
+        }
+
+        public string getIdParams(int questionId, int paramTypeId, string content)
+        {
+            return "SELECT id FROM Parameters WHERE questions_id="+questionId+
+                " AND parameters_type_id="+paramTypeId+" AND value="+content+"";
         }
 
         public string getParametersTypeId(ParamsType typeName)
         {
-            throw new NotImplementedException();
+            return "SELECT id FROM Parameters_types WHERE name="+typeName.getType()+"";
         }
 
         public string getQuestionContent(int questionId)
         {
-            throw new NotImplementedException();
+            return "SELECT content FROM Questions where id="+questionId+"";
         }
 
         public string getQuestionId(int testId, string content)
         {
-            throw new NotImplementedException();
+            return "SELECT id FROM Questions where tests_id="+testId+
+                " AND content="+content+"";
         }
 
         public string getQuestionParamsIds(int questionId, ParamsType paramsTypeName)
         {
-            throw new NotImplementedException();
+            return "SELECT id from Parameters WHERE questions_id="+questionId+
+                " AND parameters_type_id="+paramsTypeName.getType()+"";
         }
 
         public string getQuestionsIds(int testId)
@@ -80,12 +90,32 @@ namespace goTest.Testing.Realization
             throw new NotImplementedException();
         }
 
+        public string getUnswerContent(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string getUnswerTypeName(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public string setTestsQuestionsNumber(int testId, int count)
         {
             throw new NotImplementedException();
         }
 
         public string setTestsRequeredUnswersNumber(int testId, int count)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string updateQuestion(int id, string content)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string updateQuestionParam(int unswerId, int paramTypeId, string content)
         {
             throw new NotImplementedException();
         }

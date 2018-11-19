@@ -1,6 +1,11 @@
-﻿using goTest.Testing.Interfaces;
+﻿using goTest.CommonComponents.DataConverters.Exceptions;
+using goTest.CommonComponents.DataConverters.Realization;
+using goTest.CommonComponents.WorkWithData.Realization.WorkWithDataBase.SqlLite;
+using goTest.Testing.Exceptions;
+using goTest.Testing.Interfaces;
 using goTest.Testing.Interfaces.Manipulators;
 using goTest.Testing.Objects;
+using goTest.Testing.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,31 +28,34 @@ namespace goTest.Testing.Realization.Workers.Manipulators.Workers
 
         public void update(Question question)
         {
-            /*try
+            SqlLiteSimpleExecute.execute(queryConfigurator.updateQuestion(question.Id,
+                    question.QuestionsContent));
+
+
+            int rightUnswersCount = 0;
+            for (int i = 0; i < question.Unswers.Count; i++)
             {
-                int count = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
-                    execute(queryConfigurator.checkEqualsQuestions(testId,
-                    question.QuestionsContent)));
-                if (count > 0)
+                if(question.Unswers.ElementAt(i).IsRight)
                 {
-                    throw new EqualsQuestionsExceptions();
+                    rightUnswersCount++;
                 }
             }
-            catch (СonversionError ex)
+            if ((question.QuestionsType.getType().Equals(QuestionTypes.singleAnswer))&
+                (rightUnswersCount==0 | rightUnswersCount>1))
             {
-                throw new EqualsQuestionsExceptions();
+                throw new QuestionTypeException();
             }
-
-            SqlLiteSimpleExecute.execute(queryConfigurator.createQuestion(testId,
-                    question.QuestionsContent));
-            int id = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
-                execute(queryConfigurator.getQuestionId(testId,
-                    question.QuestionsContent)));
+            if (question.QuestionsType.getType().Equals(QuestionTypes.multiplyAnswer)&
+                rightUnswersCount<2)
+            {
+                throw new QuestionTypeException();
+            }
+            
 
             for (int i = 0; i < question.Unswers.Count; i++)
             {
-                unswerManipalator.create(question.Unswers.ElementAt(i), id);
-            }*/
+                unswerManipalator.update(question.Unswers.ElementAt(i));
+            }
         }
     }
 }

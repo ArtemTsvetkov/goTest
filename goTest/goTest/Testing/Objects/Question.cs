@@ -12,6 +12,7 @@ namespace goTest.Testing.Objects
         private string questionsContent;
         private List<Unswer> unswers;
         private QuestionType questionsType;
+        private int id;
 
         public string QuestionsContent
         {
@@ -70,6 +71,19 @@ namespace goTest.Testing.Objects
             set
             {
                 unswers = value;
+            }
+        }
+
+        public int Id
+        {
+            get
+            {
+                return id;
+            }
+
+            set
+            {
+                id = value;
             }
         }
     }

@@ -10,6 +10,7 @@ namespace goTest.Testing.Objects
     {
         private string content;
         private bool isRight;
+        private int id;
 
         public string Content
         {
@@ -48,6 +49,19 @@ namespace goTest.Testing.Objects
             set
             {
                 isRight = value;
+            }
+        }
+
+        public int Id
+        {
+            get
+            {
+                return id;
+            }
+
+            set
+            {
+                id = value;
             }
         }
     }

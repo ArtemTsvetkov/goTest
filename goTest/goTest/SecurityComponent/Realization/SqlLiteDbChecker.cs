@@ -38,7 +38,7 @@ namespace goTest.SecurityComponent.Realization
             checkingTables.ElementAt(3)[0] = "Questions";
             checkingTables.ElementAt(4)[0] = "Parameters_types";
             checkingTables.ElementAt(5)[0] = "Parameters";
-            checkingTables.ElementAt(6)[0] = "Unswers";
+            checkingTables.ElementAt(6)[0] = "Test_params";
             //Check tables
             if (checkingTables.Count > dbTables.Count())
             {

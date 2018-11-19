@@ -44,13 +44,13 @@ namespace goTest.Testing.Realization.Workers.Manipulators.Workers
 
             SqlLiteSimpleExecute.execute(queryConfigurator.createQuestion(testId,
                     question.QuestionsContent));
-            int id = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
+            question.Id = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
                 execute(queryConfigurator.getQuestionId(testId,
                     question.QuestionsContent)));
 
             for (int i = 0; i < question.Unswers.Count; i++)
             {
-                unswerManipalator.create(question.Unswers.ElementAt(i), id);
+                unswerManipalator.create(question.Unswers.ElementAt(i), question.Id);
             }
         }
     }

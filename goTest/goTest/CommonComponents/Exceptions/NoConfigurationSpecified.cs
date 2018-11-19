@@ -18,7 +18,7 @@ namespace goTest.CommonComponents.Exceptions
         {
             ExceptionViewInterface<InformationPopupWindowConfig> view = new InformationPopupWindow();
             InformationPopupWindowConfig config = new InformationPopupWindowConfig(
-                "Конфигурация не задана, обратитесь к администратору");
+                "Не найден файл с базой данных: goTest.db.");
             view.setConfig(config);
             view.show();
         }

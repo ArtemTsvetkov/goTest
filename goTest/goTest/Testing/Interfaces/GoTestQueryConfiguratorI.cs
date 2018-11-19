@@ -29,5 +29,10 @@ namespace goTest.Testing.Interfaces
         string addQuestionParam(int questionId, int parametersTypeId, string value);
         string getParametersTypeId(ParamsType typeName);
         string getQuestionParamsIds(int questionId, ParamsType paramsTypeName);
+        string updateQuestion(int id, string content);
+        string getUnswerContent(int id);
+        string getUnswerTypeName(int id);
+        string getIdParams(int questionId, int paramTypeId, string content);
+        string updateQuestionParam(int unswerId, int paramTypeId, string content);
     }
 }

@@ -27,6 +27,7 @@ namespace goTest.Testing.Realization.Workers.Manipulators.Workers
         public Question load(int id)
         {
             Question question = new Question();
+            question.Id = id;
             question.QuestionsContent = DataSetConverter.fromDsToSingle.toString.convert(
                 SqlLiteSimpleExecute.execute(queryConfigurator.getQuestionContent(id)));
             int[] rightUnswersIds = DataSetConverter.fromDsToBuf.toIntBuf.convert(
