@@ -1,4 +1,5 @@
 ﻿using goTest.Testing.Objects;
+using goTest.Testing.Objects.ViewsObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +8,9 @@ using System.Threading.Tasks;
 
 namespace goTest.Testing.Interfaces
 {
-    interface TestManipulatorI
+    interface GoTestAdapterI
     {
-        Subject load(int testId);
-        void create(Subject test);
-        void update(Subject test);
+        void adapte(List<Subject> subject, int position);
+        List<VSubject> getResult();
     }
 }

@@ -30,28 +30,34 @@ namespace goTest.Testing.Interfaces.Manipulators.Workers
             goTestQueryConfigurator, questionManipulator);
         }
 
-        public Test load(string subject, string testName)
+        public Subject load(int testId)
         {
-            int id = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
-                execute(queryConfigurator.getTestId(subject, testName)));
-            Test test = new Test();
-            test.Name = testName;
+            int subjId = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
+                execute(queryConfigurator.getSubjectId(testId)));
+            Subject sub = new Subject();
+            sub.Tests.ElementAt(0).Id = testId;
+            sub.Tests.ElementAt(0).Name = DataSetConverter.fromDsToSingle.toString.
+                convert(SqlLiteSimpleExecute.execute(queryConfigurator.getTestName(testId)));
 
-            test.Subject = subjectManipulator.load(subject);
+            sub = subjectManipulator.load(DataSetConverter.fromDsToSingle.toString.
+                convert(SqlLiteSimpleExecute.execute(queryConfigurator.getSubjectName(testId))));
 
-            test.QuestionsNumber = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
-                execute(queryConfigurator.getQuestionsNumber(id)));
+            sub.Tests.ElementAt(0).QuestionsNumber = DataSetConverter.fromDsToSingle.toInt.
+                convert(SqlLiteSimpleExecute.
+                execute(queryConfigurator.getQuestionsNumber(testId)));
 
-            test.RequeredUnswersNumber = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
-                execute(queryConfigurator.getRequeredUnswersNumber(id)));
+            sub.Tests.ElementAt(0).RequeredUnswersNumber = DataSetConverter.fromDsToSingle.toInt.
+                convert(SqlLiteSimpleExecute.execute(queryConfigurator.getRequeredUnswersNumber(
+                    testId)));
 
             int[] questionsIds = DataSetConverter.fromDsToBuf.toIntBuf.convert(SqlLiteSimpleExecute.
-                execute(queryConfigurator.getRequeredUnswersNumber(id)));
-            
-            test.Questions = questionsGetter.get(questionsIds, test.QuestionsNumber);
+                execute(queryConfigurator.getRequeredUnswersNumber(testId)));
+
+            sub.Tests.ElementAt(0).Questions = questionsGetter.get(questionsIds, 
+                sub.Tests.ElementAt(0).QuestionsNumber);
 
 
-            return test;
+            return sub;
         }
     }
 }

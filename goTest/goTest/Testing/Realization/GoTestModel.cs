@@ -18,10 +18,10 @@ using System.Threading.Tasks;
 
 namespace goTest.Testing.Realization
 {
-    class GoTestModel : BasicModel<Test, string[]>, GoTestModelI 
+    class GoTestModel : BasicModel<List<Subject>, Config>, GoTestModelI 
     {
-        private Test currentTest;
-        private Test result;
+        private List<Subject> store;
+        private List<Subject> result;
         private Question selectedQuestion;
         private Unswer selectedUnswer;
         private TestObjectsSearcher searcher;
@@ -37,7 +37,7 @@ namespace goTest.Testing.Realization
             testManipulator = new TestManipulator(unswerManipalator,
                 subjectManipulator, queryConfigurator, 
                 new QuestionManipulator(unswerManipalator, queryConfigurator));
-            currentTest = new Test();
+            store = new List<Subject>();
             searcher = new TestObjectsSearcher();
         }
 
@@ -60,18 +60,18 @@ namespace goTest.Testing.Realization
         {
             try
             {
-                currentTest = new Test();
+                Subject subject = new Subject();
+                Test currentTest = new Test();
                 currentTest.Name = name;
                 currentTest.RequeredUnswersNumber = requeredUnswersNumber;
                 currentTest.QuestionsNumber = questionsNumber;
 
-                Subject subject = new Subject();
                 subject.Id = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
                     execute(queryConfigurator.getSubjectId(subjectName)));
-                currentTest.Subject = subject;
+                subject.Tests.Add(currentTest);
 
 
-                testManipulator.create(currentTest);
+                testManipulator.create(subject);
             }
             catch(Exception ex)
             {
@@ -81,30 +81,36 @@ namespace goTest.Testing.Realization
 
         public void deleteQuestion()
         {
-            int pos = searcher.getQuestionPosition(currentTest.Questions, selectedQuestion);
+            int pos = searcher.getQuestionPosition(store.ElementAt(0).Tests.ElementAt(0).
+                Questions, selectedQuestion);
             
             selectedQuestion = null;
-            currentTest.Questions.RemoveAt(pos);
+            store.ElementAt(0).Tests.ElementAt(0).Questions.RemoveAt(pos);
         }
 
         public void deleteUnswer()
         {
-            int[] arg = searcher.getUnswerPosition(currentTest.Questions, selectedQuestion,
-                selectedUnswer);
+            int[] arg = searcher.getUnswerPosition(store.ElementAt(0).Tests.ElementAt(0).
+                Questions, selectedQuestion, selectedUnswer);
 
             selectedUnswer = null;
-            currentTest.Questions.ElementAt(arg[0]).Unswers.RemoveAt(arg[1]);
+            store.ElementAt(0).Tests.ElementAt(0).Questions.ElementAt(arg[0]).Unswers.
+                RemoveAt(arg[1]);
         }
 
         public void getQuestionsFullContent()
         {
-            result = new Test();
-            result.Questions.Add(selectedQuestion);
+            result = new List<Subject>();
+            Subject subject = new Subject();
+            Test test = new Test();
+            test.Questions.Add(selectedQuestion);
+            subject.Tests.Add(test);
+            result.Add(subject);
 
             notifyObservers();
         }
 
-        public override Test getResult()
+        public override List<Subject> getResult()
         {
             return result;
         }
@@ -113,7 +119,7 @@ namespace goTest.Testing.Realization
         {
             try
             {
-                currentTest = testManipulator.load(config[0], config[1]);
+                store = config.loadStore();
                 notifyObservers();
             }
             catch(Exception ex)
@@ -122,40 +128,40 @@ namespace goTest.Testing.Realization
             }
         }
 
-        public void setUnswerSelection(Unswer unswer)
+        public void setUnswerSelection(int id)
         {
             if (selectedUnswer != null)
             {
                 selectedUnswer = null;
             }
-            int[] arg = searcher.getUnswerPosition(currentTest.Questions, selectedQuestion,
-                selectedUnswer);
+            int[] arg = searcher.getUnswerPosition(store.ElementAt(0).Tests.ElementAt(0).
+                Questions, selectedQuestion,
+                id);
 
-            selectedUnswer = currentTest.Questions.ElementAt(arg[0]).
+            selectedUnswer = store.ElementAt(0).Tests.ElementAt(0).Questions.ElementAt(arg[0]).
                 Unswers.ElementAt(arg[1]);
         }
 
-        public override void setConfig(string[] configData)
+        public override void setConfig(Config configData)
         {
             config = configData;
         }
 
-        public void setQuestionSelection(Question question)
+        public void setQuestionSelection(int id)
         {
             if (selectedQuestion != null)
             {
                 selectedQuestion = null;
             }
-            int pos = searcher.getQuestionPosition(currentTest.Questions, selectedQuestion);
-            selectedQuestion = currentTest.Questions.ElementAt(pos);
+            int pos = searcher.getQuestionPosition(store.ElementAt(0).Tests.ElementAt(0).
+                Questions, id);
+            selectedQuestion = store.ElementAt(0).Tests.ElementAt(0).Questions.ElementAt(pos);
         }
 
-        public void updateSubject(string oldName, string newName)
+        public void updateSubject(int id, string newName)
         {
             try
             {
-                int id = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
-                    execute(queryConfigurator.getSubjectId(oldName)));
                 Subject sub = new Subject();
                 sub.Id = id;
                 sub.Name = newName;
@@ -171,15 +177,16 @@ namespace goTest.Testing.Realization
         {
             if (selectedQuestion != null)
             {
-                int pos = searcher.getQuestionPosition(currentTest.Questions, selectedQuestion);
+                int pos = searcher.getQuestionPosition(store.ElementAt(0).Tests.ElementAt(0)
+                    .Questions, selectedQuestion);
 
-                currentTest.Questions.RemoveAt(pos);
-                currentTest.Questions.Insert(pos, newVersion);
+                store.ElementAt(0).Tests.ElementAt(0).Questions.RemoveAt(pos);
+                store.ElementAt(0).Tests.ElementAt(0).Questions.Insert(pos, newVersion);
             }
             else
             {
-                currentTest.Questions.Add(newVersion);
-                selectedQuestion = currentTest.Questions.Last();
+                store.ElementAt(0).Tests.ElementAt(0).Questions.Add(newVersion);
+                selectedQuestion = store.ElementAt(0).Tests.ElementAt(0).Questions.Last();
             }
         }
 
@@ -187,18 +194,23 @@ namespace goTest.Testing.Realization
         {
             if (selectedUnswer != null)
             {
-                int[] pos = searcher.getUnswerPosition(currentTest.Questions, selectedQuestion,
-                selectedUnswer);
+                int[] pos = searcher.getUnswerPosition(store.ElementAt(0).Tests.ElementAt(0)
+                    .Questions, selectedQuestion, selectedUnswer);
 
-                currentTest.Questions.ElementAt(pos[0]).Unswers.RemoveAt(pos[1]);
-                currentTest.Questions.ElementAt(pos[0]).Unswers.Insert(pos[1], newVersion);
+                store.ElementAt(0).Tests.ElementAt(0).Questions.ElementAt(pos[0]).Unswers.
+                    RemoveAt(pos[1]);
+                store.ElementAt(0).Tests.ElementAt(0).Questions.ElementAt(pos[0]).Unswers.
+                    Insert(pos[1], newVersion);
             }
             else
             {
-                int pos = searcher.getQuestionPosition(currentTest.Questions, selectedQuestion);
+                int pos = searcher.getQuestionPosition(store.ElementAt(0).Tests.ElementAt(0).
+                    Questions, selectedQuestion);
 
-                currentTest.Questions.ElementAt(pos).Unswers.Add(newVersion);
-                selectedUnswer = currentTest.Questions.ElementAt(pos).Unswers.Last();
+                store.ElementAt(0).Tests.ElementAt(0).Questions.ElementAt(pos).
+                    Unswers.Add(newVersion);
+                selectedUnswer = store.ElementAt(0).Tests.ElementAt(0).Questions.
+                    ElementAt(pos).Unswers.Last();
             }
         }
 
@@ -206,7 +218,7 @@ namespace goTest.Testing.Realization
         {
             try
             {
-                testManipulator.update(currentTest);
+                testManipulator.update(store.ElementAt(0));
             }
             catch (Exception ex)
             {

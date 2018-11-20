@@ -8,23 +8,15 @@ namespace goTest.Testing.Objects
 {
     class Test
     {
-        private Subject subject;
         private List<Question> questions;
         private string name;
         private int questionsNumber;
         private int requeredUnswersNumber;
+        private int id;
 
-        internal Subject Subject
+        public Test()
         {
-            get
-            {
-                return subject;
-            }
-
-            set
-            {
-                subject = value;
-            }
+            questions = new List<Question>();
         }
 
         internal List<Question> Questions
@@ -76,6 +68,19 @@ namespace goTest.Testing.Objects
             set
             {
                 requeredUnswersNumber = value;
+            }
+        }
+
+        public int Id
+        {
+            get
+            {
+                return id;
+            }
+
+            set
+            {
+                id = value;
             }
         }
     }

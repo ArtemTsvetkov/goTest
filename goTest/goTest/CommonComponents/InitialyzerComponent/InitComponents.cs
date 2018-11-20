@@ -12,5 +12,6 @@ namespace goTest.CommonComponents.InitialyzerComponent
     {
         public SecurityControllerInterface securityController;
         public GoTestControllerI goTestController;
+        public GoTestAdapterI goTestAdapter;
     }
 }

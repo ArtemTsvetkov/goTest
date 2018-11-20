@@ -30,8 +30,6 @@ namespace goTest.Testing.Realization.Workers.Manipulators
                         ParamsTypes.ParamsTypes.rightUnswer)));
                 SqlLiteSimpleExecute.execute(queryConfigurator.addQuestionParam(questionId, 
                     paramTypeId, unswer.Content));
-                unswer.Id = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
-                    execute(queryConfigurator.getIdParams(questionId, paramTypeId, unswer.Content)));
             }
             else
             {
@@ -39,8 +37,6 @@ namespace goTest.Testing.Realization.Workers.Manipulators
                     execute(queryConfigurator.getParametersTypeId(ParamsTypes.ParamsTypes.unswer)));
                 SqlLiteSimpleExecute.execute(queryConfigurator.addQuestionParam(questionId, 
                     paramTypeId, unswer.Content));
-                unswer.Id = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
-                    execute(queryConfigurator.getIdParams(questionId, paramTypeId, unswer.Content)));
             }
         }
 

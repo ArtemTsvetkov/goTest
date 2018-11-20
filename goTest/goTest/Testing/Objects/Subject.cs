@@ -10,6 +10,12 @@ namespace goTest.Testing.Objects
     {
         private string name;
         private int id;
+        private List<Test> tests;
+
+        public Subject()
+        {
+            tests = new List<Test>();
+        }
 
         public string Name
         {
@@ -34,6 +40,19 @@ namespace goTest.Testing.Objects
             set
             {
                 id = value;
+            }
+        }
+
+        internal List<Test> Tests
+        {
+            get
+            {
+                return tests;
+            }
+
+            set
+            {
+                tests = value;
             }
         }
     }

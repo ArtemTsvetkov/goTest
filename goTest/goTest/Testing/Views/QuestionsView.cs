@@ -1,4 +1,5 @@
 ﻿using goTest.Navigator.Basic;
+using goTest.Testing.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,12 @@ namespace goTest.Testing.Views
     class QuestionsView : NavigatorsView
     {
         private Form1 form;
+        private GoTestAdapterI adapter;
 
-        public QuestionsView(Form1 form)
+        public QuestionsView(Form1 form, GoTestAdapterI adapter)
         {
             this.form = form;
+            this.adapter = adapter;
         }
 
         public void show()

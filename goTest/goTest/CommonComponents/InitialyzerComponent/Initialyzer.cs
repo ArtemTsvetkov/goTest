@@ -4,6 +4,7 @@ using goTest.MenuComponent;
 using goTest.SecurityComponent.Realization;
 using goTest.SecurityComponent.Views;
 using goTest.Testing.Realization;
+using goTest.Testing.Realization.Workers;
 using goTest.Testing.Views;
 using System;
 using System.Collections.Generic;
@@ -58,6 +59,7 @@ namespace goTest.CommonComponents.InitialyzerComponent
                 //goTest component
                 //
                 components.goTestController = new GoTestController();
+                components.goTestAdapter = new GoTestAdapter();
                 //
                 //Navigator
                 //
@@ -66,11 +68,16 @@ namespace goTest.CommonComponents.InitialyzerComponent
                 Navigator.Navigator.getInstance().addView(new AdminMenuView(form));
                 Navigator.Navigator.getInstance().addView(new StudentMenuView(form));
                 Navigator.Navigator.getInstance().addView(new ChangePasswordView(form));
-                Navigator.Navigator.getInstance().addView(new UpdateTestView(form));
-                Navigator.Navigator.getInstance().addView(new UpdateSubjectView(form));
-                Navigator.Navigator.getInstance().addView(new CreateSubjectView(form));
-                Navigator.Navigator.getInstance().addView(new CreateTestView(form));
-                Navigator.Navigator.getInstance().addView(new QuestionsView(form));
+                Navigator.Navigator.getInstance().addView(new UpdateTestView(form,
+                    components.goTestAdapter));
+                Navigator.Navigator.getInstance().addView(new UpdateSubjectView(form, 
+                    components.goTestAdapter));
+                Navigator.Navigator.getInstance().addView(new CreateSubjectView(form, 
+                    components.goTestAdapter));
+                Navigator.Navigator.getInstance().addView(new CreateTestView(form,
+                    components.goTestAdapter));
+                Navigator.Navigator.getInstance().addView(new QuestionsView(form,
+                    components.goTestAdapter));
                 Navigator.Navigator.getInstance().navigateTo("AutorizationSecurityView");
                 //
                 //ReadConfig

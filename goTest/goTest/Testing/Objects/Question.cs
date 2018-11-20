@@ -14,6 +14,11 @@ namespace goTest.Testing.Objects
         private QuestionType questionsType;
         private int id;
 
+        public Question()
+        {
+            unswers = new List<Unswer>();
+        }
+
         public string QuestionsContent
         {
             get

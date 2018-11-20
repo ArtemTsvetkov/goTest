@@ -25,7 +25,8 @@ namespace goTest.Testing.Realization
             model.createSubject(name);
         }
 
-        public void createTest(string name, string subject, int questionsNumber, int requeredUnswersNumber)
+        public void createTest(string name, string subject, int questionsNumber, 
+            int requeredUnswersNumber)
         {
             model.createTest(name, subject, questionsNumber, requeredUnswersNumber);
         }
@@ -45,36 +46,24 @@ namespace goTest.Testing.Realization
             model.getQuestionsFullContent();
         }
 
-        public void setUnswerSelection(string content, bool IsRight)
+        public void setUnswerSelection(int id)
         {
-            Unswer unswer = new Unswer();
-            unswer.Content = content;
-            unswer.IsRight = IsRight;
-
-            model.setUnswerSelection(unswer);
+            model.setUnswerSelection(id);
         }
 
-        public void setQuestionSelection(string questionsContent, 
-            List<Unswer> unswers, QuestionType questionsType)
+        public void setQuestionSelection(int id)
         {
-            Question question = new Question();
-            question.QuestionsContent = questionsContent;
-            question.QuestionsType = questionsType;
-            question.Unswers = unswers;
-
-            model.setQuestionSelection(question);
+            model.setQuestionSelection(id);
         }
 
-        public void updateSubject(string oldName, string newName)
+        public void updateSubject(int id, string newName)
         {
-            model.updateSubject(oldName, newName);
+            model.updateSubject(id, newName);
         }
 
-        public void getFullTestContent(string subject, string testName)
+        public void getFullTestContent(int testId)
         {
-            string[] config = new string[2];
-            config[0] = subject;
-            config[1] = testName;
+            Config config = new ;//ОТДЕЛЬНЫЙ ДЛЯ ЗАГРУЗКИ КОНТЕНТА ОПРЕДЕЛЕННОГО ТЕСТА
             model.setConfig(config);
             model.loadStore();
         }

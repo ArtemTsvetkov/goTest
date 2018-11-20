@@ -27,22 +27,22 @@ namespace goTest.Testing.Interfaces.Manipulators.Workers
             this.questionManipulator = questionManipulator;
         }
 
-        public void update(Test test)
+        public void update(Subject subject)
         {
             SqlLiteSimpleExecute.execute(queryConfigurator.updateTestName(
-                test.Subject.Id, test.Name));
-            int id = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
-                execute(queryConfigurator.getTestId(test.Subject.Name, test.Name)));
+                subject.Id, subject.Tests.ElementAt(0).Name));
+            int id = subject.Tests.ElementAt(0).Id;
 
             SqlLiteSimpleExecute.execute(queryConfigurator.
-                updateTestsQuestionsNumber(id, test.QuestionsNumber));
+                updateTestsQuestionsNumber(id, subject.Tests.ElementAt(0).QuestionsNumber));
 
             SqlLiteSimpleExecute.execute(queryConfigurator.
-                updateTestsRequeredUnswersNumber(id, test.RequeredUnswersNumber));
+                updateTestsRequeredUnswersNumber(id, subject.Tests.ElementAt(0).
+                RequeredUnswersNumber));
 
-            for (int i = 0; i < test.Questions.Count; i++)
+            for (int i = 0; i < subject.Tests.ElementAt(0).Questions.Count; i++)
             {
-                questionManipulator.update(test.Questions.ElementAt(i));
+                questionManipulator.update(subject.Tests.ElementAt(0).Questions.ElementAt(i));
             }
         }
     }
