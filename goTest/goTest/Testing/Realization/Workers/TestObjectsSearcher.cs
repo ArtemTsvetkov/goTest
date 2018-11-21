@@ -11,17 +11,16 @@ namespace goTest.Testing.Realization.Workers
     class TestObjectsSearcher
     {
         //return 2 arguments - 1)index in questions list, 2)index in unswers list
-        public int[] getUnswerPosition(List<Question> questions, Question selectedQuestion,
-            Unswer selectedUnswer)
+        public int[] getUnswerPosition(List<Question> questions, int selectedQuestionId,
+            int selectedUnswerId)
         {
             for (int i = 0; i < questions.Count; i++)
             {
-                if (questions.ElementAt(i).compare(selectedQuestion))
+                if (questions.ElementAt(i).Id.Equals(selectedQuestionId))
                 {
                     for (int h = 0; h < questions.ElementAt(i).Unswers.Count; h++)
                     {
-                        if (questions.ElementAt(i).Unswers.ElementAt(i).
-                                compare(selectedUnswer))
+                        if (questions.ElementAt(i).Unswers.ElementAt(i).Id.Equals(selectedUnswerId))
                         {
                             int[] arg = new int[2];
                             arg[0] = i;
@@ -38,11 +37,11 @@ namespace goTest.Testing.Realization.Workers
             throw new GoTestObjectNotFound();
         }
 
-        public int getQuestionPosition(List<Question> questions, Question selectedQuestion)
+        public int getQuestionPosition(List<Question> questions, int selectedQuestionId)
         {
             for (int i = 0; i < questions.Count; i++)
             {
-                if (questions.ElementAt(i).compare(selectedQuestion))
+                if (questions.ElementAt(i).Id.Equals(selectedQuestionId))
                 {
                     return i;
                 }

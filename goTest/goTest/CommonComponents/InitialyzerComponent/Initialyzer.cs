@@ -59,7 +59,11 @@ namespace goTest.CommonComponents.InitialyzerComponent
                 //goTest component
                 //
                 components.goTestController = new GoTestController();
-                components.goTestAdapter = new GoTestAdapter();
+                components.questionsViewAdapter = new GoTestAdapter();
+                components.updateSubjectViewAdapter = new GoTestAdapter();
+                components.updateTestViewAdapter = new GoTestAdapter();
+                components.сreateSubjectViewAdapter = new GoTestAdapter();
+                components.сreateTestViewAdapter = new GoTestAdapter();
                 //
                 //Navigator
                 //
@@ -69,15 +73,15 @@ namespace goTest.CommonComponents.InitialyzerComponent
                 Navigator.Navigator.getInstance().addView(new StudentMenuView(form));
                 Navigator.Navigator.getInstance().addView(new ChangePasswordView(form));
                 Navigator.Navigator.getInstance().addView(new UpdateTestView(form,
-                    components.goTestAdapter));
+                    components.updateTestViewAdapter));
                 Navigator.Navigator.getInstance().addView(new UpdateSubjectView(form, 
-                    components.goTestAdapter));
+                    components.updateSubjectViewAdapter));
                 Navigator.Navigator.getInstance().addView(new CreateSubjectView(form, 
-                    components.goTestAdapter));
+                    components.сreateSubjectViewAdapter));
                 Navigator.Navigator.getInstance().addView(new CreateTestView(form,
-                    components.goTestAdapter));
+                    components.сreateTestViewAdapter));
                 Navigator.Navigator.getInstance().addView(new QuestionsView(form,
-                    components.goTestAdapter));
+                    components.questionsViewAdapter));
                 Navigator.Navigator.getInstance().navigateTo("AutorizationSecurityView");
                 //
                 //ReadConfig

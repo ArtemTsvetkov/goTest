@@ -170,6 +170,7 @@
     <Compile Include="Testing\ParamsTypes\ParamsTypes.cs" />
     <Compile Include="Testing\ParamsTypes\Realization\RightUnswer.cs" />
     <Compile Include="Testing\ParamsTypes\Realization\UnswerType.cs" />
+    <Compile Include="Testing\Realization\Workers\Configs\GetTestContentConfig.cs" />
     <Compile Include="Testing\Realization\Workers\GoTestAdapter.cs" />
     <Compile Include="Testing\Realization\Workers\Manipulators\Workers\QuestionCreator.cs" />
     <Compile Include="Testing\Realization\Workers\Manipulators\Workers\QuestionLoader.cs" />
@@ -226,9 +227,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Testing\Realization\Workers\Configs\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\bg.jpg" />
   </ItemGroup>

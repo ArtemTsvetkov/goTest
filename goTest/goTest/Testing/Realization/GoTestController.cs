@@ -1,6 +1,7 @@
 ﻿using goTest.CommonComponents.ExceptionHandler.Realization;
 using goTest.Testing.Interfaces;
 using goTest.Testing.Objects;
+using goTest.Testing.Realization.Workers.Configs;
 using goTest.Testing.Types;
 using System;
 using System.Collections.Generic;
@@ -63,7 +64,7 @@ namespace goTest.Testing.Realization
 
         public void getFullTestContent(int testId)
         {
-            Config config = new ;//ОТДЕЛЬНЫЙ ДЛЯ ЗАГРУЗКИ КОНТЕНТА ОПРЕДЕЛЕННОГО ТЕСТА
+            Config config = new GetTestContentConfig();
             model.setConfig(config);
             model.loadStore();
         }

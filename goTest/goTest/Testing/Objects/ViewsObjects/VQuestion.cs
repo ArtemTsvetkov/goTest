@@ -10,11 +10,13 @@ namespace goTest.Testing.Objects.ViewsObjects
     {
         private int position;
         private List<VUnswer> unswers;
+        private bool isSelected;
 
         public VQuestion(int position, Question question)
         {
             unswers = new List<VUnswer>();
             this.position = position;
+            IsSelected = false;
             restore(question);
         }
 
@@ -40,6 +42,19 @@ namespace goTest.Testing.Objects.ViewsObjects
             set
             {
                 unswers = value;
+            }
+        }
+
+        public bool IsSelected
+        {
+            get
+            {
+                return isSelected;
+            }
+
+            set
+            {
+                isSelected = value;
             }
         }
     }

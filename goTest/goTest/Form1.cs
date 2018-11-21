@@ -16,6 +16,7 @@ using goTest.SecurityComponent.Exceptions;
 using goTest.Testing.Objects;
 using goTest.Testing.Types;
 using goTest.Testing.Exceptions;
+using goTest.Testing.Objects.ViewsObjects;
 
 namespace goTest
 {
@@ -243,8 +244,9 @@ namespace goTest
         //Go to next update test view
         private void button23_Click(object sender, EventArgs e)
         {
-            iniComponents.goTestController.getFullTestContent(textBox5.Text, textBox4.Text);
             Navigator.Navigator.getInstance().navigateTo("CreateTestView");
+            iniComponents.goTestController.getFullTestContent(iniComponents.
+                сreateTestViewAdapter.getResult().ElementAt(0).Tests.ElementAt(0).Id);
         }
 
         //Cancel from create subject view
@@ -315,7 +317,9 @@ namespace goTest
         {
             try
             {
-                iniComponents.goTestController.updateSubject(comboBox3.Text, textBox12.Text);
+                iniComponents.goTestController.updateSubject(iniComponents.
+                    updateSubjectViewAdapter.getResult().ElementAt(0).Id, textBox12.Text);
+                Navigator.Navigator.getInstance().navigateToPreviousView();
             }
             catch (Exception ex)
             {
@@ -398,35 +402,24 @@ namespace goTest
         {
             try
             {
-                List<Unswer> unswers = new List<Unswer>();
-                for(int i=0; i<dataGridView2.RowCount; i++)
+                List<VQuestion> questions = iniComponents.questionsViewAdapter.getResult().
+                    ElementAt(0).Tests.ElementAt(0).Questions;
+                for (int i = 0; i < questions.Count; i++)
                 {
-                    Unswer unswer = new Unswer();
-                    unswer.Content = dataGridView2.Rows[i].Cells[0].Value.ToString();
-                    if (dataGridView2.Rows[i].Cells[1].Value.ToString().Equals("+"))
+                    questions.ElementAt(i).IsSelected = false;
+                }
+                for (int i=0; i< questions.Count; i++)
+                {
+                    if(questions.ElementAt(i).getPosition().Equals(e.RowIndex))
                     {
-                        unswer.IsRight = true;
+                        questions.ElementAt(i).IsSelected = true;
+                        iniComponents.goTestController.setQuestionSelection(
+                            questions.ElementAt(i).Id);
+                        iniComponents.goTestController.getFullQuestionContent();
+                        return;
                     }
-                    else
-                    {
-                        unswer.IsRight = false;
-                    }
-                    unswers.Add(unswer);
                 }
-                QuestionType questionsType;
-                if (comboBox2.Text.Equals("Единственный ответ"))
-                {
-                    questionsType = QuestionTypes.singleAnswer;
-                }
-                else
-                {
-                    questionsType = QuestionTypes.multiplyAnswer;
-                }
-
-                iniComponents.goTestController.setQuestionSelection(
-                    dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString(), unswers, 
-                    questionsType);
-                iniComponents.goTestController.getFullQuestionContent();
+                throw new GoTestObjectNotFound();
             }
             catch (GoTestObjectNotFound ex)
             {
@@ -446,16 +439,26 @@ namespace goTest
         {
             try
             {
-                if(dataGridView2.Rows[e.RowIndex].Cells[1].Value.Equals("+"))
+                List<VQuestion> questions = iniComponents.questionsViewAdapter.getResult().
+                    ElementAt(0).Tests.ElementAt(0).Questions;
+                for (int i = 0; i < questions.Count; i++)
                 {
-                    iniComponents.goTestController.setUnswerSelection(
-                    dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString(), true);
+                    if (questions.ElementAt(i).IsSelected)
+                    {
+                        List<VUnswer> unswers = questions.ElementAt(i).Unswers;
+                        for(int n=0; n<unswers.Count(); n++)
+                        {
+                            if(unswers.ElementAt(n).getPosition().Equals(e.RowIndex))
+                            {
+                                iniComponents.goTestController.setUnswerSelection(
+                                    unswers.ElementAt(n).Id);
+                                return;
+                            }
+                        }
+                        throw new GoTestObjectNotFound();
+                    }
                 }
-                else
-                {
-                    iniComponents.goTestController.setUnswerSelection(
-                    dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString(), false);
-                }
+                throw new GoTestObjectNotFound();
             }
             catch (GoTestObjectNotFound ex)
             {

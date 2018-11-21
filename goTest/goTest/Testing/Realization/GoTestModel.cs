@@ -82,7 +82,7 @@ namespace goTest.Testing.Realization
         public void deleteQuestion()
         {
             int pos = searcher.getQuestionPosition(store.ElementAt(0).Tests.ElementAt(0).
-                Questions, selectedQuestion);
+                Questions, selectedQuestion.Id);
             
             selectedQuestion = null;
             store.ElementAt(0).Tests.ElementAt(0).Questions.RemoveAt(pos);
@@ -91,7 +91,7 @@ namespace goTest.Testing.Realization
         public void deleteUnswer()
         {
             int[] arg = searcher.getUnswerPosition(store.ElementAt(0).Tests.ElementAt(0).
-                Questions, selectedQuestion, selectedUnswer);
+                Questions, selectedQuestion.Id, selectedUnswer.Id);
 
             selectedUnswer = null;
             store.ElementAt(0).Tests.ElementAt(0).Questions.ElementAt(arg[0]).Unswers.
@@ -135,8 +135,7 @@ namespace goTest.Testing.Realization
                 selectedUnswer = null;
             }
             int[] arg = searcher.getUnswerPosition(store.ElementAt(0).Tests.ElementAt(0).
-                Questions, selectedQuestion,
-                id);
+                Questions, selectedQuestion.Id, id);
 
             selectedUnswer = store.ElementAt(0).Tests.ElementAt(0).Questions.ElementAt(arg[0]).
                 Unswers.ElementAt(arg[1]);
@@ -178,7 +177,7 @@ namespace goTest.Testing.Realization
             if (selectedQuestion != null)
             {
                 int pos = searcher.getQuestionPosition(store.ElementAt(0).Tests.ElementAt(0)
-                    .Questions, selectedQuestion);
+                    .Questions, selectedQuestion.Id);
 
                 store.ElementAt(0).Tests.ElementAt(0).Questions.RemoveAt(pos);
                 store.ElementAt(0).Tests.ElementAt(0).Questions.Insert(pos, newVersion);
@@ -195,7 +194,7 @@ namespace goTest.Testing.Realization
             if (selectedUnswer != null)
             {
                 int[] pos = searcher.getUnswerPosition(store.ElementAt(0).Tests.ElementAt(0)
-                    .Questions, selectedQuestion, selectedUnswer);
+                    .Questions, selectedQuestion.Id, selectedUnswer.Id);
 
                 store.ElementAt(0).Tests.ElementAt(0).Questions.ElementAt(pos[0]).Unswers.
                     RemoveAt(pos[1]);
@@ -205,7 +204,7 @@ namespace goTest.Testing.Realization
             else
             {
                 int pos = searcher.getQuestionPosition(store.ElementAt(0).Tests.ElementAt(0).
-                    Questions, selectedQuestion);
+                    Questions, selectedQuestion.Id);
 
                 store.ElementAt(0).Tests.ElementAt(0).Questions.ElementAt(pos).
                     Unswers.Add(newVersion);
