@@ -17,7 +17,7 @@ namespace goTest.Testing.Interfaces
         string getSubjectName(int testId);
         string createTest(int subjectId, string name);
         string updateTestName(int subjectId, string name);
-        string getTestId(string subject, string testName);
+        string getTestId(int subjectId, string testName);
         string setTestsQuestionsNumber(int testId, int count);
         string setTestsRequeredUnswersNumber(int testId, int count);
         string updateTestsQuestionsNumber(int testId, int count);

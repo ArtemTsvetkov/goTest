@@ -50,7 +50,7 @@ namespace goTest.Testing.Interfaces.Manipulators.Workers
             
             
             int id = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
-                execute(queryConfigurator.getTestId(subject.Name, subject.Tests.ElementAt(0).Name)));
+                execute(queryConfigurator.getTestId(subject.Id, subject.Tests.ElementAt(0).Name)));
 
             SqlLiteSimpleExecute.execute(queryConfigurator.
                 setTestsQuestionsNumber(id, subject.Tests.ElementAt(0).QuestionsNumber));

@@ -24,7 +24,8 @@ namespace goTest.Testing.Realization
 
         public string checkEqualsTests(int subjectId, string name)
         {
-            throw new NotImplementedException();
+            return "SELECT COUNT(*) FROM Tests WHERE disciplines_id="+ subjectId +
+                " AND name='" + name + "'";
         }
 
         public string createQuestion(int testId, string content)
@@ -81,7 +82,7 @@ namespace goTest.Testing.Realization
 
         public string getSubjectId(int testId)
         {
-            throw new NotImplementedException();
+            return "SELECT disciplines_id FROM Tests WHERE id="+testId;
         }
 
         public string getSubjectId(string subjectName)
@@ -91,27 +92,30 @@ namespace goTest.Testing.Realization
 
         public string getSubjectName(int testId)
         {
-            throw new NotImplementedException();
+            return "SELECT d.name FROM Tests t, Disciplines d WHERE t.id="+testId+
+                " AND t.disciplines_id = d.id";
         }
 
-        public string getTestId(string subject, string testName)
+        public string getTestId(int subjectId, string testName)
         {
-            throw new NotImplementedException();
+            return "SELECT id FROM Tests WHERE disciplines_id=" + subjectId +
+                " AND name='" + testName + "'";
         }
 
         public string getTestName(int id)
         {
-            throw new NotImplementedException();
+            return "SELECT name from Tests WHERE id=1";
         }
 
         public string getUnswerContent(int id)
         {
-            throw new NotImplementedException();
+            return "SELECT value FROM Parameters WHERE id="+id;
         }
 
         public string getUnswerTypeName(int id)
         {
-            throw new NotImplementedException();
+            return "SELECT t.name FROM Parameters p, Parameters_types t WHERE "+
+                "p.id=" + id + " AND t.id=p.parameters_type_id";
         }
 
         public string setTestsQuestionsNumber(int testId, int count)
