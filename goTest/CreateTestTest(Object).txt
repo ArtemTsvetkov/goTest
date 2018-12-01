@@ -1,22 +1,38 @@
-INSERT INTO Types VALUES(null, 'Subject');
-INSERT INTO Types VALUES(null, 'Test');
-INSERT INTO Types VALUES(null, 'Question');
-INSERT INTO Types VALUES(null, 'Unswer');
-INSERT INTO Types VALUES(null, 'Schema');
-INSERT INTO Objects VALUES(null, null, 'Main Schema', (SELECT id FROM Types WHERE Name='Schema'));
-INSERT INTO Attributes VALUES(null, 'Name', 'Objects name');
-INSERT INTO Attributes VALUES(null, 'Questions count', 'Questions count for concrete test');
-INSERT INTO Attributes VALUES(null, 'Required questions', 'Required questions for concrete test');
-INSERT INTO Attributes VALUES(null, 'Questions type', 'Questions type, determine in reference table');
-INSERT INTO Attributes VALUES(null, 'Content', 'Conctere objects content, example: questions text, unswers test');
-INSERT INTO Attributes VALUES(null, 'Unswers type', 'Unswers type, determine in reference table');
-INSERT INTO Schemas VALUES((SELECT id FROM Objects WHERE Name='Main Schema'), (SELECT id FROM Types WHERE Name='Subject'), (SELECT id FROM Attributes WHERE Name='Name'));
-INSERT INTO Schemas VALUES((SELECT id FROM Objects WHERE Name='Main Schema'), (SELECT id FROM Types WHERE Name='Test'), (SELECT id FROM Attributes WHERE Name='Name'));
-INSERT INTO Schemas VALUES((SELECT id FROM Objects WHERE Name='Main Schema'), (SELECT id FROM Types WHERE Name='Test'), (SELECT id FROM Attributes WHERE Name='Questions count'));
-INSERT INTO Schemas VALUES((SELECT id FROM Objects WHERE Name='Main Schema'), (SELECT id FROM Types WHERE Name='Test'), (SELECT id FROM Attributes WHERE Name='Required questions'));
-INSERT INTO Schemas VALUES((SELECT id FROM Objects WHERE Name='Main Schema'), (SELECT id FROM Types WHERE Name='Question'), (SELECT id FROM Attributes WHERE Name='Questions type'));
-INSERT INTO Schemas VALUES((SELECT id FROM Objects WHERE Name='Main Schema'), (SELECT id FROM Types WHERE Name='Question'), (SELECT id FROM Attributes WHERE Name='Content'));
-INSERT INTO Schemas VALUES((SELECT id FROM Objects WHERE Name='Main Schema'), (SELECT id FROM Types WHERE Name='Unswer'), (SELECT id FROM Attributes WHERE Name='Content'));
-INSERT INTO Schemas VALUES((SELECT id FROM Objects WHERE Name='Main Schema'), (SELECT id FROM Types WHERE Name='Unswer'), (SELECT id FROM Attributes WHERE Name='Unswers type'));
+INSERT INTO Objects VALUES(null, null, 'SubjectExample', (SELECT id FROM Types WHERE Name='Subject'));
+INSERT INTO Parameters VALUES(6,1,'Example subject');
 
+INSERT INTO Objects VALUES(null, 6, 'Test example', (SELECT id FROM Types WHERE Name='Test'));
+INSERT INTO Parameters VALUES(7,1,'Example test');
+INSERT INTO Parameters VALUES(7,2,'3');
+INSERT INTO Parameters VALUES(7,3,'2');
 
+INSERT INTO Objects VALUES(null, 7, 'First Question', (SELECT id FROM Types WHERE Name='Question'));
+INSERT INTO Parameters VALUES(8, 5, 'First Question Content');
+INSERT INTO Objects_references VALUES(8, 2, 4);
+
+INSERT INTO Objects VALUES(null, 7, 'Second Question', (SELECT id FROM Types WHERE Name='Question'));
+INSERT INTO Parameters VALUES(9, 5, 'First Question Content');
+INSERT INTO Objects_references VALUES(9, 2, 4);
+
+INSERT INTO Objects VALUES(null, 7, 'Third Question', (SELECT id FROM Types WHERE Name='Question'));
+INSERT INTO Parameters VALUES(10, 5, 'First Question Content');
+INSERT INTO Objects_references VALUES(10, 3, 4);
+
+INSERT INTO OBJECTS VALUES(null, 8, 'First Unswer on First Question', (SELECT id FROM Types WHERE Name='Unswer'));
+INSERT INTO OBJECTS VALUES(null, 8, 'Second Unswer on First Question', (SELECT id FROM Types WHERE Name='Unswer'));
+INSERT INTO Parameters VALUES(11, 5, 'First Unswer on First Question Content');
+INSERT INTO Parameters VALUES(12, 5, 'Second Unswer on First Question Content');
+INSERT INTO Objects_references VALUES(11, 4, 6);
+INSERT INTO Objects_references VALUES(12, 5, 6);
+INSERT INTO OBJECTS VALUES(null, 9, 'First Unswer on Second Question', (SELECT id FROM Types WHERE Name='Unswer'));
+INSERT INTO OBJECTS VALUES(null, 9, 'Second Unswer on Second Question', (SELECT id FROM Types WHERE Name='Unswer'));
+INSERT INTO Parameters VALUES(13, 5, 'First Unswer on Second Question Content');
+INSERT INTO Parameters VALUES(14, 5, 'Second Unswer on Second Question Content');
+INSERT INTO Objects_references VALUES(13, 4, 6);
+INSERT INTO Objects_references VALUES(14, 5, 6);
+INSERT INTO OBJECTS VALUES(null, 10, 'First Unswer on Third Question', (SELECT id FROM Types WHERE Name='Unswer'));
+INSERT INTO OBJECTS VALUES(null, 10, 'Second Unswer on Third Question', (SELECT id FROM Types WHERE Name='Unswer'));
+INSERT INTO Parameters VALUES(15, 5, 'First Unswer on Third Question Content');
+INSERT INTO Parameters VALUES(16, 5, 'Second Unswer on Third Question Content');
+INSERT INTO Objects_references VALUES(13, 5, 6);
+INSERT INTO Objects_references VALUES(14, 5, 6);
