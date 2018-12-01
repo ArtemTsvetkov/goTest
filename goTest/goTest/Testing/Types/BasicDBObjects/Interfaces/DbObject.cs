@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace goTest.Testing.ParamsTypes.Interfaces
+namespace goTest.Testing.Types.BasicDBObjects.Interfaces
 {
-    interface ParamsType
+    interface DbObject
     {
-        string getType();
+        string getName();
     }
 }

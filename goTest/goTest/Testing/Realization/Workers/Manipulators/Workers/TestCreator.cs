@@ -33,24 +33,9 @@ namespace goTest.Testing.Interfaces.Manipulators.Workers
         {
             SqlLiteSimpleExecute.execute(queryConfigurator.createTest(subject.Id, subject.Tests.
                 ElementAt(0).Name));
-            try
-            {
-                int count = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
-                    execute(queryConfigurator.checkEqualsTests(subject.Id, subject.Tests.
-                    ElementAt(0).Name)));
-                if (count > 0)
-                {
-                    throw new EqualsTestExceptions();
-                }
-            }
-            catch (СonversionError ex)
-            {
-                throw new EqualsTestExceptions();
-            }
-            
             
             int id = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
-                execute(queryConfigurator.getTestId(subject.Id, subject.Tests.ElementAt(0).Name)));
+                execute(queryConfigurator.getTestId()));
 
             SqlLiteSimpleExecute.execute(queryConfigurator.
                 setTestsQuestionsNumber(id, subject.Tests.ElementAt(0).QuestionsNumber));

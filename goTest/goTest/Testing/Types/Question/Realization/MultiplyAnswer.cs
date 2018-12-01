@@ -10,7 +10,7 @@ namespace goTest.Testing.Types
     {
         public string getType()
         {
-            return "MultiplyAnswer";
+            return "Multiply unswer question";
         }
     }
 }

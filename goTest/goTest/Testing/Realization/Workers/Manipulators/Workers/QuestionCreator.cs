@@ -27,26 +27,10 @@ namespace goTest.Testing.Realization.Workers.Manipulators.Workers
 
         public void create(Question question, int testId)
         {
-            try
-            {
-                int count = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
-                    execute(queryConfigurator.checkEqualsQuestions(testId,
-                    question.QuestionsContent)));
-                if (count > 0)
-                {
-                    throw new EqualsQuestionsExceptions();
-                }
-            }
-            catch (СonversionError ex)
-            {
-                throw new EqualsQuestionsExceptions();
-            }
-
             SqlLiteSimpleExecute.execute(queryConfigurator.createQuestion(testId,
                     question.QuestionsContent));
             question.Id = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
-                execute(queryConfigurator.getQuestionId(testId,
-                    question.QuestionsContent)));
+                execute(queryConfigurator.getQuestionId()));
 
             for (int i = 0; i < question.Unswers.Count; i++)
             {

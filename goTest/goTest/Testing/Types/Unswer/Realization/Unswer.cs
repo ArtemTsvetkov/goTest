@@ -1,17 +1,17 @@
-﻿using goTest.Testing.ParamsTypes.Interfaces;
+﻿using goTest.Testing.Types.Unswer.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace goTest.Testing.ParamsTypes.Realization
+namespace goTest.Testing.Types.Unswer.Realization
 {
-    class RightUnswer : ParamsType
+    class Unswer : UnswerType
     {
         public string getType()
         {
-            return "rightUnswer";
+            return "Unswer";
         }
     }
 }

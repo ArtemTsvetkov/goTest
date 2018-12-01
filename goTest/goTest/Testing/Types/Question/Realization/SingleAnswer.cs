@@ -10,7 +10,7 @@ namespace goTest.Testing.Types
     {
         public string getType()
         {
-            return "SingleAnswer";
+            return "Single unswer question";
         }
     }
 }

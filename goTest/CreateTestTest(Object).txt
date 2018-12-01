@@ -1,8 +1,6 @@
 INSERT INTO Objects VALUES(null, null, 'SubjectExample', (SELECT id FROM Types WHERE Name='Subject'));
-INSERT INTO Parameters VALUES(6,1,'Example subject');
 
 INSERT INTO Objects VALUES(null, 6, 'Test example', (SELECT id FROM Types WHERE Name='Test'));
-INSERT INTO Parameters VALUES(7,1,'Example test');
 INSERT INTO Parameters VALUES(7,2,'3');
 INSERT INTO Parameters VALUES(7,3,'2');
 
@@ -36,3 +34,7 @@ INSERT INTO Parameters VALUES(15, 5, 'First Unswer on Third Question Content');
 INSERT INTO Parameters VALUES(16, 5, 'Second Unswer on Third Question Content');
 INSERT INTO Objects_references VALUES(13, 5, 6);
 INSERT INTO Objects_references VALUES(14, 5, 6);
+
+
+
+to get in develop status object id : SELECT id FROM Objects o WHERE Type=(SELECT id FROM Types WHERE Name='Subject') AND (SELECT count(*) FROM Objects_references r WHERE attr_id=(SELECT id FROM Attributes WHERE Name='Develop status')AND o.id=r.object_id)=0
