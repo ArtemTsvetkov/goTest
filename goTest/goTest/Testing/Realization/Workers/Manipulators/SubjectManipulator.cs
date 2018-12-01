@@ -8,6 +8,7 @@ using goTest.Testing.Objects;
 using goTest.CommonComponents.WorkWithData.Realization.WorkWithDataBase.SqlLite;
 using goTest.Testing.Interfaces;
 using goTest.CommonComponents.DataConverters.Realization;
+using goTest.Testing.Types.BasicDBObjects;
 
 namespace goTest.Testing.Realization.Workers.Manipulators
 {
@@ -23,7 +24,9 @@ namespace goTest.Testing.Realization.Workers.Manipulators
         public void create(Subject subject)
         {
             SqlLiteSimpleExecute.execute(queryConfigurator.createSubject(
-            subject.Name));
+                subject.Name));
+            SqlLiteSimpleExecute.execute(queryConfigurator.setApproveStatusToObject(
+                DbTypes.subject));
         }
 
         public Subject load(string name)

@@ -5,6 +5,7 @@ using goTest.Testing.Exceptions;
 using goTest.Testing.Interfaces;
 using goTest.Testing.Interfaces.Manipulators;
 using goTest.Testing.Objects;
+using goTest.Testing.Types.BasicDBObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,15 +28,21 @@ namespace goTest.Testing.Realization.Workers.Manipulators.Workers
 
         public void create(Question question, int testId)
         {
-            SqlLiteSimpleExecute.execute(queryConfigurator.createQuestion(testId,
-                    question.QuestionsContent));
+            SqlLiteSimpleExecute.execute(queryConfigurator.createQuestion(testId));
             question.Id = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
-                execute(queryConfigurator.getQuestionId()));
+                execute(queryConfigurator.getObjectIdInDevelopStatus(DbTypes.question)));
+            SqlLiteSimpleExecute.execute(queryConfigurator.setQuestionContent(question.Id, 
+                question.QuestionsContent));
+            SqlLiteSimpleExecute.execute(queryConfigurator.setQuestionType(question.Id,
+                question.QuestionsType));
+
 
             for (int i = 0; i < question.Unswers.Count; i++)
             {
                 unswerManipalator.create(question.Unswers.ElementAt(i), question.Id);
             }
+            SqlLiteSimpleExecute.execute(queryConfigurator.setApproveStatusToObject(
+                DbTypes.question));
         }
     }
 }

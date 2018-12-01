@@ -148,6 +148,7 @@
     <Compile Include="SecurityComponent\Views\ChangePasswordView.cs" />
     <Compile Include="SecurityComponent\Views\CreateAdminView.cs" />
     <Compile Include="Testing\Exceptions\GoTestObjectNotFound.cs" />
+    <Compile Include="Testing\Exceptions\NotApprowedObjectsFound.cs" />
     <Compile Include="Testing\Exceptions\NotEnoughQuestions.cs" />
     <Compile Include="Testing\Exceptions\ParamsTypesExceptions.cs" />
     <Compile Include="Testing\Exceptions\QuestionTypeException.cs" />
@@ -186,6 +187,7 @@
     <Compile Include="Testing\Realization\Workers\Manipulators\UnswerManipalator.cs" />
     <Compile Include="Testing\Realization\Workers\TestObjectsSearcher.cs" />
     <Compile Include="Testing\Types\BasicDBObjects\DbAttrs.cs" />
+    <Compile Include="Testing\Types\BasicDBObjects\DbObjects.cs" />
     <Compile Include="Testing\Types\BasicDBObjects\DbTypes.cs" />
     <Compile Include="Testing\Types\BasicDBObjects\Interfaces\DbObject.cs" />
     <Compile Include="Testing\Types\BasicDBObjects\Realization\Attributes\ContentAttr.cs" />
@@ -194,6 +196,8 @@
     <Compile Include="Testing\Types\BasicDBObjects\Realization\Attributes\QuestionsTypeAttr.cs" />
     <Compile Include="Testing\Types\BasicDBObjects\Realization\Attributes\RequiredQuestionsAttr.cs" />
     <Compile Include="Testing\Types\BasicDBObjects\Realization\Attributes\UnswersTypeAttr.cs" />
+    <Compile Include="Testing\Types\BasicDBObjects\Realization\Objects\InApproveStatus.cs" />
+    <Compile Include="Testing\Types\BasicDBObjects\Realization\Objects\MainSchema.cs" />
     <Compile Include="Testing\Types\BasicDBObjects\Realization\Types\DevelopStatusType.cs" />
     <Compile Include="Testing\Types\BasicDBObjects\Realization\Types\QuestionTType.cs" />
     <Compile Include="Testing\Types\BasicDBObjects\Realization\Types\QuestionType.cs" />

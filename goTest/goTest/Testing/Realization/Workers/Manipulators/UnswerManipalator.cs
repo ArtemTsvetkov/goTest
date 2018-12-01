@@ -9,6 +9,8 @@ using goTest.CommonComponents.DataConverters.Realization;
 using goTest.Testing.Interfaces;
 using goTest.CommonComponents.WorkWithData.Realization.WorkWithDataBase.SqlLite;
 using goTest.Testing.Exceptions;
+using goTest.Testing.Types.BasicDBObjects;
+using goTest.Testing.Types.Unswer.Interfaces;
 
 namespace goTest.Testing.Realization.Workers.Manipulators
 {
@@ -25,19 +27,26 @@ namespace goTest.Testing.Realization.Workers.Manipulators
         {
             if (unswer.IsRight)
             {
-                int paramTypeId = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
-                    execute(queryConfigurator.getParametersTypeId(
-                        ParamsTypes.ParamsTypes.rightUnswer)));
-                SqlLiteSimpleExecute.execute(queryConfigurator.addQuestionParam(questionId, 
-                    paramTypeId, unswer.Content));
+                SqlLiteSimpleExecute.execute(queryConfigurator.createUnswer(questionId));
+                unswer.Id = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
+                    execute(queryConfigurator.getObjectIdInDevelopStatus(DbTypes.unswer)));
+                SqlLiteSimpleExecute.execute(queryConfigurator.setUnswerContent(unswer.Id, 
+                    unswer.Content));
+                SqlLiteSimpleExecute.execute(queryConfigurator.setUnswerType(unswer.Id,
+                    UnswerTypes.rightUnswer));
             }
             else
             {
-                int paramTypeId = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
-                    execute(queryConfigurator.getParametersTypeId(ParamsTypes.ParamsTypes.unswer)));
-                SqlLiteSimpleExecute.execute(queryConfigurator.addQuestionParam(questionId, 
-                    paramTypeId, unswer.Content));
+                SqlLiteSimpleExecute.execute(queryConfigurator.createUnswer(questionId));
+                unswer.Id = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
+                    execute(queryConfigurator.getObjectIdInDevelopStatus(DbTypes.unswer)));
+                SqlLiteSimpleExecute.execute(queryConfigurator.setUnswerContent(unswer.Id,
+                    unswer.Content));
+                SqlLiteSimpleExecute.execute(queryConfigurator.setUnswerType(unswer.Id,
+                    UnswerTypes.unswer));
             }
+            SqlLiteSimpleExecute.execute(queryConfigurator.setApproveStatusToObject(
+                DbTypes.unswer));
         }
 
         public Unswer load(int id)

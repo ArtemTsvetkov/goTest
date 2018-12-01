@@ -22,6 +22,14 @@ namespace goTest.Testing.Realization
                 "AND o.id=r.object_id)=0";
         }
 
+        public string getObjectIdsInDevelopStatus()
+        {
+            return "SELECT id FROM Objects o WHERE (SELECT count(*) " + 
+                "FROM Objects_references r WHERE " +
+                "attr_id=" + getSubQueryForGettingAttrId(DbAttrs.developStatus.getName()) +
+                "AND o.id=r.object_id)=0";
+        }
+
         public string createSubject(string subjectName)
         {
             return "INSERT INTO Objects VALUES(null, null, '" + subjectName + "', " +
@@ -84,6 +92,27 @@ namespace goTest.Testing.Realization
             return "INSERT INTO Objects_references VALUES(" + unswrId + ", " +
                 getSubQueryForGettingUnswersTypeId(type) + ", " + 
                 getSubQueryForGettingAttrId(DbAttrs.unswersType.getName()) + ");";
+        }
+
+        public string getSubjectId(string name)
+        {
+            return "SELECT id FROM Objects WHERE name=" + name + " AND type="+
+                getSubQueryForGettingTypeId(DbTypes.subject.getName());
+        }
+
+        public string setApproveStatusToObject(DbObject objectName)
+        {
+            return "INSERT INTO Objects_references VALUES(" + 
+                getObjectIdInDevelopStatus(objectName) + ", " +
+                getSubQueryForGettingObjectId(DbObjects.inApproveStatus, DbTypes.developStatus) + 
+                ", " +
+                getSubQueryForGettingAttrId(DbAttrs.developStatus.getName()) + ");";
+        }
+
+        private string getSubQueryForGettingObjectId(DbObject objectName, DbObject objectType)
+        {
+            return "(SELECT id FROM Objects WHERE name ='" + objectName.getName() + "' AND type=" +
+                getSubQueryForGettingTypeId(objectType.getName()) + ")";
         }
 
         private string getSubQueryForGettingTypeId(string name)

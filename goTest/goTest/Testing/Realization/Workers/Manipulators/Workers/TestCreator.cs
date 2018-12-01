@@ -3,6 +3,7 @@ using goTest.CommonComponents.DataConverters.Realization;
 using goTest.CommonComponents.WorkWithData.Realization.WorkWithDataBase.SqlLite;
 using goTest.Testing.Exceptions;
 using goTest.Testing.Objects;
+using goTest.Testing.Types.BasicDBObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,11 +32,11 @@ namespace goTest.Testing.Interfaces.Manipulators.Workers
 
         public void create(Subject subject)
         {
-            SqlLiteSimpleExecute.execute(queryConfigurator.createTest(subject.Id, subject.Tests.
-                ElementAt(0).Name));
+            SqlLiteSimpleExecute.execute(queryConfigurator.createTest(subject.Tests.
+                ElementAt(0).Name, subject.Id));
             
             int id = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
-                execute(queryConfigurator.getTestId()));
+                execute(queryConfigurator.getObjectIdInDevelopStatus(DbTypes.test)));
 
             SqlLiteSimpleExecute.execute(queryConfigurator.
                 setTestsQuestionsNumber(id, subject.Tests.ElementAt(0).QuestionsNumber));
@@ -47,6 +48,8 @@ namespace goTest.Testing.Interfaces.Manipulators.Workers
             {
                 questionManipulator.create(subject.Tests.ElementAt(0).Questions.ElementAt(i),id);
             }
+            SqlLiteSimpleExecute.execute(queryConfigurator.setApproveStatusToObject(
+                DbTypes.test));
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using goTest.CommonComponents.BasicObjects;
 using goTest.CommonComponents.DataConverters;
+using goTest.CommonComponents.DataConverters.Exceptions;
 using goTest.CommonComponents.DataConverters.Realization;
 using goTest.CommonComponents.ExceptionHandler.Realization;
 using goTest.CommonComponents.WorkWithData.Realization.WorkWithDataBase.SqlLite;
@@ -60,6 +61,25 @@ namespace goTest.Testing.Realization
         {
             try
             {
+                try
+                {
+                    int[] id = DataSetConverter.fromDsToBuf.toIntBuf.convert(SqlLiteSimpleExecute.
+                    execute(queryConfigurator.getObjectIdsInDevelopStatus()));
+                    if(id.Length>0)
+                    {
+                        string ids = "";
+                        for (int i=0; i<id.Length; i++)
+                        {
+                            ids += id[i] + ";";
+                        }
+                        throw new NotApprowedObjectsFound("Нельзя создать тест, пока существуют "+
+                            "объекты без статуса Approve:"+ids);
+                    }
+                }
+                catch(СonversionError er)
+                {
+                }
+                
                 Subject subject = new Subject();
                 Test currentTest = new Test();
                 currentTest.Name = name;
