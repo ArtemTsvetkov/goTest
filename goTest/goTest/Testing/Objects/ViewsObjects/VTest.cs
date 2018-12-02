@@ -24,6 +24,11 @@ namespace goTest.Testing.Objects.ViewsObjects
             QuestionsNumber = test.QuestionsNumber;
             RequeredUnswersNumber = test.RequeredUnswersNumber;
             Id = test.Id;
+
+            for(int i=0; i<test.Questions.Count; i++)
+            {
+                questions.Add(new VQuestion(i, test.Questions.ElementAt(i)));
+            }
         }
 
         public int getPosition()

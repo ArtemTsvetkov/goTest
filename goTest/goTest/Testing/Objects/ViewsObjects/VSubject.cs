@@ -22,6 +22,10 @@ namespace goTest.Testing.Objects.ViewsObjects
         {
             Id = subject.Id;
             Name = subject.Name;
+            for(int i=0; i<subject.Tests.Count; i++)
+            {
+                tests.Add(new VTest(0, subject.Tests.ElementAt(i)));
+            }
         }
 
         public int getPosition()

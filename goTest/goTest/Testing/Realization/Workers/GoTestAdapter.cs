@@ -16,9 +16,10 @@ namespace goTest.Testing.Realization.Workers
         public void adapte(List<Subject> subject, int position)
         {
             result = new List<VSubject>();
-            //for()
-
-            //for (int i = 0; i < test.)
+            for(int i=0; i<subject.Count; i++)
+            {
+                result.Add(new VSubject(i, subject.ElementAt(i)));
+            }
         }
 
         public List<VSubject> getResult()
