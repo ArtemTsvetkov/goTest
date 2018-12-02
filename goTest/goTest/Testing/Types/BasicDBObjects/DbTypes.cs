@@ -1,5 +1,6 @@
 ﻿using goTest.Testing.Types.BasicDBObjects.Interfaces;
 using goTest.Testing.Types.BasicDBObjects.Realization;
+using goTest.Testing.Types.BasicDBObjects.Realization.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace goTest.Testing.Types.BasicDBObjects
     static class DbTypes
     {
         public static DbObject developStatus = new DevelopStatusType();
+        public static DbObject user = new User();
         public static DbObject questionT = new QuestionTType();
         public static DbObject question = new Types.BasicDBObjects.Realization.QuestionType();
         public static DbObject schema = new SchemaType();

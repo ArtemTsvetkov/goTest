@@ -33,11 +33,10 @@ namespace goTest.Testing.Realization
         public GoTestModel()
         {
             queryConfigurator = new GoTestQueryConfigurator();
-            subjectManipulator = new SubjectManipulator(queryConfigurator);
             UnswerManipalator unswerManipalator = new UnswerManipalator(queryConfigurator);
-            testManipulator = new TestManipulator(unswerManipalator,
-                subjectManipulator, queryConfigurator, 
+            testManipulator = new TestManipulator(unswerManipalator, queryConfigurator, 
                 new QuestionManipulator(unswerManipalator, queryConfigurator));
+            subjectManipulator = new SubjectManipulator(queryConfigurator, testManipulator);
             store = new List<Subject>();
             searcher = new TestObjectsSearcher();
         }
@@ -91,7 +90,7 @@ namespace goTest.Testing.Realization
                 subject.Tests.Add(currentTest);
 
 
-                testManipulator.create(subject);
+                testManipulator.create(currentTest, subject.Id);
             }
             catch(Exception ex)
             {
@@ -237,7 +236,7 @@ namespace goTest.Testing.Realization
         {
             try
             {
-                testManipulator.update(store.ElementAt(0));
+                testManipulator.update(store.ElementAt(0).Tests.ElementAt(0), store.ElementAt(0).Id);
             }
             catch (Exception ex)
             {

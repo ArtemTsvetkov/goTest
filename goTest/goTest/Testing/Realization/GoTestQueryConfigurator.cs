@@ -268,16 +268,16 @@ namespace goTest.Testing.Realization
 
         private string getSubQueryForGettingQuestionsTypeId(QuestionType type)
         {
-            return "SELECT id FROM Objects WHERE Type" + 
+            return "(SELECT id FROM Objects WHERE Type" + 
                 "=" + getSubQueryForGettingTypeId(DbTypes.questionT.getName()) + 
-                " AND name='" + type.getType() + "'";
+                " AND name='" + type.getType() + "')";
         }
 
         private string getSubQueryForGettingUnswersTypeId(UnswerType type)
         {
-            return "SELECT id FROM Objects WHERE Type" +
+            return "(SELECT id FROM Objects WHERE Type" +
                 "=" + getSubQueryForGettingTypeId(DbTypes.unswerT.getName()) +
-                " AND name='" + type.getType() + "'";
+                " AND name='" + type.getType() + "')";
         }
     }
 }

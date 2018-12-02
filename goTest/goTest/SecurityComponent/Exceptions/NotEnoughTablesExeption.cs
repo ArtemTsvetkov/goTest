@@ -18,7 +18,7 @@ namespace goTest.SecurityComponent.Exceptions
         {
             ExceptionViewInterface<InformationPopupWindowConfig> view = new InformationPopupWindow();
             InformationPopupWindowConfig config = new InformationPopupWindowConfig(
-                "В базе данных отсутствуют необходимые таблицы. Начат процесс их создания.");
+                "В базе данных отсутствуют необходимые таблицы или(и) объекты.");
             view.setConfig(config);
             view.show();
         }

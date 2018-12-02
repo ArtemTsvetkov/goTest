@@ -12,17 +12,14 @@ namespace goTest.Testing.Interfaces.Manipulators.Workers
     class TestLoader
     {
         UnswerManipalatorI unswerManipalator;
-        SubjectManipulatorI subjectManipulator;
         GoTestQueryConfiguratorI queryConfigurator;
         QuestionManipulatorI questionManipulator;
         RandomQuestionsGetter questionsGetter;
 
         public TestLoader(UnswerManipalatorI unswerManipalator,
-            SubjectManipulatorI subjectManipulator,
             GoTestQueryConfiguratorI goTestQueryConfigurator,
             QuestionManipulatorI questionManipulator)
         {
-            this.subjectManipulator = subjectManipulator;
             this.unswerManipalator = unswerManipalator;
             queryConfigurator = goTestQueryConfigurator;
             this.questionManipulator = questionManipulator;

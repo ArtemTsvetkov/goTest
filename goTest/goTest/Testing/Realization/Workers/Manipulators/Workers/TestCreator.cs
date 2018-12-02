@@ -15,16 +15,13 @@ namespace goTest.Testing.Interfaces.Manipulators.Workers
     class TestCreator
     {
         UnswerManipalatorI unswerManipalator;
-        SubjectManipulatorI subjectManipulator;
         GoTestQueryConfiguratorI queryConfigurator;
         QuestionManipulatorI questionManipulator;
 
         public TestCreator(UnswerManipalatorI unswerManipalator,
-            SubjectManipulatorI subjectManipulator,
             GoTestQueryConfiguratorI goTestQueryConfigurator,
             QuestionManipulatorI questionManipulator)
         {
-            this.subjectManipulator = subjectManipulator;
             this.unswerManipalator = unswerManipalator;
             queryConfigurator = goTestQueryConfigurator;
             this.questionManipulator = questionManipulator;

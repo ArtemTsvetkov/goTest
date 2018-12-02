@@ -27,18 +27,17 @@ namespace goTest.SecurityComponent.Realization
                 SqlLiteSimpleExecute.execute(executer.checkDbTables()));
             //Create checking tables
             List<string[]> checkingTables = new List<string[]>();
-            for(int i=0; i<7; i++)
+            for(int i=0; i<6; i++)
             {
                 checkingTables.Add(new string[2]);
                 checkingTables.ElementAt(i)[1] = "no";
             }
-            checkingTables.ElementAt(0)[0] = "Users";
-            checkingTables.ElementAt(1)[0] = "Disciplines";
-            checkingTables.ElementAt(2)[0] = "Tests";
-            checkingTables.ElementAt(3)[0] = "Questions";
-            checkingTables.ElementAt(4)[0] = "Parameters_types";
-            checkingTables.ElementAt(5)[0] = "Parameters";
-            checkingTables.ElementAt(6)[0] = "Test_params";
+            checkingTables.ElementAt(0)[0] = "Types";
+            checkingTables.ElementAt(1)[0] = "Objects";
+            checkingTables.ElementAt(2)[0] = "Attributes";
+            checkingTables.ElementAt(3)[0] = "Schemas";
+            checkingTables.ElementAt(4)[0] = "Parameters";
+            checkingTables.ElementAt(5)[0] = "Objects_references";
             //Check tables
             if (checkingTables.Count > dbTables.Count())
             {
@@ -63,14 +62,6 @@ namespace goTest.SecurityComponent.Realization
                     {
                         throw new NotEnoughTablesExeption();
                     }
-                }
-
-                //Check admin
-                int count = DataSetConverter.fromDsToSingle.toInt.convert(
-                    SqlLiteSimpleExecute.execute(executer.checkExistAdmin()));
-                if(count==0)
-                {
-                    throw new AdminIsNotExist();
                 }
 
                 return true;

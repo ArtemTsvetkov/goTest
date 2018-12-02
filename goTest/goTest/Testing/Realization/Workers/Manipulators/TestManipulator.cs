@@ -19,15 +19,14 @@ namespace goTest.Testing.Realization.Workers.Manipulators
         private TestCreator testCreator;
 
         public TestManipulator(UnswerManipalatorI unswerManipalator,
-            SubjectManipulatorI subjectManipulator, 
             GoTestQueryConfiguratorI goTestQueryConfigurator,
             QuestionManipulatorI questionManipulator)
         {
-            testloader = new TestLoader(unswerManipalator, subjectManipulator,
+            testloader = new TestLoader(unswerManipalator,
                 goTestQueryConfigurator, questionManipulator);
-            testUpdater = new TestUpdater(unswerManipalator, subjectManipulator,
+            testUpdater = new TestUpdater(unswerManipalator,
                 goTestQueryConfigurator, questionManipulator);
-            testCreator = new TestCreator(unswerManipalator, subjectManipulator,
+            testCreator = new TestCreator(unswerManipalator,
                 goTestQueryConfigurator, questionManipulator);
         }
 

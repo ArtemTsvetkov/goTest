@@ -39,6 +39,7 @@ namespace goTest.CommonComponents.ExceptionHandler.Realization
                 handler.addException(new NotEnoughQuestions());
                 handler.addException(new ParamsTypesExceptions());
                 handler.addException(new NotApprowedObjectsFound());
+                handler.addException(new NotEnoughBasicObjects());
             }
             catch (Exception ex)
             {
