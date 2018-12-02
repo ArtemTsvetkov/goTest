@@ -30,34 +30,36 @@ namespace goTest.Testing.Interfaces.Manipulators.Workers
             goTestQueryConfigurator, questionManipulator);
         }
 
-        public Subject load(int testId)
+        public Test load(int testId, bool loadAllQuestions, bool loadOnlyTestNames)
         {
-            int subjId = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
-                execute(queryConfigurator.getSubjectId(testId)));
-            Subject sub = new Subject();
-            sub.Tests.ElementAt(0).Id = testId;
-            sub.Tests.ElementAt(0).Name = DataSetConverter.fromDsToSingle.toString.
-                convert(SqlLiteSimpleExecute.execute(queryConfigurator.getTestName(testId)));
+            Test test = new Test();
+            test.Id = testId;
+            test.Name = DataSetConverter.fromDsToSingle.toString.
+                convert(SqlLiteSimpleExecute.execute(queryConfigurator.loadTestName(testId)));
+            if (!loadOnlyTestNames)
+            {
+                test.QuestionsNumber = DataSetConverter.fromDsToSingle.toInt.
+                    convert(SqlLiteSimpleExecute.
+                    execute(queryConfigurator.loadTestQuestionCount(testId)));
 
-            sub = subjectManipulator.load(DataSetConverter.fromDsToSingle.toString.
-                convert(SqlLiteSimpleExecute.execute(queryConfigurator.getSubjectName(testId))));
+                test.RequeredUnswersNumber = DataSetConverter.fromDsToSingle.toInt.
+                    convert(SqlLiteSimpleExecute.execute(queryConfigurator.
+                    loadTestRequiredQuestionCount(testId)));
 
-            sub.Tests.ElementAt(0).QuestionsNumber = DataSetConverter.fromDsToSingle.toInt.
-                convert(SqlLiteSimpleExecute.
-                execute(queryConfigurator.getQuestionsNumber(testId)));
+                int[] questionsIds = DataSetConverter.fromDsToBuf.toIntBuf.convert(
+                    SqlLiteSimpleExecute.execute(queryConfigurator.loadTestQuestionIds(testId)));
+                if (loadAllQuestions)
+                {
+                    test.Questions = questionsGetter.get(questionsIds);
+                }
+                else
+                {
+                    test.Questions = questionsGetter.get(questionsIds,
+                        test.QuestionsNumber);
+                }
+            }
 
-            sub.Tests.ElementAt(0).RequeredUnswersNumber = DataSetConverter.fromDsToSingle.toInt.
-                convert(SqlLiteSimpleExecute.execute(queryConfigurator.getRequeredUnswersNumber(
-                    testId)));
-
-            int[] questionsIds = DataSetConverter.fromDsToBuf.toIntBuf.convert(SqlLiteSimpleExecute.
-                execute(queryConfigurator.getRequeredUnswersNumber(testId)));
-
-            sub.Tests.ElementAt(0).Questions = questionsGetter.get(questionsIds, 
-                sub.Tests.ElementAt(0).QuestionsNumber);
-
-
-            return sub;
+            return test;
         }
     }
 }

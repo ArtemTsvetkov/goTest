@@ -9,8 +9,8 @@ namespace goTest.Testing.Interfaces
 {
     interface TestManipulatorI
     {
-        Subject load(int testId);
-        void create(Subject test);
-        void update(Subject test);
+        Test load(int testId, bool loadAllQuestions, bool loadOnlyTestNames);
+        void create(Test test, int subjectId);
+        void update(Test test, int subjectId);
     }
 }

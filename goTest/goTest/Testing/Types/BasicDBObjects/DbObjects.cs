@@ -12,5 +12,9 @@ namespace goTest.Testing.Types.BasicDBObjects
     {
         public static DbObject mainSchema = new MainSchema();
         public static DbObject inApproveStatus = new InApproveStatus();
+        public static DbObject multiplyAnswer = new MultiplyAnswer();
+        public static DbObject rightUnswer = new Unswer.Realization.RightUnswer();
+        public static DbObject singleAnswer = new SingleAnswer();
+        public static DbObject unswer = new Unswer.Realization.Unswer();
     }
 }

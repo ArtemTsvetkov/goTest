@@ -25,5 +25,26 @@ namespace goTest.Testing.Interfaces
         string createUnswer(int questionId);
         string setUnswerContent(int unswerId, string content);
         string setUnswerType(int unswrId, UnswerType type);
+        string updateSubjectName(int subjectId, string newName);
+        string updateTestName(int testId, string newName);
+        string updateTestsQuestionsNumber(int testId, int count);
+        string updateTestsRequeredUnswersNumber(int testId, int count);
+        string updateQuestionContent(int questionId, string newContent);
+        string updateQuestionType(int questionId, DbObject questionType);
+        string updateUnswerContent(int unswerId, string newContent);
+        string updateUnswerType(int unswerId, DbObject unswerType);
+        string loadSubjectTestIds(int subjectId);
+        string loadTestQuestionIds(int testId);
+        string loadQuestionUnswersIds(int questionId);
+        string loadSubjectName(int subjectId);
+        string loadTestName(int testId);
+        string loadTestQuestionCount(int testId);
+        string loadTestRequiredQuestionCount(int testId);
+        string loadQuestionContent(int questionId);
+        string loadQuestionTypeId(int questionId);
+        string loadUnswerContent(int unswerId);
+        string loadUnswerTypeId(int unswerId);
+        string loadSubjectId(int testId);
+        string getObjectName(int objectId);
     }
 }

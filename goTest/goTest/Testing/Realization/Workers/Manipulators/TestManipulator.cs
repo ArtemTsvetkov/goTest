@@ -31,19 +31,19 @@ namespace goTest.Testing.Realization.Workers.Manipulators
                 goTestQueryConfigurator, questionManipulator);
         }
 
-        public void create(Subject test)
+        public void create(Test test, int subjectId)
         {
-            testCreator.create(test);
+            testCreator.create(test, subjectId);
         }
 
-        public Subject load(int testId)
+        public Test load(int testId, bool loadAllQuestions, bool loadOnlyTestNames)
         {
-            return testloader.load(testId);
+            return testloader.load(testId, loadAllQuestions, loadOnlyTestNames);
         }
 
-        public void update(Subject test)
+        public void update(Test test, int subjectId)
         {
-            testUpdater.update(test);
+            testUpdater.update(test, subjectId);
         }
     }
 }

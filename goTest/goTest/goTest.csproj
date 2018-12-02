@@ -208,11 +208,11 @@
     <Compile Include="Testing\Types\BasicDBObjects\Realization\Types\UnswerType.cs" />
     <Compile Include="Testing\Types\Question\Interfaces\QuestionType.cs" />
     <Compile Include="Testing\Types\Question\QuestionTypes.cs" />
-    <Compile Include="Testing\Types\Question\Realization\MultiplyAnswer.cs" />
-    <Compile Include="Testing\Types\Question\Realization\SingleAnswer.cs" />
+    <Compile Include="Testing\Types\BasicDBObjects\Realization\Objects\MultiplyAnswer.cs" />
+    <Compile Include="Testing\Types\BasicDBObjects\Realization\Objects\SingleAnswer.cs" />
     <Compile Include="Testing\Types\Unswer\Interfaces\UnswerType.cs" />
-    <Compile Include="Testing\Types\Unswer\Realization\RightUnswer.cs" />
-    <Compile Include="Testing\Types\Unswer\Realization\Unswer.cs" />
+    <Compile Include="Testing\Types\BasicDBObjects\Realization\Objects\RightUnswer.cs" />
+    <Compile Include="Testing\Types\BasicDBObjects\Realization\Objects\Unswer.cs" />
     <Compile Include="Testing\Types\Unswer\UnswerTypes.cs" />
     <Compile Include="Testing\Views\CreateSubjectView.cs" />
     <Compile Include="Testing\Views\CreateTestView.cs" />

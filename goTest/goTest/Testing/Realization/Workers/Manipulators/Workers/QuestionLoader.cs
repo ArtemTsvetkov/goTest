@@ -1,5 +1,6 @@
 ﻿using goTest.CommonComponents.DataConverters.Realization;
 using goTest.CommonComponents.WorkWithData.Realization.WorkWithDataBase.SqlLite;
+using goTest.Testing.Exceptions;
 using goTest.Testing.Interfaces;
 using goTest.Testing.Interfaces.Manipulators;
 using goTest.Testing.Objects;
@@ -29,34 +30,31 @@ namespace goTest.Testing.Realization.Workers.Manipulators.Workers
             Question question = new Question();
             question.Id = id;
             question.QuestionsContent = DataSetConverter.fromDsToSingle.toString.convert(
-                SqlLiteSimpleExecute.execute(queryConfigurator.getQuestionContent(id)));
-            int[] rightUnswersIds = DataSetConverter.fromDsToBuf.toIntBuf.convert(
-                SqlLiteSimpleExecute.execute(queryConfigurator.getQuestionParamsIds(id, 
-                ParamsTypes.ParamsTypes.rightUnswer)));
-            int[] noRigthUnswersIds = DataSetConverter.fromDsToBuf.toIntBuf.convert(
-               SqlLiteSimpleExecute.execute(queryConfigurator.getQuestionParamsIds(id,
-               ParamsTypes.ParamsTypes.unswer)));
+                SqlLiteSimpleExecute.execute(queryConfigurator.loadQuestionContent(id)));
+            int[] unswersIds = DataSetConverter.fromDsToBuf.toIntBuf.convert(
+                SqlLiteSimpleExecute.execute(queryConfigurator.loadQuestionUnswersIds(id)));
 
             question.Unswers = new List<Unswer>();
-            for (int i=0;i<rightUnswersIds.Count(); i++)
+            for (int i=0;i< unswersIds.Count(); i++)
             {
-                question.Unswers.Add(unswerManipalator.load(rightUnswersIds[i]));
-            }
-            for (int i = 0; i < noRigthUnswersIds.Count(); i++)
-            {
-                question.Unswers.Add(unswerManipalator.load(noRigthUnswersIds[i]));
+                question.Unswers.Add(unswerManipalator.load(unswersIds[i]));
             }
 
-            if(rightUnswersIds.Count()>1)
+            string questionType = DataSetConverter.fromDsToSingle.toString.convert(
+                SqlLiteSimpleExecute.execute(queryConfigurator.getObjectName(id)));
+
+            if (questionType.Equals(QuestionTypes.multiplyAnswer.getType()))
             {
                 question.QuestionsType = QuestionTypes.multiplyAnswer;
+                return question;
             }
-            else
+            if(questionType.Equals(QuestionTypes.singleAnswer.getType()))
             {
                 question.QuestionsType = QuestionTypes.singleAnswer;
+                return question;
             }
 
-            return question;
+            throw new ParamsTypesExceptions();
         }
     }
 }

@@ -6,6 +6,7 @@ using goTest.Testing.Interfaces;
 using goTest.Testing.Interfaces.Manipulators;
 using goTest.Testing.Objects;
 using goTest.Testing.Types;
+using goTest.Testing.Types.BasicDBObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace goTest.Testing.Realization.Workers.Manipulators.Workers
 
         public void update(Question question)
         {
-            SqlLiteSimpleExecute.execute(queryConfigurator.updateQuestion(question.Id,
+            SqlLiteSimpleExecute.execute(queryConfigurator.updateQuestionContent(question.Id,
                     question.QuestionsContent));
 
 
@@ -50,7 +51,17 @@ namespace goTest.Testing.Realization.Workers.Manipulators.Workers
             {
                 throw new QuestionTypeException();
             }
-            
+
+            if(question.QuestionsType.getType().Equals(DbObjects.multiplyAnswer.getName()))
+            {
+                SqlLiteSimpleExecute.execute(queryConfigurator.updateQuestionType(question.Id,
+                    DbObjects.multiplyAnswer));
+            }
+            else
+            {
+                SqlLiteSimpleExecute.execute(queryConfigurator.updateQuestionType(question.Id,
+                    DbObjects.singleAnswer));
+            }
 
             for (int i = 0; i < question.Unswers.Count; i++)
             {

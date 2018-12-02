@@ -54,17 +54,18 @@ namespace goTest.Testing.Realization.Workers.Manipulators
             Unswer unswer = new Unswer();
             unswer.Id = id;
             unswer.Content = DataSetConverter.fromDsToSingle.toString.convert(SqlLiteSimpleExecute.
-                    execute(queryConfigurator.getUnswerContent(id)));
+                    execute(queryConfigurator.loadUnswerContent(id)));
             string type = DataSetConverter.fromDsToSingle.toString.convert(SqlLiteSimpleExecute.
-                    execute(queryConfigurator.getUnswerTypeName(id)));
-            if(type.Equals(ParamsTypes.ParamsTypes.rightUnswer.getType()))
+                    execute(queryConfigurator.getObjectName(id)));
+            if(type.Equals(DbObjects.rightUnswer.getName()))
             {
                 unswer.IsRight = true;
                 return unswer;
             }
-            if(type.Equals(ParamsTypes.ParamsTypes.unswer.getType()))
+            if(type.Equals(DbObjects.unswer.getName()))
             {
                 unswer.IsRight = false;
+                return unswer;
             }
 
             throw new ParamsTypesExceptions();
@@ -74,18 +75,17 @@ namespace goTest.Testing.Realization.Workers.Manipulators
         {
             if (unswer.IsRight)
             {
-                int paramTypeId = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
-                    execute(queryConfigurator.getParametersTypeId(
-                        ParamsTypes.ParamsTypes.rightUnswer)));
-                SqlLiteSimpleExecute.execute(queryConfigurator.updateQuestionParam(unswer.Id,
-                    paramTypeId, unswer.Content));
+                SqlLiteSimpleExecute.execute(queryConfigurator.updateUnswerContent(
+                    unswer.Id, unswer.Content));
+                SqlLiteSimpleExecute.execute(queryConfigurator.updateUnswerType(
+                    unswer.Id, DbObjects.rightUnswer));
             }
             else
             {
-                int paramTypeId = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
-                    execute(queryConfigurator.getParametersTypeId(ParamsTypes.ParamsTypes.unswer)));
-                SqlLiteSimpleExecute.execute(queryConfigurator.updateQuestionParam(unswer.Id,
-                    paramTypeId, unswer.Content));
+                SqlLiteSimpleExecute.execute(queryConfigurator.updateUnswerContent(
+                    unswer.Id, unswer.Content));
+                SqlLiteSimpleExecute.execute(queryConfigurator.updateUnswerType(
+                    unswer.Id, DbObjects.unswer));
             }
         }
     }

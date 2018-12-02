@@ -23,6 +23,17 @@ namespace goTest.Testing.Interfaces.Manipulators.Workers
             this.questionManipulator = questionManipulator;
         }
 
+        public List<Question> get(int[] ids)
+        {
+            List<Question> questions = new List<Question>();
+
+            for (int i = 0; i < ids.Length; i++)
+            {
+                Question question = questionManipulator.load(ids[i]);
+            }
+            return questions;
+        }
+
         public List<Question> get(int[] ids, int count)
         {
             if(ids.Count()<count)
@@ -35,7 +46,19 @@ namespace goTest.Testing.Interfaces.Manipulators.Workers
             for(int i=0; i<count; i++)
             {
                 int a = rand.Next(0, (ids.Count()-1));
-                Question question = questionManipulator.load(ids[a]);
+                bool alreadyAdded = false;
+                for(int m=0; m<questions.Count; m++)
+                {
+                    if(questions.ElementAt(m).Id.Equals(a))
+                    {
+                        i--;
+                        alreadyAdded = true;
+                    }
+                }
+                if (!alreadyAdded)
+                {
+                    Question question = questionManipulator.load(ids[a]);
+                }
             }
 
 

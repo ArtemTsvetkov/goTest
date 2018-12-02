@@ -30,23 +30,22 @@ namespace goTest.Testing.Interfaces.Manipulators.Workers
             this.questionManipulator = questionManipulator;
         }
 
-        public void create(Subject subject)
+        public void create(Test test, int subjectId)
         {
-            SqlLiteSimpleExecute.execute(queryConfigurator.createTest(subject.Tests.
-                ElementAt(0).Name, subject.Id));
+            SqlLiteSimpleExecute.execute(queryConfigurator.createTest(test.Name, subjectId));
             
             int id = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
                 execute(queryConfigurator.getObjectIdInDevelopStatus(DbTypes.test)));
 
             SqlLiteSimpleExecute.execute(queryConfigurator.
-                setTestsQuestionsNumber(id, subject.Tests.ElementAt(0).QuestionsNumber));
+                setTestsQuestionsNumber(id, test.QuestionsNumber));
 
             SqlLiteSimpleExecute.execute(queryConfigurator.
-                setTestsRequeredUnswersNumber(id, subject.Tests.ElementAt(0).RequeredUnswersNumber));
+                setTestsRequeredUnswersNumber(id, test.RequeredUnswersNumber));
 
-            for(int i=0; i< subject.Tests.ElementAt(0).Questions.Count; i++)
+            for(int i=0; i< test.Questions.Count; i++)
             {
-                questionManipulator.create(subject.Tests.ElementAt(0).Questions.ElementAt(i),id);
+                questionManipulator.create(test.Questions.ElementAt(i),id);
             }
             SqlLiteSimpleExecute.execute(queryConfigurator.setApproveStatusToObject(
                 DbTypes.test));
