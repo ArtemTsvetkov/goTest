@@ -5,6 +5,7 @@ using goTest.CommonComponents.WorkWithData.Exceptions.DataBasesExceptions;
 using goTest.Navigator.Exceptions;
 using goTest.SecurityComponent.Encryption.Realization.Exceptions;
 using goTest.SecurityComponent.Exceptions;
+using goTest.Testing.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,12 @@ namespace goTest.CommonComponents.ExceptionHandler.Realization
                 handler.addException(new NotEnoughTablesExeption());
                 handler.addException(new AdminIsNotExist());
                 handler.addException(new BadCheckedPasswords());
+                handler.addException(new GoTestObjectNotFound());
+                handler.addException(new QuestionTypeException());
+                handler.addException(new NotEnoughQuestions());
+                handler.addException(new ParamsTypesExceptions());
+                handler.addException(new NotApprowedObjectsFound());
+                handler.addException(new NotEnoughBasicObjects());
             }
             catch (Exception ex)
             {

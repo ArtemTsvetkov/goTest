@@ -54,6 +54,7 @@ namespace goTest.SecurityComponent.Realization
         public void setConfig(string login, string password)
         {
             SecurityUserInterface user = new SecurityUser(login, password);
+            user.setAdmin(false);
             model.setConfig(user);
         }
 
@@ -64,12 +65,23 @@ namespace goTest.SecurityComponent.Realization
                 if (model.checkUser())
                 {
                     model.signIn();
-                    Navigator.Navigator.getInstance().navigateTo("MenuView");
                 }
                 else
                 {
                     throw new IncorrectUserData("Invalid login or password");
                 }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.getInstance().processing(ex);
+            }
+        }
+
+        public void signInAsStudent()
+        {
+            try
+            {
+                model.signInAsStudent();
             }
             catch (Exception ex)
             {

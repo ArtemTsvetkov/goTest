@@ -1,5 +1,6 @@
 ﻿using goTest.CommonComponents.BasicObjects;
 using goTest.CommonComponents.DataConverters;
+using goTest.CommonComponents.DataConverters.Exceptions;
 using goTest.CommonComponents.DataConverters.Realization;
 using goTest.CommonComponents.ExceptionHandler.Realization;
 using goTest.CommonComponents.ExceptionHandler.View.Information.PopupWindow;
@@ -17,6 +18,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace goTest.SecurityComponent.Realization
 {
@@ -42,10 +44,12 @@ namespace goTest.SecurityComponent.Realization
         public void addNewUser(SecurityUserInterface user)
         {
             string sult = hashWorker.getSult(user);
+            int id = DataSetConverter.fromDsToSingle.toInt.convert(
+                    SqlLiteSimpleExecute.execute(queryConfigurator.getUserId(user.getLogin())));
 
-            SqlLiteSimpleExecute.execute(queryConfigurator.addNewUser(
-                user.getLogin(), hashWorker.getHash(user.getPassword(), sult),
-                sult));
+            SqlLiteSimpleExecute.execute(queryConfigurator.setSult(id, sult));
+            SqlLiteSimpleExecute.execute(queryConfigurator.setPassword(id, 
+                hashWorker.getHash(user.getPassword(), sult)));
             InformationPopupWindow view = new InformationPopupWindow();
             InformationPopupWindowConfig config = new InformationPopupWindowConfig(
                 "Пользователь: " + user.getLogin() + " успешно добавлен!");
@@ -89,9 +93,11 @@ namespace goTest.SecurityComponent.Realization
 
         private string getSultForCurrentUser()
         {
+            int id = DataSetConverter.fromDsToSingle.toInt.convert(
+                    SqlLiteSimpleExecute.execute(queryConfigurator.getUserId(
+                        currentUser.getLogin())));
             string currentSult = DataSetConverter.fromDsToSingle.toString.convert(
-                SqlLiteSimpleExecute.execute(queryConfigurator.getSult(
-                currentUser.getLogin())));
+                SqlLiteSimpleExecute.execute(queryConfigurator.getSult(id)));
 
             return currentSult;
         }
@@ -108,12 +114,18 @@ namespace goTest.SecurityComponent.Realization
             try
             {
                 dbCheker.check(config);
+                BasicObjectsChecker checker = new BasicObjectsChecker(queryConfigurator);
+                checker.check();
             }
-            catch(NotEnoughTablesExeption ex)
+            catch (NotEnoughBasicObjects ex)
             {
                 ExceptionHandler.getInstance().processing(ex);
-                createTables();
-                loadStore();
+                onCheckDbException();
+            }
+            catch (NotEnoughTablesExeption ex)
+            {
+                ExceptionHandler.getInstance().processing(ex);
+                onCheckDbException();
             }
             catch(AdminIsNotExist ex)
             {
@@ -129,6 +141,7 @@ namespace goTest.SecurityComponent.Realization
         public void signIn()
         {
             currentUser.setEnterIntoSystem(true);
+            currentUser.setAdmin(true);
 
             notifyObservers();
         } 
@@ -141,9 +154,15 @@ namespace goTest.SecurityComponent.Realization
             }
             else
             {
-                if (DataSetConverter.fromDsToSingle.toString.convert(
-                        SqlLiteSimpleExecute.execute(queryConfigurator.getSult(
-                        currentUser.getLogin()))) == null)
+                try
+                {
+                    int id = DataSetConverter.fromDsToSingle.toInt.convert(
+                        SqlLiteSimpleExecute.execute(queryConfigurator.getUserId(
+                        currentUser.getLogin())));
+                    DataSetConverter.fromDsToSingle.toString.convert(
+                        SqlLiteSimpleExecute.execute(queryConfigurator.getSult(id)));
+                }
+                catch(СonversionError ex)
                 {
                     return false;
                 }
@@ -203,6 +222,33 @@ namespace goTest.SecurityComponent.Realization
                 {
                     ExceptionHandler.getInstance().processing(ex);
                 }
+            }
+        }
+
+        public void signInAsStudent()
+        {
+            currentUser.setEnterIntoSystem(true);
+
+            notifyObservers();
+        }
+
+        private void onCheckDbException()
+        {
+            if (MessageBox.Show(
+                "Вы хотите продолжить? При продолжении БД будет восстановлена до исходного " +
+                "состояния",
+                "Сообщение",
+                MessageBoxButtons.OKCancel,
+                MessageBoxIcon.Question,
+                MessageBoxDefaultButton.Button1,
+                MessageBoxOptions.DefaultDesktopOnly) == DialogResult.OK)
+            {
+                createTables();
+                loadStore();
+            }
+            else
+            {
+                Environment.Exit(0);
             }
         }
     }

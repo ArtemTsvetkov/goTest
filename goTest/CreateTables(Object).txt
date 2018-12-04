@@ -1,0 +1,6 @@
+CREATE TABLE Types(id integer PRIMARY KEY AUTOINCREMENT NOT NULL, name text UNIQUE NOT NULL);
+CREATE TABLE Objects(id integer PRIMARY KEY AUTOINCREMENT NOT NULL, parent_id integer, name text NOT NULL, type integer NOT NULL, FOREIGN KEY (type) REFERENCES Types(id), FOREIGN KEY (parent_id) REFERENCES Objects(id));
+CREATE TABLE Attributes(id integer PRIMARY KEY AUTOINCREMENT NOT NULL, name text UNIQUE NOT NULL, description text);
+CREATE TABLE Schemas(id integer NOT NULL, type_id integer NOT NULL, attr_id integer NOT NULL, FOREIGN KEY (id) REFERENCES Objects(id), FOREIGN KEY (type_id) REFERENCES Types(id), FOREIGN KEY (attr_id) REFERENCES Attributes(id));
+CREATE TABLE Parameters(object_id integer NOT NULL, attr_id integer NOT NULL, value text NOT NULL, FOREIGN KEY (object_id) REFERENCES Objects(id), FOREIGN KEY (attr_id) REFERENCES Attributes(id));
+CREATE TABLE Objects_references(object_id integer NOT NULL, reference integer NOT NULL, attr_id integer NOT NULL, FOREIGN KEY (object_id) REFERENCES Objects(id), FOREIGN KEY (reference) REFERENCES Objects(id), FOREIGN KEY (attr_id) REFERENCES Attributes(id));

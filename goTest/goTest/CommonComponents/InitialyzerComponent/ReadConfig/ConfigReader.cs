@@ -37,7 +37,7 @@ namespace goTest.CommonComponents.InitialyzerComponent.ReadConfig
             }
             else
             {
-                throw new NoConfigurationSpecified("No configuration specified, check ini-files");
+                throw new NoConfigurationSpecified("No database file found: go Test.db.");
             }
         }
 

@@ -9,6 +9,8 @@ namespace goTest.SecurityComponent.Interfaces
     interface SecurityControllerInterface
     {
         void signIn();
+        //this user only use go test function
+        void signInAsStudent();
         void signOut();
         void changeUserPassword(string oldPassword, string newPassword);
         void addNewUser(string login, string password);

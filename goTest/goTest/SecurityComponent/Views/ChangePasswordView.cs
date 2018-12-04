@@ -25,5 +25,12 @@ namespace goTest.SecurityComponent.Views
         {
             return "ChangePasswordView";
         }
+
+        public void reset()
+        {
+            form.textBox6Elem.Text = "";
+            form.textBox7Elem.Text = "";
+            form.textBox8Elem.Text = "";
+        }
     }
 }

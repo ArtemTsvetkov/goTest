@@ -25,5 +25,10 @@ namespace goTest.SecurityComponent.Views
         {
             return "CreateAdminView";
         }
+
+        public void reset()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -13,5 +13,6 @@ namespace goTest.Navigator.Basic
         void navigateToPreviousView();
         void navigateToNextView();
         string getCurrentViewsName();
+        void resetCurrentView();
     }
 }

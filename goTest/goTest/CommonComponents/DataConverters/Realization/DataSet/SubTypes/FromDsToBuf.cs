@@ -12,5 +12,7 @@ namespace goTest.CommonComponents.DataConverters.Realization
     {
         public DataConverter<DataSet, string[]> toStringBuf = 
             new FromDsToStringBufConverter();
+        public DataConverter<DataSet, int[]> toIntBuf =
+            new FromDsToIntBufConverter();
     }
 }

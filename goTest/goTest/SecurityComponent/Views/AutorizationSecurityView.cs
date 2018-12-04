@@ -34,7 +34,14 @@ namespace goTest.SecurityComponent.Views
                 {
                     try
                     {
-                        //Navigator.Navigator.getInstance().navigateTo("ModelingView");
+                        if (currentUser.isAdmin())
+                        {
+                            Navigator.Navigator.getInstance().navigateTo("AdminMenuView");
+                        }
+                        else
+                        {
+                            Navigator.Navigator.getInstance().navigateTo("StudentMenuView");
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -44,6 +51,7 @@ namespace goTest.SecurityComponent.Views
                 else
                 {
                     form.textBox2Elem.Text = "";
+                    form.textBox1Elem.Text = "";
                     Navigator.Navigator.getInstance().navigateTo("AutorizationSecurityView");
                 }
             }
@@ -57,6 +65,12 @@ namespace goTest.SecurityComponent.Views
         public string getName()
         {
             return "AutorizationSecurityView";
+        }
+
+        public void reset()
+        {
+            form.textBox2Elem.Text = "";
+            form.textBox1Elem.Text = "";
         }
     }
 }
