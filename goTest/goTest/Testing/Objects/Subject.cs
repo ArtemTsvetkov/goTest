@@ -17,6 +17,19 @@ namespace goTest.Testing.Objects
             tests = new List<Test>();
         }
 
+        public Subject copy()
+        {
+            Subject copy = new Subject();
+            copy.name = name;
+            copy.id = id;
+            for(int i=0; i<tests.Count; i++)
+            {
+                copy.tests.Add(tests.ElementAt(i).copy());
+            }
+
+            return copy;
+        }
+
         public string Name
         {
             get

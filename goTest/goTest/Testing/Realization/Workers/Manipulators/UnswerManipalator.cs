@@ -55,8 +55,10 @@ namespace goTest.Testing.Realization.Workers.Manipulators
             unswer.Id = id;
             unswer.Content = DataSetConverter.fromDsToSingle.toString.convert(SqlLiteSimpleExecute.
                     execute(queryConfigurator.loadUnswerContent(id)));
+            int typeId = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
+                    execute(queryConfigurator.loadUnswerTypeId(id)));
             string type = DataSetConverter.fromDsToSingle.toString.convert(SqlLiteSimpleExecute.
-                    execute(queryConfigurator.getObjectName(id)));
+                    execute(queryConfigurator.getObjectName(typeId)));
             if(type.Equals(DbObjects.rightUnswer.getName()))
             {
                 unswer.IsRight = true;

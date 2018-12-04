@@ -39,6 +39,16 @@ namespace goTest.Testing.Objects
             return true;
         }
 
+        public Unswer copy()
+        {
+            Unswer copy = new Unswer();
+            copy.content = content;
+            copy.id = id;
+            copy.isRight = isRight;
+
+            return copy;
+        }
+
         public bool IsRight
         {
             get

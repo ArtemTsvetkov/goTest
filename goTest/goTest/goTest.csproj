@@ -150,11 +150,12 @@
     <Compile Include="SecurityComponent\Views\ChangePasswordView.cs" />
     <Compile Include="SecurityComponent\Views\CreateAdminView.cs" />
     <Compile Include="Testing\Exceptions\GoTestObjectNotFound.cs" />
+    <Compile Include="Testing\Exceptions\NotAllAreasIsFill.cs" />
     <Compile Include="Testing\Exceptions\NotApprowedObjectsFound.cs" />
     <Compile Include="Testing\Exceptions\NotEnoughQuestions.cs" />
+    <Compile Include="Testing\Exceptions\ObjectAlreadyCreated.cs" />
     <Compile Include="Testing\Exceptions\ParamsTypesExceptions.cs" />
     <Compile Include="Testing\Exceptions\QuestionTypeException.cs" />
-    <Compile Include="Testing\Interfaces\Config.cs" />
     <Compile Include="Testing\Interfaces\GoTestAdapterI.cs" />
     <Compile Include="Testing\Interfaces\GoTestControllerI.cs" />
     <Compile Include="Testing\Interfaces\GoTestModelI.cs" />
@@ -167,7 +168,6 @@
     <Compile Include="Testing\Objects\ViewsObjects\VSubject.cs" />
     <Compile Include="Testing\Objects\ViewsObjects\VTest.cs" />
     <Compile Include="Testing\Objects\ViewsObjects\VUnswer.cs" />
-    <Compile Include="Testing\Realization\Workers\Configs\GetTestContentConfig.cs" />
     <Compile Include="Testing\Realization\Workers\GoTestAdapter.cs" />
     <Compile Include="Testing\Realization\Workers\Manipulators\Workers\QuestionCreator.cs" />
     <Compile Include="Testing\Realization\Workers\Manipulators\Workers\QuestionLoader.cs" />

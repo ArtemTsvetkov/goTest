@@ -123,6 +123,16 @@ namespace goTest
             get { return label27; }
         }
 
+        public ComboBox comboBox3Elem
+        {
+            get { return comboBox3; }
+        }
+
+        public ComboBox comboBox5Elem
+        {
+            get { return comboBox5; }
+        }
+
         //
         //Events
         //
@@ -227,26 +237,54 @@ namespace goTest
         private void button10_Click(object sender, EventArgs e)
         {
             Navigator.Navigator.getInstance().navigateTo("UpdateSubjectView");
+            iniComponents.goTestController.loadAllSubjects();
         }
 
         //Go to update test view button
         private void button7_Click(object sender, EventArgs e)
         {
             Navigator.Navigator.getInstance().navigateTo("UpdateTestView");
+            iniComponents.goTestController.loadAllSubjects();
         }
 
         //Go to questions view button
         private void button11_Click(object sender, EventArgs e)
         {
-            Navigator.Navigator.getInstance().navigateTo("QuestionsView");
+            if (!textBox9.Text.Equals("") & comboBox1.SelectedIndex != -1 &
+                numericUpDown1.Value > 1 & numericUpDown2.Value <= numericUpDown1.Value)
+            {
+                Navigator.Navigator.getInstance().navigateTo("QuestionsView");
+            }
+            else
+            {
+                throw new NotAllAreasIsFill();
+            }
         }
 
         //Go to next update test view
         private void button23_Click(object sender, EventArgs e)
         {
-            Navigator.Navigator.getInstance().navigateTo("CreateTestView");
-            iniComponents.goTestController.getFullTestContent(iniComponents.
-                сreateTestViewAdapter.getResult().ElementAt(0).Tests.ElementAt(0).Id);
+            for(int i=0; i<iniComponents.updateTestViewAdapter.getResult().Count; i++)
+            {
+                if(comboBox5.SelectedIndex == iniComponents.updateTestViewAdapter.
+                    getResult().ElementAt(i).getPosition())
+                {
+                    VSubject currentSubject = iniComponents.updateTestViewAdapter.
+                    getResult().ElementAt(i);
+                    for(int m=0; m<currentSubject.Tests.Count; m++)
+                    {
+                        if(currentSubject.Tests.ElementAt(m).getPosition()==
+                            comboBox4.SelectedIndex)
+                        {
+                            VTest currenTest = currentSubject.Tests.ElementAt(m);
+                            Navigator.Navigator.getInstance().navigateTo("CreateTestView");
+                            iniComponents.goTestController.getFullTestContent(currenTest.Id);
+                            return;
+                        }
+                    }
+                }
+            }
+            throw new GoTestObjectNotFound();
         }
 
         //Cancel from create subject view
@@ -302,9 +340,11 @@ namespace goTest
         {
             try
             {
-                iniComponents.goTestController.createTest(textBox9.Text, 
+                /*iniComponents.goTestController.createTest(textBox9.Text, 
                     comboBox1.Text, int.Parse(numericUpDown1.Value.ToString()), 
-                    int.Parse(numericUpDown2.Value.ToString()));
+                    int.Parse(numericUpDown2.Value.ToString()));*/
+                //Должно быть что-то вроде save test(в случае update view-update test)
+                //Притом без параметров, все данные нового теста уже лежат в модели
             }
             catch (Exception ex)
             {
@@ -546,6 +586,25 @@ namespace goTest
                 question.QuestionsContent = dataGridView2.Rows[e.RowIndex].Cells[1].
                     Value.ToString();
                 iniComponents.goTestController.updateSelected(question);
+            }
+        }
+
+        private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            comboBox4.Items.Clear();
+            for (int i=0; i<iniComponents.updateTestViewAdapter.getResult().Count; i++)
+            {
+                if(iniComponents.updateTestViewAdapter.getResult().
+                    ElementAt(i).getPosition() == comboBox5.SelectedIndex)
+                {
+                    VSubject subject = iniComponents.updateTestViewAdapter.getResult().ElementAt(i);
+                    for (int m=0; m<subject.Tests.Count(); m++)
+                    {
+                        comboBox4.Items.Add(subject.Tests.ElementAt(m).Name);
+                    }
+                    comboBox4.Text = "";
+                    comboBox4.SelectedIndex = -1;
+                }
             }
         }
     }

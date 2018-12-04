@@ -53,6 +53,20 @@ namespace goTest.Testing.Objects
            return true;
         }
 
+        public Question copy()
+        {
+            Question copy = new Question();
+            copy.id = id;
+            copy.questionsContent = questionsContent;
+            copy.questionsType = questionsType;
+            for(int i=0; i<unswers.Count; i++)
+            {
+                copy.unswers.Add(unswers.ElementAt(i).copy());
+            }
+
+            return copy;
+        }
+
         internal QuestionType QuestionsType
         {
             get

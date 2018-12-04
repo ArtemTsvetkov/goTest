@@ -58,7 +58,8 @@ namespace goTest.CommonComponents.InitialyzerComponent
                 //
                 //goTest component
                 //
-                components.goTestController = new GoTestController();
+                GoTestModel goTestModel = new GoTestModel();
+                components.goTestController = new GoTestController(goTestModel);
                 components.questionsViewAdapter = new GoTestAdapter();
                 components.updateSubjectViewAdapter = new GoTestAdapter();
                 components.updateTestViewAdapter = new GoTestAdapter();
@@ -73,9 +74,9 @@ namespace goTest.CommonComponents.InitialyzerComponent
                 Navigator.Navigator.getInstance().addView(new StudentMenuView(form));
                 Navigator.Navigator.getInstance().addView(new ChangePasswordView(form));
                 Navigator.Navigator.getInstance().addView(new UpdateTestView(form,
-                    components.updateTestViewAdapter));
+                    components.updateTestViewAdapter, goTestModel));
                 Navigator.Navigator.getInstance().addView(new UpdateSubjectView(form, 
-                    components.updateSubjectViewAdapter));
+                    components.updateSubjectViewAdapter, goTestModel));
                 Navigator.Navigator.getInstance().addView(new CreateSubjectView(form, 
                     components.сreateSubjectViewAdapter));
                 Navigator.Navigator.getInstance().addView(new CreateTestView(form,

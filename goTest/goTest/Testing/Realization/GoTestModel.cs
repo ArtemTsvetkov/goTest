@@ -3,6 +3,7 @@ using goTest.CommonComponents.DataConverters;
 using goTest.CommonComponents.DataConverters.Exceptions;
 using goTest.CommonComponents.DataConverters.Realization;
 using goTest.CommonComponents.ExceptionHandler.Realization;
+using goTest.CommonComponents.ExceptionHandler.View.Information.PopupWindow;
 using goTest.CommonComponents.WorkWithData.Realization.WorkWithDataBase.SqlLite;
 using goTest.Testing.Exceptions;
 using goTest.Testing.Interfaces;
@@ -19,7 +20,7 @@ using System.Threading.Tasks;
 
 namespace goTest.Testing.Realization
 {
-    class GoTestModel : BasicModel<List<Subject>, Config>, GoTestModelI 
+    class GoTestModel : BasicModel<List<Subject>, List<Subject>>, GoTestModelI 
     {
         private List<Subject> store;
         private List<Subject> result;
@@ -43,11 +44,28 @@ namespace goTest.Testing.Realization
 
         public void createSubject(string name)
         {
+            Subject subject = new Subject();
+            subject.Name = name;
             try
             {
-                Subject subject = new Subject();
-                subject.Name = name;
-                subjectManipulator.create(subject);
+                subjectManipulator.load(subject.Name, true, false);
+                throw new ObjectAlreadyCreated();  
+            }
+            catch (ObjectAlreadyCreated ex)
+            {
+                ExceptionHandler.getInstance().processing(ex);
+            }
+            catch (СonversionError ex)
+            {
+                try
+                {
+                    subjectManipulator.create(subject);
+                    showInformationMessage("Дисциплина успешно добавлена");
+                }
+                catch(Exception e)
+                {
+                    ExceptionHandler.getInstance().processing(e);
+                }
             }
             catch (Exception ex)
             {
@@ -55,7 +73,15 @@ namespace goTest.Testing.Realization
             }
         }
 
-        public void createTest(string name, string subjectName, int questionsNumber, 
+        private void showInformationMessage(string message)
+        {
+            InformationPopupWindow view = new InformationPopupWindow();
+            InformationPopupWindowConfig config = new InformationPopupWindowConfig(message);
+            view.setConfig(config);
+            view.show();
+        }
+
+        public void createTest(string name, int subjectId, int questionsNumber, 
             int requeredUnswersNumber)
         {
             try
@@ -78,19 +104,20 @@ namespace goTest.Testing.Realization
                 catch(СonversionError er)
                 {
                 }
-                
+
                 Subject subject = new Subject();
                 Test currentTest = new Test();
                 currentTest.Name = name;
                 currentTest.RequeredUnswersNumber = requeredUnswersNumber;
                 currentTest.QuestionsNumber = questionsNumber;
 
-                subject.Id = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
-                    execute(queryConfigurator.getSubjectId(subjectName)));
+                subject.Id = subjectId;
                 subject.Tests.Add(currentTest);
 
+                List<Subject> newConfig = new List<Subject>();
+                newConfig.Add(subject);
 
-                testManipulator.create(currentTest, subject.Id);
+                setConfig(newConfig);
             }
             catch(Exception ex)
             {
@@ -138,7 +165,8 @@ namespace goTest.Testing.Realization
         {
             try
             {
-                store = config.loadStore();
+                store = copy(config);
+                result = copy(config);
                 notifyObservers();
             }
             catch(Exception ex)
@@ -160,9 +188,20 @@ namespace goTest.Testing.Realization
                 Unswers.ElementAt(arg[1]);
         }
 
-        public override void setConfig(Config configData)
+        public override void setConfig(List<Subject> configData)
         {
-            config = configData;
+            config = copy(configData);
+        }
+
+        private List<Subject> copy(List<Subject> obj)
+        {
+            List<Subject> copy = new List<Subject>();
+            for (int i = 0; i < obj.Count; i++)
+            {
+                copy.Add(obj.ElementAt(i).copy());
+            }
+
+            return copy;
         }
 
         public void setQuestionSelection(int id)
@@ -242,6 +281,36 @@ namespace goTest.Testing.Realization
             {
                 ExceptionHandler.getInstance().processing(ex);
             }
+        }
+
+        public int[] getAllSubjectIds()
+        {
+            return DataSetConverter.fromDsToBuf.toIntBuf.convert(SqlLiteSimpleExecute.
+                    execute(queryConfigurator.getAllSubjectIds()));
+        }
+
+        public Subject getSubject(int id)
+        {
+            string name = DataSetConverter.fromDsToSingle.toString.convert(SqlLiteSimpleExecute.
+                    execute(queryConfigurator.getObjectName(id)));
+
+            return subjectManipulator.load(name, true, true);
+        }
+
+        public void loadAllTestContent(int testId)
+        {
+            List<Subject> newConfig = new List<Subject>();
+            Subject newSubject = new Subject();
+            newSubject.Tests.Add(testManipulator.load(testId, true, false));
+            newSubject.Id = DataSetConverter.fromDsToSingle.toInt.
+                convert(SqlLiteSimpleExecute.execute(queryConfigurator.loadSubjectId(testId)));
+            newSubject.Name = DataSetConverter.fromDsToSingle.toString.
+                convert(SqlLiteSimpleExecute.execute(queryConfigurator.
+                loadSubjectName(newSubject.Id)));
+            newConfig.Add(newSubject);
+
+            setConfig(newConfig);
+            loadStore();
         }
     }
 }

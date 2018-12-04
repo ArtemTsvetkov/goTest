@@ -13,7 +13,7 @@ namespace goTest.Testing.Realization.Workers
     {
         private List<VSubject> result;
 
-        public void adapte(List<Subject> subject, int position)
+        public void adapte(List<Subject> subject)
         {
             result = new List<VSubject>();
             for(int i=0; i<subject.Count; i++)

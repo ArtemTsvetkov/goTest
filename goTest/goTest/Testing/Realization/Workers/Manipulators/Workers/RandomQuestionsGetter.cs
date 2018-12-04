@@ -29,7 +29,7 @@ namespace goTest.Testing.Interfaces.Manipulators.Workers
 
             for (int i = 0; i < ids.Length; i++)
             {
-                Question question = questionManipulator.load(ids[i]);
+                questions.Add(questionManipulator.load(ids[i]));
             }
             return questions;
         }
@@ -57,7 +57,7 @@ namespace goTest.Testing.Interfaces.Manipulators.Workers
                 }
                 if (!alreadyAdded)
                 {
-                    Question question = questionManipulator.load(ids[a]);
+                    questions.Add(questionManipulator.load(ids[a]));
                 }
             }
 

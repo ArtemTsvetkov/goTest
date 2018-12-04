@@ -19,6 +19,21 @@ namespace goTest.Testing.Objects
             questions = new List<Question>();
         }
 
+        public Test copy()
+        {
+            Test copy = new Test();
+            copy.name = name;
+            copy.questionsNumber = questionsNumber;
+            copy.requeredUnswersNumber = requeredUnswersNumber;
+            copy.id = id;
+            for(int i=0; i<questions.Count; i++)
+            {
+                copy.questions.Add(questions.ElementAt(i).copy());
+            }
+
+            return copy;
+        }
+
         internal List<Question> Questions
         {
             get

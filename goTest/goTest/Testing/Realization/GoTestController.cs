@@ -1,7 +1,6 @@
 ﻿using goTest.CommonComponents.ExceptionHandler.Realization;
 using goTest.Testing.Interfaces;
 using goTest.Testing.Objects;
-using goTest.Testing.Realization.Workers.Configs;
 using goTest.Testing.Types;
 using System;
 using System.Collections.Generic;
@@ -16,9 +15,9 @@ namespace goTest.Testing.Realization
         //ДОБАВИТЬ БЛОКИ TRY CATCH
         private GoTestModel model;
 
-        public GoTestController()
+        public GoTestController(GoTestModel model)
         {
-            model = new GoTestModel();
+            this.model = model;
         }
 
         public void createSubject(string name)
@@ -26,10 +25,10 @@ namespace goTest.Testing.Realization
             model.createSubject(name);
         }
 
-        public void createTest(string name, string subject, int questionsNumber, 
+        public void createTest(string name, int subjectId, int questionsNumber, 
             int requeredUnswersNumber)
         {
-            model.createTest(name, subject, questionsNumber, requeredUnswersNumber);
+            model.createTest(name, subjectId, questionsNumber, requeredUnswersNumber);
         }
 
         public void deleteQuestion()
@@ -64,9 +63,7 @@ namespace goTest.Testing.Realization
 
         public void getFullTestContent(int testId)
         {
-            Config config = new GetTestContentConfig();
-            model.setConfig(config);
-            model.loadStore();
+            model.loadAllTestContent(testId);
         }
 
         public void updateSelected(Question newVersion)
@@ -91,6 +88,18 @@ namespace goTest.Testing.Realization
             {
                 ExceptionHandler.getInstance().processing(ex);
             }
+        }
+
+        public void loadAllSubjects()
+        {
+            int[] ids = model.getAllSubjectIds();
+            List<Subject> subjects = new List<Subject>();
+            for (int i=0; i<ids.Length; i++)
+            {
+                subjects.Add(model.getSubject(ids[i]));
+            }
+            model.setConfig(subjects);
+            model.loadStore();
         }
     }
 }
