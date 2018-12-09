@@ -94,21 +94,19 @@
             this.label26 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.tabPage9 = new System.Windows.Forms.TabPage();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button25 = new System.Windows.Forms.Button();
             this.button26 = new System.Windows.Forms.Button();
             this.button21 = new System.Windows.Forms.Button();
             this.button19 = new System.Windows.Forms.Button();
             this.label27 = new System.Windows.Forms.Label();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.textBox11 = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Questions = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button12 = new System.Windows.Forms.Button();
             this.button14 = new System.Windows.Forms.Button();
             this.label16 = new System.Windows.Forms.Label();
             this.tabPage10 = new System.Windows.Forms.TabPage();
@@ -616,6 +614,7 @@
             this.numericUpDown2.Name = "numericUpDown2";
             this.numericUpDown2.Size = new System.Drawing.Size(60, 32);
             this.numericUpDown2.TabIndex = 35;
+            this.numericUpDown2.ValueChanged += new System.EventHandler(this.numericUpDown2_ValueChanged);
             // 
             // numericUpDown1
             // 
@@ -624,6 +623,7 @@
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(60, 32);
             this.numericUpDown1.TabIndex = 34;
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // comboBox1
             // 
@@ -633,6 +633,7 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(236, 33);
             this.comboBox1.TabIndex = 33;
+            this.comboBox1.TextChanged += new System.EventHandler(this.comboBox1_TextChanged);
             // 
             // label21
             // 
@@ -685,6 +686,7 @@
             this.textBox9.Name = "textBox9";
             this.textBox9.Size = new System.Drawing.Size(236, 32);
             this.textBox9.TabIndex = 25;
+            this.textBox9.TextChanged += new System.EventHandler(this.textBox9_TextChanged);
             // 
             // label17
             // 
@@ -880,18 +882,16 @@
             // tabPage9
             // 
             this.tabPage9.BackgroundImage = global::goTest.Properties.Resources.bg;
+            this.tabPage9.Controls.Add(this.dataGridView2);
             this.tabPage9.Controls.Add(this.button25);
             this.tabPage9.Controls.Add(this.button26);
             this.tabPage9.Controls.Add(this.button21);
             this.tabPage9.Controls.Add(this.button19);
             this.tabPage9.Controls.Add(this.label27);
-            this.tabPage9.Controls.Add(this.dataGridView2);
             this.tabPage9.Controls.Add(this.textBox11);
             this.tabPage9.Controls.Add(this.label24);
             this.tabPage9.Controls.Add(this.label23);
-            this.tabPage9.Controls.Add(this.comboBox2);
             this.tabPage9.Controls.Add(this.dataGridView1);
-            this.tabPage9.Controls.Add(this.button12);
             this.tabPage9.Controls.Add(this.button14);
             this.tabPage9.Controls.Add(this.label16);
             this.tabPage9.Location = new System.Drawing.Point(4, 22);
@@ -901,6 +901,37 @@
             this.tabPage9.TabIndex = 8;
             this.tabPage9.Text = "tabPage9";
             this.tabPage9.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView2
+            // 
+            this.dataGridView2.AllowUserToAddRows = false;
+            this.dataGridView2.AllowUserToDeleteRows = false;
+            this.dataGridView2.AllowUserToResizeColumns = false;
+            this.dataGridView2.AllowUserToResizeRows = false;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4});
+            this.dataGridView2.Location = new System.Drawing.Point(176, 366);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.Size = new System.Drawing.Size(381, 175);
+            this.dataGridView2.TabIndex = 64;
+            this.dataGridView2.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellClick_1);
+            this.dataGridView2.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellValueChanged_1);
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.HeaderText = "Ответ";
+            this.dataGridViewTextBoxColumn3.MinimumWidth = 235;
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.Width = 235;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "Он правильный (1-да, 0-нет)";
+            this.dataGridViewTextBoxColumn4.MinimumWidth = 143;
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.Width = 143;
             // 
             // button25
             // 
@@ -953,36 +984,9 @@
             this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label27.Location = new System.Drawing.Point(684, 67);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(134, 26);
+            this.label27.Size = new System.Drawing.Size(0, 26);
             this.label27.TabIndex = 58;
-            this.label27.Text = "Вопрос 5/32";
-            // 
-            // dataGridView2
-            // 
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2});
-            this.dataGridView2.Location = new System.Drawing.Point(176, 366);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(381, 175);
-            this.dataGridView2.TabIndex = 57;
-            this.dataGridView2.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellClick);
-            this.dataGridView2.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellValueChanged);
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Ответ";
-            this.Column1.MinimumWidth = 235;
-            this.Column1.Name = "Column1";
-            this.Column1.Width = 235;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Он правильный (1-да, 0-нет)";
-            this.Column2.MinimumWidth = 143;
-            this.Column2.Name = "Column2";
-            this.Column2.Width = 143;
+            this.label27.Visible = false;
             // 
             // textBox11
             // 
@@ -991,6 +995,7 @@
             this.textBox11.Name = "textBox11";
             this.textBox11.Size = new System.Drawing.Size(381, 178);
             this.textBox11.TabIndex = 56;
+            this.textBox11.TextChanged += new System.EventHandler(this.textBox11_TextChanged);
             // 
             // label24
             // 
@@ -1008,35 +1013,27 @@
             this.label23.AutoSize = true;
             this.label23.BackColor = System.Drawing.Color.Transparent;
             this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label23.Location = new System.Drawing.Point(13, 67);
+            this.label23.Location = new System.Drawing.Point(13, 366);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(137, 26);
+            this.label23.Size = new System.Drawing.Size(89, 26);
             this.label23.TabIndex = 53;
-            this.label23.Text = "Тип вопроса";
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "Единственный ответ",
-            "Множество ответов"});
-            this.comboBox2.Location = new System.Drawing.Point(176, 64);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(236, 33);
-            this.comboBox2.TabIndex = 52;
+            this.label23.Text = "Ответы";
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToResizeColumns = false;
+            this.dataGridView1.AllowUserToResizeRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Questions});
             this.dataGridView1.Location = new System.Drawing.Point(689, 120);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(375, 421);
             this.dataGridView1.TabIndex = 44;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
-            this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValueChanged);
             // 
             // Questions
             // 
@@ -1047,25 +1044,14 @@
             this.Questions.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.Questions.Width = 371;
             // 
-            // button12
-            // 
-            this.button12.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button12.Location = new System.Drawing.Point(281, 563);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(131, 38);
-            this.button12.TabIndex = 43;
-            this.button12.Text = "Отмена";
-            this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.button12_Click);
-            // 
             // button14
             // 
             this.button14.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button14.Location = new System.Drawing.Point(681, 563);
+            this.button14.Location = new System.Drawing.Point(481, 563);
             this.button14.Name = "button14";
             this.button14.Size = new System.Drawing.Size(131, 38);
             this.button14.TabIndex = 42;
-            this.button14.Text = "Обновить";
+            this.button14.Text = "Вернуться";
             this.button14.UseVisualStyleBackColor = true;
             this.button14.Click += new System.EventHandler(this.button14_Click);
             // 
@@ -1279,17 +1265,12 @@
         private System.Windows.Forms.Button button20;
         private System.Windows.Forms.TextBox textBox12;
         private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button button14;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Questions;
         private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.TextBox textBox11;
         private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.Button button21;
         private System.Windows.Forms.Button button19;
         private System.Windows.Forms.Label label27;
@@ -1304,6 +1285,9 @@
         private System.Windows.Forms.Button button24;
         private System.Windows.Forms.Button button25;
         private System.Windows.Forms.Button button26;
+        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
     }
 }
 

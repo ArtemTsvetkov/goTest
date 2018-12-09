@@ -9,11 +9,11 @@ INSERT INTO Parameters VALUES(10, 4, 'First Question Content');
 INSERT INTO Objects_references VALUES(10, 2, 3);
 
 INSERT INTO Objects VALUES(null, 9, 'Second Question', (SELECT id FROM Types WHERE Name='Question'));
-INSERT INTO Parameters VALUES(11, 4, 'First Question Content');
+INSERT INTO Parameters VALUES(11, 4, 'Second Question Content');
 INSERT INTO Objects_references VALUES(11, 2, 3);
 
 INSERT INTO Objects VALUES(null, 9, 'Third Question', (SELECT id FROM Types WHERE Name='Question'));
-INSERT INTO Parameters VALUES(12, 4, 'First Question Content');
+INSERT INTO Parameters VALUES(12, 4, 'Third Question Content');
 INSERT INTO Objects_references VALUES(12, 3, 3);
 
 INSERT INTO OBJECTS VALUES(null, 10, 'First Unswer on First Question', (SELECT id FROM Types WHERE Name='Unswer'));
@@ -32,5 +32,5 @@ INSERT INTO OBJECTS VALUES(null, 12, 'First Unswer on Third Question', (SELECT i
 INSERT INTO OBJECTS VALUES(null, 12, 'Second Unswer on Third Question', (SELECT id FROM Types WHERE Name='Unswer'));
 INSERT INTO Parameters VALUES(17, 4, 'First Unswer on Third Question Content');
 INSERT INTO Parameters VALUES(18, 4, 'Second Unswer on Third Question Content');
-INSERT INTO Objects_references VALUES(17, 5, 5);
-INSERT INTO Objects_references VALUES(18, 5, 5);
+INSERT INTO Objects_references VALUES(17, 4, 5);
+INSERT INTO Objects_references VALUES(18, 4, 5);

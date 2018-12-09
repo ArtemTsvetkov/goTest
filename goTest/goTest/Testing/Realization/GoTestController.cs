@@ -31,29 +31,14 @@ namespace goTest.Testing.Realization
             model.createTest(name, subjectId, questionsNumber, requeredUnswersNumber);
         }
 
-        public void deleteQuestion()
+        public void deleteQuestion(int questionId)
         {
-            model.deleteQuestion();
+            model.deleteQuestion(questionId);
         }
 
-        public void deleteUnswer()
+        public void deleteUnswer(int unswerId)
         {
-            model.deleteUnswer();
-        }
-
-        public void getFullQuestionContent()
-        {
-            model.getQuestionsFullContent();
-        }
-
-        public void setUnswerSelection(int id)
-        {
-            model.setUnswerSelection(id);
-        }
-
-        public void setQuestionSelection(int id)
-        {
-            model.setQuestionSelection(id);
+            model.deleteUnswer(unswerId);
         }
 
         public void updateSubject(int id, string newName)
@@ -63,14 +48,21 @@ namespace goTest.Testing.Realization
 
         public void getFullTestContent(int testId)
         {
+            int[] ids = model.getAllSubjectIds();
+            List<Subject> subjects = new List<Subject>();
+            for (int i = 0; i < ids.Length; i++)
+            {
+                subjects.Add(model.getSubject(ids[i]));
+            }
+            model.setConfig(subjects);
             model.loadAllTestContent(testId);
         }
 
-        public void updateSelected(Question newVersion)
+        public void update(int questionId, Question newVersion)
         {
             try
             {
-                model.updateSelected(newVersion);
+                model.update(questionId, newVersion);
             }
             catch(Exception ex)
             {
@@ -78,11 +70,23 @@ namespace goTest.Testing.Realization
             }
         }
 
-        public void updateSelected(Unswer newVersion)
+        public void update(int unswerId, Unswer newVersion)
         {
             try
             {
-                model.updateSelected(newVersion);
+                model.update(unswerId, newVersion);
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.getInstance().processing(ex);
+            }
+        }
+
+        public void update(int testId, Test newVersion)
+        {
+            try
+            {
+                model.update(testId, newVersion);
             }
             catch (Exception ex)
             {

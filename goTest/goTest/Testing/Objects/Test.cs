@@ -1,4 +1,6 @@
-﻿using System;
+﻿using goTest.Testing.Exceptions;
+using goTest.Testing.Realization.Workers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +19,53 @@ namespace goTest.Testing.Objects
         public Test()
         {
             questions = new List<Question>();
+        }
+
+        public IntHierarchy searchObjectIndex(int objectId)
+        {
+            try
+            {
+                return getQuestionIndex(objectId);
+            }
+            catch (GoTestObjectNotFound ex)
+            {
+                return getChildIndex(objectId);
+            }
+        }
+
+        private IntHierarchy getQuestionIndex(int questionId)
+        {
+            for (int i = 0; i < questions.Count; i++)
+            {
+                if (questions.ElementAt(i).Id == questionId)
+                {
+                    IntHierarchy hi = new IntHierarchy(new Question().GetType());
+                    hi.value = i;
+                    return hi;
+                }
+            }
+
+            throw new GoTestObjectNotFound();
+        }
+
+        private IntHierarchy getChildIndex(int id)
+        {
+            for (int i = 0; i < questions.Count; i++)
+            {
+                try
+                {
+                    IntHierarchy hi = new IntHierarchy(new Unswer().GetType());
+                    hi.value = questions.ElementAt(i).getUnswerIndex(id);
+                    IntHierarchy hi2 = new IntHierarchy(new Question().GetType(), hi);
+                    hi2.value = i;
+                    return hi2;
+                }
+                catch (GoTestObjectNotFound ex)
+                {
+                }
+            }
+
+            throw new GoTestObjectNotFound();
         }
 
         public Test copy()

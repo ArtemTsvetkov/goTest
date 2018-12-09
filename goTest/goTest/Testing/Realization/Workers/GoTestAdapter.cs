@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using goTest.Testing.Objects;
 using goTest.Testing.Objects.ViewsObjects;
+using goTest.Testing.Exceptions;
 
 namespace goTest.Testing.Realization.Workers
 {

@@ -13,9 +13,7 @@ namespace goTest.CommonComponents.InitialyzerComponent
         public SecurityControllerInterface securityController;
         public GoTestControllerI goTestController;
         public GoTestAdapterI сreateSubjectViewAdapter;
-        public GoTestAdapterI сreateTestViewAdapter;
         public GoTestAdapterI questionsViewAdapter;
         public GoTestAdapterI updateSubjectViewAdapter;
-        public GoTestAdapterI updateTestViewAdapter;
     }
 }

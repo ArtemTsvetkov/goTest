@@ -1,4 +1,5 @@
-﻿using goTest.Testing.Types;
+﻿using goTest.Testing.Exceptions;
+using goTest.Testing.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,19 @@ namespace goTest.Testing.Objects
         public Question()
         {
             unswers = new List<Unswer>();
+        }
+
+        public int getUnswerIndex(int unswerId)
+        {
+            for(int i=0; i<unswers.Count; i++)
+            {
+                if (unswers.ElementAt(i).Id == unswerId)
+                {
+                    return i;
+                }
+            }
+
+            throw new GoTestObjectNotFound();
         }
 
         public string QuestionsContent
