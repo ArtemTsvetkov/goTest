@@ -228,27 +228,65 @@ namespace goTest.Testing.Realization
 
         public void update(int id, Question newVersion)
         {
+            int questionIndex = -1;
             IntHierarchy hi = searcher.getQuestionPosition(store, id);
             if (!hi.getLastListType().Equals(new Question().GetType()))
             {
-                throw new GoTestObjectNotFound();
+                if (id == 0 && hi.getLastListType().Equals(new Test().GetType()))
+                {
+                    Test tst = store.ElementAt(hi.value).Tests.ElementAt(hi.getChild().value);
+                    for (int i = 0; i < tst.Questions.Count; i++)
+                    {
+                        if (tst.Questions.ElementAt(i).Id == 0)
+                        {
+                            questionIndex = i;
+                        }
+                    }
+                    if (questionIndex == -1)
+                    {
+                        throw new GoTestObjectNotFound();
+                    }
+                }
+                else
+                {
+                    throw new GoTestObjectNotFound();
+                }
             }
             else
             {
-                store.ElementAt(hi.value).Tests.ElementAt(hi.getChild().value).
-                    Questions.RemoveAt(hi.getChild().getChild().value);
-                store.ElementAt(hi.value).Tests.ElementAt(hi.getChild().value).
-                    Questions.Insert(hi.getChild().getChild().value, newVersion);
-                notifyObservers();
+                questionIndex = hi.getChild().getChild().value;
             }
+            store.ElementAt(hi.value).Tests.ElementAt(hi.getChild().value).
+                    Questions.RemoveAt(questionIndex);
+            store.ElementAt(hi.value).Tests.ElementAt(hi.getChild().value).
+                Questions.Insert(questionIndex, newVersion);
+            notifyObservers();
         }
 
         public void update(int id, Unswer newVersion)
         {
             IntHierarchy hi = searcher.getQuestionPosition(store, id);
+            int questionIndex = -1;
             int unswerIndex = -1;
             if (!hi.getLastListType().Equals(new Unswer().GetType()))
             {
+                if (id == 0 && hi.getLastListType().Equals(new Test().GetType()))
+                {
+                    Test tst = store.ElementAt(hi.value).Tests.ElementAt(hi.getChild().value);
+                    for (int i = 0; i < tst.Questions.Count; i++)
+                    {
+                        if (tst.Questions.ElementAt(i).Id == 0)
+                        {
+                            questionIndex = i;
+                            unswerIndex = searchUnswerWithZeroIdInQuestionWithZeroId(
+                                tst.Questions.ElementAt(i));
+                        }
+                    }
+                    if (questionIndex == -1)
+                    {
+                        throw new GoTestObjectNotFound();
+                    }
+                }
                 if (id == 0 && hi.getLastListType().Equals(new Question().GetType()))
                 {
                     Question que = store.ElementAt(hi.value).Tests.ElementAt(hi.getChild().value).
@@ -257,6 +295,7 @@ namespace goTest.Testing.Realization
                     {
                         if (que.Unswers.ElementAt(i).Id == 0)
                         {
+                            questionIndex = hi.getChild().getChild().value;
                             unswerIndex = i;
                         }
                     }
@@ -272,12 +311,13 @@ namespace goTest.Testing.Realization
             }
             else
             {
+                questionIndex = hi.getChild().getChild().value;
                 unswerIndex = hi.getChild().getChild().getChild().value;
             }
 
             int rightUnswersCount = 1;
             Question question = store.ElementAt(hi.value).Tests.ElementAt(hi.getChild().value).
-                Questions.ElementAt(hi.getChild().getChild().value);
+                Questions.ElementAt(questionIndex);
             for (int i = 0; i < question.Unswers.Count; i++)
             {
                 if (question.Unswers.ElementAt(i).IsRight)
@@ -294,10 +334,10 @@ namespace goTest.Testing.Realization
                 question.QuestionsType = QuestionTypes.singleAnswer;
             }
             store.ElementAt(hi.value).Tests.ElementAt(hi.getChild().value).
-                Questions.ElementAt(hi.getChild().getChild().value).Unswers.
+                Questions.ElementAt(questionIndex).Unswers.
                 RemoveAt(unswerIndex);
             store.ElementAt(hi.value).Tests.ElementAt(hi.getChild().value).
-                Questions.ElementAt(hi.getChild().getChild().value).Unswers.
+                Questions.ElementAt(questionIndex).Unswers.
                 Insert(unswerIndex, newVersion);
 
 
@@ -419,6 +459,18 @@ namespace goTest.Testing.Realization
                     {
                         return store.ElementAt(i).Tests.ElementAt(m);
                     }
+                }
+            }
+            throw new GoTestObjectNotFound();
+        }
+
+        private int searchUnswerWithZeroIdInQuestionWithZeroId(Question question)
+        {
+            for (int i = 0; i < question.Unswers.Count; i++)
+            {
+                if (question.Unswers.ElementAt(i).Id == 0)
+                {
+                    return i;
                 }
             }
             throw new GoTestObjectNotFound();

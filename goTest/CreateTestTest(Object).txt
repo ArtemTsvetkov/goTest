@@ -34,3 +34,15 @@ INSERT INTO Parameters VALUES(17, 4, 'First Unswer on Third Question Content');
 INSERT INTO Parameters VALUES(18, 4, 'Second Unswer on Third Question Content');
 INSERT INTO Objects_references VALUES(17, 4, 5);
 INSERT INTO Objects_references VALUES(18, 4, 5);
+
+INSERT INTO objects_references VALUES(8,6,6);
+INSERT INTO objects_references VALUES(9,6,6);
+INSERT INTO objects_references VALUES(10,6,6);
+INSERT INTO objects_references VALUES(11,6,6);
+INSERT INTO objects_references VALUES(12,6,6);
+INSERT INTO objects_references VALUES(13,6,6);
+INSERT INTO objects_references VALUES(14,6,6);
+INSERT INTO objects_references VALUES(15,6,6);
+INSERT INTO objects_references VALUES(16,6,6);
+INSERT INTO objects_references VALUES(17,6,6);
+INSERT INTO objects_references VALUES(18,6,6);
