@@ -1,4 +1,5 @@
-﻿using System;
+﻿using goTest.Testing.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,21 @@ namespace goTest.Testing.Objects
             set
             {
                 content = value;
+            }
+        }
+
+        public void isValid()
+        {
+            if (content == null)
+            {
+                throw new ObjectNotValid("Ответ: " + id + " не содержит контент");
+            }
+            else
+            {
+                if (content.Equals(""))
+                {
+                    throw new ObjectNotValid("Ответ: " + id + " не содержит контент");
+                }
             }
         }
 

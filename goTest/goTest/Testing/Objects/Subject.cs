@@ -19,6 +19,30 @@ namespace goTest.Testing.Objects
             tests = new List<Test>();
         }
 
+        public void isValid()
+        {
+            if(id<=0)
+            {
+                throw new ObjectNotValid("Один из предметов не содержит идентификатор, обратитесь" +
+                    " к администратору");
+            }
+            if(name==null)
+            {
+                throw new ObjectNotValid("У предмета с id:"+id+" не задано имя");
+            }
+            else
+            {
+                if(name.Equals(""))
+                {
+                    throw new ObjectNotValid("У предмета с id:" + id + " не задано имя");
+                }
+            }
+            for(int i=0; i<tests.Count; i++)
+            {
+                tests.ElementAt(i).isValid();
+            }
+        }
+
         public IntHierarchy searchObjectIndex(int objectId)
         {
             try

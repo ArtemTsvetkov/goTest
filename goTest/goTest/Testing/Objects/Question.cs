@@ -20,6 +20,47 @@ namespace goTest.Testing.Objects
             unswers = new List<Unswer>();
         }
 
+        public void isValid()
+        {
+            if (questionsContent == null)
+            {
+                throw new ObjectNotValid("Вопрос: " + id + " не содержит контент");
+            }
+            else
+            {
+                if (questionsContent.Equals(""))
+                {
+                    throw new ObjectNotValid("Ответ: " + id + " не содержит контент");
+                }
+            }
+            if (questionsType == null)
+            {
+                throw new ObjectNotValid("Неизвестный тип вопроса у вопроса: " + questionsContent);
+            }
+            if (unswers.Count < 2)
+            {
+                throw new ObjectNotValid("Вопрос: " + questionsContent+" должен иметь хотя бы 2 "+
+                    "варианта ответов");
+            }
+            int countOfRightUnswer = 1;
+            for (int i = 0; i < unswers.Count; i++)
+            {
+                if(unswers.ElementAt(i).IsRight)
+                {
+                    countOfRightUnswer++;
+                }
+            }
+            if(countOfRightUnswer<1)
+            {
+                throw new ObjectNotValid("Вопрос: " + questionsContent + " должен иметь хотя бы "+
+                    "1 правильный ответ"); ;
+            }
+            for (int i = 0; i < unswers.Count; i++)
+            {
+                unswers.ElementAt(i).isValid();
+            }
+        }
+
         public int getUnswerIndex(int unswerId)
         {
             for(int i=0; i<unswers.Count; i++)

@@ -154,6 +154,8 @@
     <Compile Include="Testing\Exceptions\NotApprowedObjectsFound.cs" />
     <Compile Include="Testing\Exceptions\NotEnoughQuestions.cs" />
     <Compile Include="Testing\Exceptions\ObjectAlreadyCreated.cs" />
+    <Compile Include="Testing\Exceptions\ObjectIsNotExistYet.cs" />
+    <Compile Include="Testing\Exceptions\ObjectNotValid.cs" />
     <Compile Include="Testing\Exceptions\ParamsTypesExceptions.cs" />
     <Compile Include="Testing\Exceptions\QuestionTypeException.cs" />
     <Compile Include="Testing\Interfaces\GoTestAdapterI.cs" />

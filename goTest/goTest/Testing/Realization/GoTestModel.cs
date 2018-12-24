@@ -39,7 +39,31 @@ namespace goTest.Testing.Realization
             searcher = new TestObjectsSearcher();
         }
 
-        public void createSubject(string name)
+        public void updateTestInBD()
+        {
+            for(int i=0; i<store.Count; i++)
+            {
+                for (int m = 0; m < store.ElementAt(i).Tests.Count; m++)
+                {
+                    if(store.ElementAt(i).Tests.ElementAt(m).IsSelected)
+                    {
+                        try
+                        {
+                            testManipulator.update(store.ElementAt(i).Tests.ElementAt(m),
+                                store.ElementAt(i).Id);
+                        }
+                        catch (ObjectIsNotExistYet ex)
+                        {
+                            testManipulator.create(store.ElementAt(i).Tests.ElementAt(m),
+                                store.ElementAt(i).Id);
+                        }
+                        return;
+                    }
+                }
+            }
+        }
+
+        public void createSubjectInBD(string name)
         {
             Subject subject = new Subject();
             subject.Name = name;
@@ -78,7 +102,7 @@ namespace goTest.Testing.Realization
             view.show();
         }
 
-        public void createTest(string name, int subjectId, int questionsNumber, 
+        /*public void createTest(string name, int subjectId, int questionsNumber, 
             int requeredUnswersNumber)
         {
             try
@@ -120,7 +144,7 @@ namespace goTest.Testing.Realization
             {
                 ExceptionHandler.getInstance().processing(ex);
             }
-        }
+        }*/
 
         public void deleteQuestion(int id)
         {
@@ -222,40 +246,62 @@ namespace goTest.Testing.Realization
         public void update(int id, Unswer newVersion)
         {
             IntHierarchy hi = searcher.getQuestionPosition(store, id);
+            int unswerIndex = -1;
             if (!hi.getLastListType().Equals(new Unswer().GetType()))
             {
-                throw new GoTestObjectNotFound();
-            }
-            else
-            {
-                int rightUnswersCount = 1;
-                Question question = store.ElementAt(hi.value).Tests.ElementAt(hi.getChild().value).
+                if (id == 0 && hi.getLastListType().Equals(new Question().GetType()))
+                {
+                    Question que = store.ElementAt(hi.value).Tests.ElementAt(hi.getChild().value).
                     Questions.ElementAt(hi.getChild().getChild().value);
-                for (int i = 0; i < question.Unswers.Count; i++)
-                {
-                    if (question.Unswers.ElementAt(i).IsRight)
+                    for (int i = 0; i < que.Unswers.Count; i++)
                     {
-                        rightUnswersCount++;
+                        if (que.Unswers.ElementAt(i).Id == 0)
+                        {
+                            unswerIndex = i;
+                        }
                     }
-                }
-                if (rightUnswersCount > 1)
-                {
-                    question.QuestionsType = QuestionTypes.multiplyAnswer;
+                    if(unswerIndex==-1)
+                    {
+                        throw new GoTestObjectNotFound();
+                    }
                 }
                 else
                 {
-                    question.QuestionsType = QuestionTypes.singleAnswer;
+                    throw new GoTestObjectNotFound();
                 }
-                store.ElementAt(hi.value).Tests.ElementAt(hi.getChild().value).
-                    Questions.ElementAt(hi.getChild().getChild().value).Unswers.
-                    RemoveAt(hi.getChild().getChild().getChild().value);
-                store.ElementAt(hi.value).Tests.ElementAt(hi.getChild().value).
-                    Questions.ElementAt(hi.getChild().getChild().value).Unswers.
-                    Insert(hi.getChild().getChild().getChild().value, newVersion);
-
-
-                notifyObservers();
             }
+            else
+            {
+                unswerIndex = hi.getChild().getChild().getChild().value;
+            }
+
+            int rightUnswersCount = 1;
+            Question question = store.ElementAt(hi.value).Tests.ElementAt(hi.getChild().value).
+                Questions.ElementAt(hi.getChild().getChild().value);
+            for (int i = 0; i < question.Unswers.Count; i++)
+            {
+                if (question.Unswers.ElementAt(i).IsRight)
+                {
+                    rightUnswersCount++;
+                }
+            }
+            if (rightUnswersCount > 1)
+            {
+                question.QuestionsType = QuestionTypes.multiplyAnswer;
+            }
+            else
+            {
+                question.QuestionsType = QuestionTypes.singleAnswer;
+            }
+            store.ElementAt(hi.value).Tests.ElementAt(hi.getChild().value).
+                Questions.ElementAt(hi.getChild().getChild().value).Unswers.
+                RemoveAt(unswerIndex);
+            store.ElementAt(hi.value).Tests.ElementAt(hi.getChild().value).
+                Questions.ElementAt(hi.getChild().getChild().value).Unswers.
+                Insert(unswerIndex, newVersion);
+
+
+            notifyObservers();
         }
 
         public void update(int id, Test test)
@@ -271,6 +317,7 @@ namespace goTest.Testing.Realization
                 {
                     store.ElementAt(hi.value).Tests.RemoveAt(hi.getChild().value);
                     store.ElementAt(hi.value).Tests.Insert(hi.getChild().value, test);
+                    notifyObservers();
                 } 
             }
             catch (Exception ex)
@@ -285,7 +332,7 @@ namespace goTest.Testing.Realization
                     execute(queryConfigurator.getAllSubjectIds()));
         }
 
-        public Subject getSubject(int id)
+        public Subject getSubjectFromBD(int id)
         {
             string name = DataSetConverter.fromDsToSingle.toString.convert(SqlLiteSimpleExecute.
                     execute(queryConfigurator.getObjectName(id)));
@@ -293,12 +340,13 @@ namespace goTest.Testing.Realization
             return subjectManipulator.load(name, true, true);
         }
 
-        public void loadAllTestContent(int testId)
+        public void loadAllTestContentFromBD(int testId)
         {
             Subject newSubject = new Subject();
             newSubject.Id = DataSetConverter.fromDsToSingle.toInt.
                     convert(SqlLiteSimpleExecute.execute(queryConfigurator.loadSubjectId(testId)));
             Test loadTest = testManipulator.load(testId, true, false);
+            loadTest.IsSelected = true;
 
             bool testAlreadyPreLoad = false;
             int subjectPosition = -1;
@@ -337,6 +385,43 @@ namespace goTest.Testing.Realization
             }
 
             loadStore();
+        }
+
+        public void addEmptyQuestion()
+        {
+            Test test = getCurrentTest();
+            test.Questions.Add(new Question());
+            notifyObservers();
+        }
+
+        public void addEmptyUnswer(int questionId)
+        {
+            Test test = getCurrentTest();
+            for(int i=0; i<test.Questions.Count; i++)
+            {
+                if(test.Questions.ElementAt(i).Id == questionId)
+                {
+                    test.Questions.ElementAt(i).Unswers.Add(new Unswer());
+                    notifyObservers();
+                    return;
+                }
+            }
+            throw new GoTestObjectNotFound();
+        }
+
+        private Test getCurrentTest()
+        {
+            for (int i = 0; i < store.Count; i++)
+            {
+                for (int m = 0; m < store.ElementAt(i).Tests.Count; m++)
+                {
+                    if (store.ElementAt(i).Tests.ElementAt(m).IsSelected)
+                    {
+                        return store.ElementAt(i).Tests.ElementAt(m);
+                    }
+                }
+            }
+            throw new GoTestObjectNotFound();
         }
     }
 }

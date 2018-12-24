@@ -47,5 +47,6 @@ namespace goTest.Testing.Interfaces
         string loadSubjectId(int testId);
         string getObjectName(int objectId);
         string getAllSubjectIds();
+        string countOfObject(int objectId);
     }
 }

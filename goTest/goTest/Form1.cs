@@ -19,6 +19,7 @@ using goTest.Testing.Exceptions;
 using goTest.Testing.Objects.ViewsObjects;
 using goTest.CommonComponents.ExceptionHandler.View.Information.PopupWindow;
 using goTest.Testing.Realization.Workers;
+using goTest.Testing.Interfaces;
 
 namespace goTest
 {
@@ -357,11 +358,17 @@ namespace goTest
         {
             try
             {
-                /*iniComponents.goTestController.createTest(textBox9.Text, 
-                    comboBox1.Text, int.Parse(numericUpDown1.Value.ToString()), 
-                    int.Parse(numericUpDown2.Value.ToString()));*/
-                //Должно быть что-то вроде save test(в случае update view-update test)
-                //Притом без параметров, все данные нового теста уже лежат в модели
+                List<VSubject> subjects = iniComponents.questionsViewAdapter.getResult();
+                for(int i=0; i<subjects.Count; i++)
+                {
+                    for(int m=0; m<subjects.ElementAt(i).Tests.Count; m++)
+                    {
+                        subjects.ElementAt(i).Tests.ElementAt(i).unRestore().isValid();
+                    }
+                }
+                iniComponents.goTestController.updateTestInBD();
+                showMessage("Тест успешно обновлен");
+                Navigator.Navigator.getInstance().navigateTo("AdminMenuView");
             }
             catch (Exception ex)
             {
@@ -396,12 +403,17 @@ namespace goTest
         {
             for (int i = 0; i < dataGridView1.RowCount; i++)
             {
-                if (dataGridView1.Rows[i].Cells[1].Value.ToString().Equals(""))
+                if (dataGridView1.Rows[i].Cells[0].Value == null)
+                {
+                    return;
+                }
+                if ( dataGridView1.Rows[i].Cells[0].Value.ToString().Equals(""))
                 {
                     return;
                 }
             }
             dataGridView1.Rows.Add(1);
+            iniComponents.goTestController.addEmptyQuestion();
         }
 
         //Delete queston from table
@@ -427,21 +439,47 @@ namespace goTest
         {
             for(int i=0; i<dataGridView2.RowCount; i++)
             {
-                if(dataGridView2.Rows[i].Cells[1].Value.ToString().Equals(""))
+                if (dataGridView2.Rows[i].Cells[0].Value == null)
+                {
+                    return;
+                }
+                if (dataGridView2.Rows[i].Cells[0].Value.ToString().Equals(""))
                 {
                     return;
                 }
             }
-            if (!dataGridView1.Rows[dataGridView1.SelectedRows[0].Index].Cells[0].Value.
-                ToString().Equals(""))
+            if(dataGridView1.SelectedCells.Count == 0)
             {
-                dataGridView2.Rows.Add(1);
+                MessageBox.Show(
+                        "Выберите вопрос",
+                        "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information,
+                        MessageBoxDefaultButton.Button1,
+                        MessageBoxOptions.DefaultDesktopOnly);
+                return;
+            }
+            if (dataGridView1.Rows[dataGridView1.SelectedCells[0].RowIndex].Cells[0].Value != null)
+            {
+                if (!dataGridView1.Rows[dataGridView1.SelectedCells[0].RowIndex].Cells[0].Value.
+                ToString().Equals(""))
+                {
+                    dataGridView2.Rows.Add(1);
+                    VQuestion question = getSelectedQuestion(iniComponents.questionsViewAdapter);
+                    iniComponents.goTestController.addEmptyUnswer(question.Id);
+                }
+                else
+                {
+                    MessageBox.Show(
+                        "Задайте текст для выбранного вопроса, прежде чем создавать ответ",
+                        "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information,
+                        MessageBoxDefaultButton.Button1,
+                        MessageBoxOptions.DefaultDesktopOnly);
+                }
             }
             else
             {
                 MessageBox.Show(
                     "Задайте текст для выбранного вопроса, прежде чем создавать ответ",
-                    "Сообщение", MessageBoxButtons.OK,MessageBoxIcon.Information,
+                    "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information,
                     MessageBoxDefaultButton.Button1,
                     MessageBoxOptions.DefaultDesktopOnly);
             }
@@ -472,16 +510,19 @@ namespace goTest
                         questions.ElementAt(i).IsSelected = true;
                         textBox11.Text = questions.ElementAt(i).QuestionsContent;
                         dataGridView2.Rows.Clear();
-                        dataGridView2.Rows.Add(questions.ElementAt(i).Unswers.Count);
-                        for (int m=0; m<questions.ElementAt(i).Unswers.Count; m++)
+                        if (questions.ElementAt(i).Unswers.Count > 0)
                         {
-                            dataGridView2.Rows[m].Cells[0].Value =
-                                questions.ElementAt(i).Unswers.ElementAt(m).Content;
-                            if(questions.ElementAt(i).Unswers.ElementAt(m).IsRight)
+                            dataGridView2.Rows.Add(questions.ElementAt(i).Unswers.Count);
+                            for (int m = 0; m < questions.ElementAt(i).Unswers.Count; m++)
                             {
-                                dataGridView2.Rows[m].Cells[1].Value = "+";
+                                dataGridView2.Rows[m].Cells[0].Value =
+                                    questions.ElementAt(i).Unswers.ElementAt(m).Content;
+                                if (questions.ElementAt(i).Unswers.ElementAt(m).IsRight)
+                                {
+                                    dataGridView2.Rows[m].Cells[1].Value = "+";
+                                }
+                                questions.ElementAt(i).Unswers.ElementAt(m).IsSelected = false;
                             }
-                            questions.ElementAt(i).Unswers.ElementAt(m).IsSelected = false;
                         }
                         if (dataGridView2.RowCount > 0)
                         {
@@ -499,9 +540,12 @@ namespace goTest
             {
                 if (e.RowIndex != -1)
                 {
-                    if (!dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString().Equals(""))
+                    if (dataGridView1.Rows[e.RowIndex].Cells[0].Value != null)
                     {
-                        ExceptionHandler.getInstance().processing(ex);
+                        if (!dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString().Equals(""))
+                        {
+                            ExceptionHandler.getInstance().processing(ex);
+                        }
                     }
                 }
             }
@@ -548,10 +592,13 @@ namespace goTest
             {
                 if (e.RowIndex != -1)
                 {
-                    if (!dataGridView2.Rows[e.RowIndex].Cells[0].Value.
-                    ToString().Equals(""))
+                    if (dataGridView2.Rows[e.RowIndex].Cells[0].Value != null)
                     {
-                        ExceptionHandler.getInstance().processing(ex);
+                        if (!dataGridView2.Rows[e.RowIndex].Cells[0].Value.
+                                ToString().Equals(""))
+                        {
+                            ExceptionHandler.getInstance().processing(ex);
+                        }
                     }
                 }
             }
@@ -574,15 +621,6 @@ namespace goTest
                 unswer.Content = dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString();
                 if (dataGridView2.Rows[e.RowIndex].Cells[1].Value == null)
                 {
-                    if(!isSelectedQuestionHasMinimumOneRightUnswer())
-                    {
-                        activateValueChangeListeners = false;
-                        dataGridView2.Rows[e.RowIndex].Cells[1].Value = "+";
-                        activateValueChangeListeners = true;
-                        showMessage("Необходимо, чтобы вопрос имел хотя бы 1 правильный ответ");
-                        return;
-                    }
-
                     unswer.IsRight = false;
                 }
                 else
@@ -768,21 +806,17 @@ namespace goTest
                 activateValueChangeListeners = true;
                 return;
             }
-            for (int i=0; i<iniComponents.questionsViewAdapter.getResult().Count; i++)
+            try
             {
-                if(iniComponents.questionsViewAdapter.getResult().ElementAt(i).IsSelected)
-                {
-                    Question question = iniComponents.questionsViewAdapter.
-                        getResult().ElementAt(i).getSelectedTest().
-                        getSelectedQuestion().unRestore();
-                    question.QuestionsContent = textBox11.Text;
-                    iniComponents.goTestController.update(question.Id, question);
-
-                    return;
-                }
+                Question question = getSelectedQuestion(iniComponents.questionsViewAdapter).
+                    unRestore();
+                question.QuestionsContent = textBox11.Text;
+                iniComponents.goTestController.update(question.Id, question);
             }
-
-            throw new GoTestObjectNotFound();
+            catch(Exception ex)
+            {
+                ExceptionHandler.getInstance().processing(ex);
+            }
         }
 
 
@@ -821,6 +855,10 @@ namespace goTest
         {
             for (int i = 0; i < dataGridView2.RowCount; i++)
             {
+                if (dataGridView2.Rows[i].Cells[1].Value==null)
+                {
+                    return false;
+                }
                 if (dataGridView2.Rows[i].Cells[1].Value.ToString().Equals("+"))
                 {
                     return true;
@@ -836,6 +874,19 @@ namespace goTest
             InformationPopupWindowConfig config = new InformationPopupWindowConfig(message);
             view.setConfig(config);
             view.show();
-        }        
+        }
+
+        private VQuestion getSelectedQuestion(GoTestAdapterI adapter)
+        {
+            for (int i = 0; i < iniComponents.questionsViewAdapter.getResult().Count; i++)
+            {
+                if (iniComponents.questionsViewAdapter.getResult().ElementAt(i).IsSelected)
+                {
+                    return adapter.getResult().ElementAt(i).getSelectedTest().
+                        getSelectedQuestion();
+                }
+            }
+            throw new GoTestObjectNotFound();
+        }
     }
 }

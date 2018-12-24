@@ -42,6 +42,7 @@ namespace goTest.CommonComponents.ExceptionHandler.Realization
                 handler.addException(new NotEnoughBasicObjects());
                 handler.addException(new ObjectAlreadyCreated());
                 handler.addException(new NotAllAreasIsFill());
+                handler.addException(new ObjectNotValid());
             }
             catch (Exception ex)
             {

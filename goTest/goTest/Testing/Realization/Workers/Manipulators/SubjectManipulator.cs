@@ -9,6 +9,7 @@ using goTest.CommonComponents.WorkWithData.Realization.WorkWithDataBase.SqlLite;
 using goTest.Testing.Interfaces;
 using goTest.CommonComponents.DataConverters.Realization;
 using goTest.Testing.Types.BasicDBObjects;
+using goTest.Testing.Exceptions;
 
 namespace goTest.Testing.Realization.Workers.Manipulators
 {
@@ -62,7 +63,14 @@ namespace goTest.Testing.Realization.Workers.Manipulators
 
             for(int i=0; i<subject.Tests.Count; i++)
             {
-                testManipulator.update(subject.Tests.ElementAt(i), subject.Id);
+                try
+                {
+                    testManipulator.update(subject.Tests.ElementAt(i), subject.Id);
+                }
+                catch(ObjectIsNotExistYet ex)
+                {
+                    testManipulator.create(subject.Tests.ElementAt(i), subject.Id);
+                }
             }
         }
     }

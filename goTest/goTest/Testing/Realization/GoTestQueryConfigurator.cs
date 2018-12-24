@@ -284,5 +284,10 @@ namespace goTest.Testing.Realization
                 "=" + getSubQueryForGettingTypeId(DbTypes.unswerT.getName()) +
                 " AND name='" + type.getType() + "')";
         }
+
+        public string countOfObject(int objectId)
+        {
+            return "SELECT COUNT(*) FROM OBJECTS WHERE id=" + objectId;
+        }
     }
 }

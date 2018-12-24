@@ -11,7 +11,6 @@ namespace goTest.Testing.Objects.ViewsObjects
     {
         private int position;
         private List<VQuestion> questions;
-        private bool isSelected;
 
         public VTest(int position, Test test)
         {
@@ -52,19 +51,6 @@ namespace goTest.Testing.Objects.ViewsObjects
         public int getPosition()
         {
             return position;
-        }
-
-        public bool IsSelected
-        {
-            get
-            {
-                return isSelected;
-            }
-
-            set
-            {
-                isSelected = value;
-            }
         }
 
         internal new List<VQuestion> Questions

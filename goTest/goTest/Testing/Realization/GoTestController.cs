@@ -22,14 +22,14 @@ namespace goTest.Testing.Realization
 
         public void createSubject(string name)
         {
-            model.createSubject(name);
+            model.createSubjectInBD(name);
         }
 
-        public void createTest(string name, int subjectId, int questionsNumber, 
+        /*public void createTest(string name, int subjectId, int questionsNumber, 
             int requeredUnswersNumber)
         {
             model.createTest(name, subjectId, questionsNumber, requeredUnswersNumber);
-        }
+        }*/
 
         public void deleteQuestion(int questionId)
         {
@@ -48,14 +48,21 @@ namespace goTest.Testing.Realization
 
         public void getFullTestContent(int testId)
         {
-            int[] ids = model.getAllSubjectIds();
-            List<Subject> subjects = new List<Subject>();
-            for (int i = 0; i < ids.Length; i++)
+            try
             {
-                subjects.Add(model.getSubject(ids[i]));
+                int[] ids = model.getAllSubjectIds();
+                List<Subject> subjects = new List<Subject>();
+                for (int i = 0; i < ids.Length; i++)
+                {
+                    subjects.Add(model.getSubjectFromBD(ids[i]));
+                }
+                model.setConfig(subjects);
+                model.loadAllTestContentFromBD(testId);
             }
-            model.setConfig(subjects);
-            model.loadAllTestContent(testId);
+            catch(Exception ex)
+            {
+                ExceptionHandler.getInstance().processing(ex);
+            }
         }
 
         public void update(int questionId, Question newVersion)
@@ -100,10 +107,25 @@ namespace goTest.Testing.Realization
             List<Subject> subjects = new List<Subject>();
             for (int i=0; i<ids.Length; i++)
             {
-                subjects.Add(model.getSubject(ids[i]));
+                subjects.Add(model.getSubjectFromBD(ids[i]));
             }
             model.setConfig(subjects);
             model.loadStore();
+        }
+
+        public void updateTestInBD()
+        {
+            model.updateTestInBD();
+        }
+
+        public void addEmptyQuestion()
+        {
+            model.addEmptyQuestion();
+        }
+
+        public void addEmptyUnswer(int questionId)
+        {
+            model.addEmptyUnswer(questionId);
         }
     }
 }

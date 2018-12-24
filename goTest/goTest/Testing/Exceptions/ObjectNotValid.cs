@@ -6,19 +6,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace goTest.CommonComponents.DataConverters.Exceptions
+namespace goTest.Testing.Exceptions
 {
-    class СonversionError : Exception, ConcreteException
+    class ObjectNotValid : Exception, ConcreteException
     {
-        public СonversionError() : base() { }
+        public ObjectNotValid() : base() { }
 
-        public СonversionError(string message) : base(message) {}
+        public ObjectNotValid(string message) : base(message) { }
 
         public void processing(Exception ex)
         {
             ExceptionViewInterface<ErrorPopupWindowConfig> view = new ErrorPopupWindow();
-            ErrorPopupWindowConfig config = new ErrorPopupWindowConfig(
-                "Ошибка преобразования типов. Обратитесь к администратору."+ ex.Message);
+            ErrorPopupWindowConfig config = new ErrorPopupWindowConfig(ex.Message);
             view.setConfig(config);
             view.show();
         }

@@ -1,5 +1,6 @@
 ﻿using goTest.CommonComponents.DataConverters.Realization;
 using goTest.CommonComponents.WorkWithData.Realization.WorkWithDataBase.SqlLite;
+using goTest.Testing.Exceptions;
 using goTest.Testing.Objects;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,11 @@ namespace goTest.Testing.Interfaces.Manipulators.Workers
 
         public void update(Test test, int subjectId)
         {
+            if(DataSetConverter.fromDsToSingle.toInt.convert(
+                SqlLiteSimpleExecute.execute(queryConfigurator.countOfObject(test.Id)))==0)
+            {
+                throw new ObjectIsNotExistYet();
+            }
             SqlLiteSimpleExecute.execute(queryConfigurator.updateTestName(
                 subjectId, test.Name));
             int id = test.Id;
@@ -38,7 +44,14 @@ namespace goTest.Testing.Interfaces.Manipulators.Workers
 
             for (int i = 0; i < test.Questions.Count; i++)
             {
-                questionManipulator.update(test.Questions.ElementAt(i));
+                try
+                {
+                    questionManipulator.update(test.Questions.ElementAt(i));
+                }
+                catch(ObjectIsNotExistYet ex)
+                {
+                    questionManipulator.create(test.Questions.ElementAt(i), test.Id);
+                }
             }
         }
     }
