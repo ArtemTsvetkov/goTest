@@ -43,13 +43,14 @@ namespace goTest.Testing.Interfaces.Manipulators.Workers
             List<Question> questions = new List<Question>();
 
             Random rand = new Random();
-            for(int i=0; i<count; i++)
+            List<int> alreadyAddedList = new List<int>();
+            for (int i=0; i<count; i++)
             {
                 int a = rand.Next(0, (ids.Count()-1));
                 bool alreadyAdded = false;
-                for(int m=0; m<questions.Count; m++)
+                for(int m=0; m<alreadyAddedList.Count; m++)
                 {
-                    if(questions.ElementAt(m).Id.Equals(a))
+                    if(alreadyAddedList.ElementAt(m)==a)
                     {
                         i--;
                         alreadyAdded = true;
@@ -58,6 +59,7 @@ namespace goTest.Testing.Interfaces.Manipulators.Workers
                 if (!alreadyAdded)
                 {
                     questions.Add(questionManipulator.load(ids[a]));
+                    alreadyAddedList.Add(a);
                 }
             }
 

@@ -19,10 +19,13 @@ namespace goTest.Testing.Interfaces
         void deleteQuestion(int id);   
         void deleteUnswer(int id);
         void getFullTestContent(int testId);
+        void loadTestForTesting(int testId);
         void loadAllSubjects();
         void update(int questionId, Question newVersion);
         void update(int unswerId, Unswer newVersion);
         void update(int testId, Test newVersion);
         void updateTestInBD();
+        void userUnswered(int id);
+        void showTestResults();
     }
 }

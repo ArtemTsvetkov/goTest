@@ -15,5 +15,6 @@ namespace goTest.CommonComponents.InitialyzerComponent
         public GoTestAdapterI сreateSubjectViewAdapter;
         public GoTestAdapterI questionsViewAdapter;
         public GoTestAdapterI updateSubjectViewAdapter;
+        public GoTestAdapterI testingViewAdapter;
     }
 }

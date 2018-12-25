@@ -127,5 +127,34 @@ namespace goTest.Testing.Realization
         {
             model.addEmptyUnswer(questionId);
         }
+
+        public void loadTestForTesting(int testId)
+        {
+            try
+            {
+                int[] ids = model.getAllSubjectIds();
+                List<Subject> subjects = new List<Subject>();
+                for (int i = 0; i < ids.Length; i++)
+                {
+                    subjects.Add(model.getSubjectFromBD(ids[i]));
+                }
+                model.setConfig(subjects);
+                model.loadTestForTesting(testId);
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.getInstance().processing(ex);
+            }
+        }
+
+        public void userUnswered(int id)
+        {
+            model.userUnswered(id);
+        }
+
+        public void showTestResults()
+        {
+            model.showTestResults();
+        }
     }
 }

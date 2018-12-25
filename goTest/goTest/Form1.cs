@@ -114,6 +114,11 @@ namespace goTest
             get { return textBox12; }
         }
 
+        public TextBox textBox13Elem
+        {
+            get { return textBox13; }
+        }
+
         public NumericUpDown numericUpDown1Elem
         {
             get { return numericUpDown1; }
@@ -134,6 +139,11 @@ namespace goTest
             get { return comboBox1; }
         }
 
+        public ComboBox comboBox2Elem
+        {
+            get { return comboBox2; }
+        }
+
         public ComboBox comboBox3Elem
         {
             get { return comboBox3; }
@@ -143,6 +153,25 @@ namespace goTest
         {
             get { return comboBox5; }
         }
+
+        public RadioButton[] radioButtons
+        {
+            get {
+                RadioButton[] buttons = new RadioButton[10];
+                buttons[0] = radioButton1;
+                buttons[1] = radioButton2;
+                buttons[2] = radioButton3;
+                buttons[3] = radioButton4;
+                buttons[4] = radioButton5;
+                buttons[5] = radioButton6;
+                buttons[6] = radioButton7;
+                buttons[7] = radioButton8;
+                buttons[8] = radioButton9;
+                buttons[9] = radioButton10;
+                return buttons;
+            }
+        }
+
 
         //
         //Events
@@ -225,6 +254,8 @@ namespace goTest
             {
                 iniComponents.securityController.setConfig("Student", "Student");
                 iniComponents.securityController.signInAsStudent();
+                Navigator.Navigator.getInstance().navigateTo("TestingView");
+                iniComponents.goTestController.loadAllSubjects();
             }
             catch (Exception ex)
             {
@@ -819,6 +850,29 @@ namespace goTest
             }
         }
 
+        //Update selected subject on testing view
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            comboBox6.Items.Clear();
+            for (int i = 0; i < iniComponents.testingViewAdapter.getResult().Count; i++)
+            {
+                if (iniComponents.testingViewAdapter.getResult().
+                    ElementAt(i).getPosition() == comboBox2.SelectedIndex)
+                {
+                    VSubject subject = iniComponents.testingViewAdapter.getResult().ElementAt(i);
+                    for (int m = 0; m < subject.Tests.Count(); m++)
+                    {
+                        comboBox6.Items.Add(subject.Tests.ElementAt(m).Name);
+                    }
+                    comboBox6.Text = "";
+                    comboBox6.SelectedIndex = -1;
+                    return;
+                }
+            }
+
+            throw new GoTestObjectNotFound();
+        }
+
 
         //
         //Other functions
@@ -887,6 +941,53 @@ namespace goTest
                 }
             }
             throw new GoTestObjectNotFound();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 10;
+            for (int i = 0; i < iniComponents.testingViewAdapter.getResult().Count; i++)
+            {
+                if (comboBox2.SelectedIndex == iniComponents.testingViewAdapter.
+                    getResult().ElementAt(i).getPosition())
+                {
+                    VSubject currentSubject = iniComponents.testingViewAdapter.
+                    getResult().ElementAt(i);
+                    currentSubject.IsSelected = true;
+                    for (int m = 0; m < currentSubject.Tests.Count; m++)
+                    {
+                        if (currentSubject.Tests.ElementAt(m).getPosition() ==
+                            comboBox6.SelectedIndex)
+                        {
+                            VTest currenTest = currentSubject.Tests.ElementAt(m);
+                            activateValueChangeListeners = false;
+                            Navigator.Navigator.getInstance().navigateTo("ProcessingTestingView");
+                            iniComponents.goTestController.loadTestForTesting(currenTest.Id);
+                            activateValueChangeListeners = true;
+                            return;
+                        }
+                    }
+                }
+            }
+            throw new GoTestObjectNotFound();
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            RadioButton[] buttons = radioButtons;
+            for(int i=0; i<buttons.Length; i++)
+            {
+                if(buttons[i].Checked)
+                {
+                    iniComponents.goTestController.userUnswered(i);
+                    return;
+                }
+            }
+        }
+
+        private void button27_Click(object sender, EventArgs e)
+        {
+            Navigator.Navigator.getInstance().navigateTo("AutorizationSecurityView");
         }
     }
 }

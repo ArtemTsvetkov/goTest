@@ -25,5 +25,9 @@ namespace goTest.Testing.Interfaces
         int[] getAllSubjectIds();
         Subject getSubjectFromBD(int id);
         void loadAllTestContentFromBD(int testId);
+        void loadTestForTesting(int testId);
+        Question getNextQuestion();
+        void userUnswered(int id);
+        void showTestResults();
     }
 }

@@ -23,6 +23,7 @@ namespace goTest.Testing.Realization
     class GoTestModel : BasicModel<List<Subject>, List<Subject>>, GoTestModelI 
     {
         private List<Subject> store;
+        private int currentQuestionIndex;
         private TestObjectsSearcher searcher;
         private GoTestQueryConfiguratorI queryConfigurator;
         private TestManipulatorI testManipulator;
@@ -474,6 +475,77 @@ namespace goTest.Testing.Realization
                 }
             }
             throw new GoTestObjectNotFound();
+        }
+
+        public void loadTestForTesting(int testId)
+        {
+            Subject newSubject = new Subject();
+            newSubject.Id = DataSetConverter.fromDsToSingle.toInt.
+                    convert(SqlLiteSimpleExecute.execute(queryConfigurator.loadSubjectId(testId)));
+            Test loadTest = testManipulator.load(testId, false, false);
+            loadTest.IsSelected = true;
+
+            bool testAlreadyPreLoad = false;
+            int subjectPosition = -1;
+            for (int i = 0; i < store.Count; i++)
+            {
+                if (store.ElementAt(i).Id == newSubject.Id)
+                {
+                    testAlreadyPreLoad = true;
+                    subjectPosition = i;
+                    break;
+                }
+            }
+
+            if (!testAlreadyPreLoad)
+            {
+                List<Subject> newConfig = new List<Subject>();
+                newSubject.Tests.Add(loadTest);
+                newSubject.Name = DataSetConverter.fromDsToSingle.toString.
+                    convert(SqlLiteSimpleExecute.execute(queryConfigurator.
+                    loadSubjectName(newSubject.Id)));
+                newConfig.Add(newSubject);
+                setConfig(newConfig);
+            }
+            else
+            {
+                for (int i = 0; i < config.ElementAt(subjectPosition).Tests.Count; i++)
+                {
+                    if (config.ElementAt(subjectPosition).Tests.ElementAt(i).Id == testId)
+                    {
+                        config.ElementAt(subjectPosition).Tests.RemoveAt(i);
+                        config.ElementAt(subjectPosition).Tests.Insert(i, loadTest);
+                        setConfig(config);
+                        break;
+                    }
+                }
+            }
+            currentQuestionIndex = 0;
+            loadStore();
+        }
+
+        public Question getNextQuestion()
+        {
+            Test test = getCurrentTest();
+            if(test.Questions.Count-1 < currentQuestionIndex)
+            {
+                throw new QuestionsIsOver();
+            }
+            else
+            {
+                currentQuestionIndex++;
+                return test.Questions.ElementAt(currentQuestionIndex-1);
+            }
+        }
+
+        public void userUnswered(int id)
+        {
+            notifyObservers();
+        }
+
+        public void showTestResults()
+        {
+            notifyObservers();
         }
     }
 }

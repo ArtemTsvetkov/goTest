@@ -157,6 +157,7 @@
     <Compile Include="Testing\Exceptions\ObjectIsNotExistYet.cs" />
     <Compile Include="Testing\Exceptions\ObjectNotValid.cs" />
     <Compile Include="Testing\Exceptions\ParamsTypesExceptions.cs" />
+    <Compile Include="Testing\Exceptions\QuestionsIsOver.cs" />
     <Compile Include="Testing\Exceptions\QuestionTypeException.cs" />
     <Compile Include="Testing\Interfaces\GoTestAdapterI.cs" />
     <Compile Include="Testing\Interfaces\GoTestControllerI.cs" />
@@ -225,7 +226,10 @@
     <Compile Include="Testing\Types\Unswer\UnswerTypes.cs" />
     <Compile Include="Testing\Views\CreateSubjectView.cs" />
     <Compile Include="Testing\Views\CreateTestView.cs" />
+    <Compile Include="Testing\Views\ProcessingTestingView.cs" />
     <Compile Include="Testing\Views\QuestionsView.cs" />
+    <Compile Include="Testing\Views\ResultTestingView.cs" />
+    <Compile Include="Testing\Views\TestingView.cs" />
     <Compile Include="Testing\Views\UpdateSubjectView.cs" />
     <Compile Include="Testing\Views\UpdateTestView.cs" />
     <EmbeddedResource Include="Form1.resx">

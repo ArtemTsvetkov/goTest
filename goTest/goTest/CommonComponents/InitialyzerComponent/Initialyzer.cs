@@ -64,6 +64,7 @@ namespace goTest.CommonComponents.InitialyzerComponent
                 components.updateSubjectViewAdapter = new GoTestAdapter();
                 //components.updateTestViewAdapter = new GoTestAdapter();
                 components.сreateSubjectViewAdapter = new GoTestAdapter();
+                components.testingViewAdapter = new GoTestAdapter();
                 //components.сreateTestViewAdapter = new GoTestAdapter();
                 //
                 //Navigator
@@ -79,6 +80,12 @@ namespace goTest.CommonComponents.InitialyzerComponent
                     components.questionsViewAdapter, goTestModel));
                 Navigator.Navigator.getInstance().addView(new UpdateSubjectView(form, 
                     components.updateSubjectViewAdapter, goTestModel));
+                Navigator.Navigator.getInstance().addView(new TestingView(form,
+                    components.testingViewAdapter, goTestModel));
+                Navigator.Navigator.getInstance().addView(new ProcessingTestingView(form,
+                    components.testingViewAdapter, goTestModel));
+                Navigator.Navigator.getInstance().addView(new ResultTestingView(form,
+                    goTestModel));
                 Navigator.Navigator.getInstance().addView(new CreateSubjectView(form, 
                     components.сreateSubjectViewAdapter));
                 //Navigator.Navigator.getInstance().addView(new CreateTestView(form,
