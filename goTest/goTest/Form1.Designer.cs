@@ -36,6 +36,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.button28 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
@@ -138,16 +139,16 @@
             this.textBox13 = new System.Windows.Forms.TextBox();
             this.label33 = new System.Windows.Forms.Label();
             this.tabPage12 = new System.Windows.Forms.TabPage();
-            this.label35 = new System.Windows.Forms.Label();
-            this.label36 = new System.Windows.Forms.Label();
-            this.label37 = new System.Windows.Forms.Label();
-            this.label38 = new System.Windows.Forms.Label();
-            this.label39 = new System.Windows.Forms.Label();
-            this.label40 = new System.Windows.Forms.Label();
-            this.label41 = new System.Windows.Forms.Label();
-            this.label42 = new System.Windows.Forms.Label();
-            this.label43 = new System.Windows.Forms.Label();
             this.button27 = new System.Windows.Forms.Button();
+            this.label43 = new System.Windows.Forms.Label();
+            this.label42 = new System.Windows.Forms.Label();
+            this.label41 = new System.Windows.Forms.Label();
+            this.label40 = new System.Windows.Forms.Label();
+            this.label39 = new System.Windows.Forms.Label();
+            this.label38 = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
             this.tabPage5.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -251,6 +252,7 @@
             // tabPage4
             // 
             this.tabPage4.BackgroundImage = global::goTest.Properties.Resources.bg;
+            this.tabPage4.Controls.Add(this.button28);
             this.tabPage4.Controls.Add(this.button10);
             this.tabPage4.Controls.Add(this.button9);
             this.tabPage4.Controls.Add(this.button7);
@@ -264,6 +266,17 @@
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "tabPage4";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // button28
+            // 
+            this.button28.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button28.Location = new System.Drawing.Point(421, 413);
+            this.button28.Name = "button28";
+            this.button28.Size = new System.Drawing.Size(251, 38);
+            this.button28.TabIndex = 26;
+            this.button28.Text = "Выход";
+            this.button28.UseVisualStyleBackColor = true;
+            this.button28.Click += new System.EventHandler(this.button28_Click);
             // 
             // button10
             // 
@@ -360,6 +373,7 @@
             this.button24.TabIndex = 23;
             this.button24.Text = "Отмена";
             this.button24.UseVisualStyleBackColor = true;
+            this.button24.Click += new System.EventHandler(this.button24_Click);
             // 
             // textBox8
             // 
@@ -1447,93 +1461,16 @@
             this.tabPage12.Text = "tabPage12";
             this.tabPage12.UseVisualStyleBackColor = true;
             // 
-            // label35
+            // button27
             // 
-            this.label35.AutoSize = true;
-            this.label35.BackColor = System.Drawing.Color.Transparent;
-            this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label35.Location = new System.Drawing.Point(449, 82);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(195, 26);
-            this.label35.TabIndex = 58;
-            this.label35.Text = "Результаты теста";
-            // 
-            // label36
-            // 
-            this.label36.AutoSize = true;
-            this.label36.BackColor = System.Drawing.Color.Transparent;
-            this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label36.Location = new System.Drawing.Point(304, 138);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(319, 26);
-            this.label36.TabIndex = 59;
-            this.label36.Text = "Количество вопросов в тесте:";
-            // 
-            // label37
-            // 
-            this.label37.AutoSize = true;
-            this.label37.BackColor = System.Drawing.Color.Transparent;
-            this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label37.Location = new System.Drawing.Point(304, 168);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(355, 26);
-            this.label37.TabIndex = 60;
-            this.label37.Text = "Количество правильных ответов:";
-            // 
-            // label38
-            // 
-            this.label38.AutoSize = true;
-            this.label38.BackColor = System.Drawing.Color.Transparent;
-            this.label38.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label38.Location = new System.Drawing.Point(304, 197);
-            this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(469, 26);
-            this.label38.TabIndex = 61;
-            this.label38.Text = "Требуемое количество правильных ответов:";
-            // 
-            // label39
-            // 
-            this.label39.AutoSize = true;
-            this.label39.BackColor = System.Drawing.Color.Transparent;
-            this.label39.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label39.Location = new System.Drawing.Point(304, 228);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(124, 26);
-            this.label39.TabIndex = 62;
-            this.label39.Text = "Результат:";
-            // 
-            // label40
-            // 
-            this.label40.AutoSize = true;
-            this.label40.BackColor = System.Drawing.Color.Transparent;
-            this.label40.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label40.Location = new System.Drawing.Point(779, 138);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(24, 26);
-            this.label40.TabIndex = 63;
-            this.label40.Text = "3";
-            // 
-            // label41
-            // 
-            this.label41.AutoSize = true;
-            this.label41.BackColor = System.Drawing.Color.Transparent;
-            this.label41.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label41.Location = new System.Drawing.Point(779, 197);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(24, 26);
-            this.label41.TabIndex = 64;
-            this.label41.Text = "2";
-            // 
-            // label42
-            // 
-            this.label42.AutoSize = true;
-            this.label42.BackColor = System.Drawing.Color.Transparent;
-            this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label42.Location = new System.Drawing.Point(779, 168);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(24, 26);
-            this.label42.TabIndex = 65;
-            this.label42.Text = "2";
+            this.button27.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button27.Location = new System.Drawing.Point(441, 280);
+            this.button27.Name = "button27";
+            this.button27.Size = new System.Drawing.Size(210, 38);
+            this.button27.TabIndex = 67;
+            this.button27.Text = "Вернуться в меню";
+            this.button27.UseVisualStyleBackColor = true;
+            this.button27.Click += new System.EventHandler(this.button27_Click);
             // 
             // label43
             // 
@@ -1546,16 +1483,93 @@
             this.label43.TabIndex = 66;
             this.label43.Text = "тест сдан";
             // 
-            // button27
+            // label42
             // 
-            this.button27.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button27.Location = new System.Drawing.Point(441, 280);
-            this.button27.Name = "button27";
-            this.button27.Size = new System.Drawing.Size(210, 38);
-            this.button27.TabIndex = 67;
-            this.button27.Text = "Вернуться в меню";
-            this.button27.UseVisualStyleBackColor = true;
-            this.button27.Click += new System.EventHandler(this.button27_Click);
+            this.label42.AutoSize = true;
+            this.label42.BackColor = System.Drawing.Color.Transparent;
+            this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label42.Location = new System.Drawing.Point(779, 168);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(24, 26);
+            this.label42.TabIndex = 65;
+            this.label42.Text = "2";
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.BackColor = System.Drawing.Color.Transparent;
+            this.label41.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label41.Location = new System.Drawing.Point(779, 197);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(24, 26);
+            this.label41.TabIndex = 64;
+            this.label41.Text = "2";
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.BackColor = System.Drawing.Color.Transparent;
+            this.label40.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label40.Location = new System.Drawing.Point(779, 138);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(24, 26);
+            this.label40.TabIndex = 63;
+            this.label40.Text = "3";
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.BackColor = System.Drawing.Color.Transparent;
+            this.label39.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label39.Location = new System.Drawing.Point(304, 228);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(124, 26);
+            this.label39.TabIndex = 62;
+            this.label39.Text = "Результат:";
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.BackColor = System.Drawing.Color.Transparent;
+            this.label38.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label38.Location = new System.Drawing.Point(304, 197);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(469, 26);
+            this.label38.TabIndex = 61;
+            this.label38.Text = "Требуемое количество правильных ответов:";
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.BackColor = System.Drawing.Color.Transparent;
+            this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label37.Location = new System.Drawing.Point(304, 168);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(355, 26);
+            this.label37.TabIndex = 60;
+            this.label37.Text = "Количество правильных ответов:";
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.BackColor = System.Drawing.Color.Transparent;
+            this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label36.Location = new System.Drawing.Point(304, 138);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(319, 26);
+            this.label36.TabIndex = 59;
+            this.label36.Text = "Количество вопросов в тесте:";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.BackColor = System.Drawing.Color.Transparent;
+            this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label35.Location = new System.Drawing.Point(449, 82);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(195, 26);
+            this.label35.TabIndex = 58;
+            this.label35.Text = "Результаты теста";
             // 
             // Form1
             // 
@@ -1724,6 +1738,7 @@
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.Button button27;
+        private System.Windows.Forms.Button button28;
     }
 }
 

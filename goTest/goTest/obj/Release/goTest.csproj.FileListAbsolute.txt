@@ -1,0 +1,17 @@
+D:\Files\MsVisualProjects\goTest\goTest\goTest\bin\Release\goTest.exe.config
+D:\Files\MsVisualProjects\goTest\goTest\goTest\bin\Release\goTest.exe
+D:\Files\MsVisualProjects\goTest\goTest\goTest\bin\Release\goTest.pdb
+D:\Files\MsVisualProjects\goTest\goTest\goTest\bin\Release\EntityFramework.dll
+D:\Files\MsVisualProjects\goTest\goTest\goTest\bin\Release\EntityFramework.SqlServer.dll
+D:\Files\MsVisualProjects\goTest\goTest\goTest\bin\Release\System.Data.SQLite.dll
+D:\Files\MsVisualProjects\goTest\goTest\goTest\bin\Release\System.Data.SQLite.EF6.dll
+D:\Files\MsVisualProjects\goTest\goTest\goTest\bin\Release\System.Data.SQLite.Linq.dll
+D:\Files\MsVisualProjects\goTest\goTest\goTest\bin\Release\EntityFramework.xml
+D:\Files\MsVisualProjects\goTest\goTest\goTest\bin\Release\EntityFramework.SqlServer.xml
+D:\Files\MsVisualProjects\goTest\goTest\goTest\bin\Release\System.Data.SQLite.xml
+D:\Files\MsVisualProjects\goTest\goTest\goTest\obj\Release\goTest.Form1.resources
+D:\Files\MsVisualProjects\goTest\goTest\goTest\obj\Release\goTest.Properties.Resources.resources
+D:\Files\MsVisualProjects\goTest\goTest\goTest\obj\Release\goTest.csproj.GenerateResource.Cache
+D:\Files\MsVisualProjects\goTest\goTest\goTest\obj\Release\goTest.exe
+D:\Files\MsVisualProjects\goTest\goTest\goTest\obj\Release\goTest.pdb
+D:\Files\MsVisualProjects\goTest\goTest\goTest\obj\Release\goTest.csprojResolveAssemblyReference.cache

@@ -41,6 +41,9 @@ namespace goTest.Testing.Views
         public void reset()
         {
             form.textBox12Elem.Text = "";
+            form.comboBox3Elem.SelectedIndex = -1;
+            form.comboBox3Elem.SelectedText = "";
+            form.comboBox3Elem.Items.Clear();
         }
 
         public void notify()

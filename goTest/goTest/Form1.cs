@@ -149,9 +149,19 @@ namespace goTest
             get { return comboBox3; }
         }
 
+        public ComboBox comboBox4Elem
+        {
+            get { return comboBox4; }
+        }
+
         public ComboBox comboBox5Elem
         {
             get { return comboBox5; }
+        }
+
+        public ComboBox comboBox6Elem
+        {
+            get { return comboBox6; }
         }
 
         public RadioButton[] radioButtons
@@ -331,6 +341,9 @@ namespace goTest
                             comboBox4.SelectedIndex)
                         {
                             VTest currenTest = currentSubject.Tests.ElementAt(m);
+                            activateValueChangeListeners = false;
+                            Navigator.Navigator.getInstance().resetCurrentView();
+                            activateValueChangeListeners = true;
                             Navigator.Navigator.getInstance().navigateTo("CreateTestView");
                             activateValueChangeListeners = false;
                             iniComponents.goTestController.getFullTestContent(currenTest.Id);
@@ -353,7 +366,9 @@ namespace goTest
         //Cancel from create test view
         private void button16_Click(object sender, EventArgs e)
         {
+            activateValueChangeListeners = false;
             Navigator.Navigator.getInstance().resetCurrentView();
+            activateValueChangeListeners = true;
             Navigator.Navigator.getInstance().navigateToPreviousView();
         }
 
@@ -367,7 +382,9 @@ namespace goTest
         //Cancel from change test view
         private void button22_Click(object sender, EventArgs e)
         {
+            activateValueChangeListeners = false;
             Navigator.Navigator.getInstance().resetCurrentView();
+            activateValueChangeListeners = true;
             Navigator.Navigator.getInstance().navigateToPreviousView();
         }
 
@@ -377,6 +394,8 @@ namespace goTest
             try
             {
                 iniComponents.goTestController.createSubject(textBox10.Text);
+                Navigator.Navigator.getInstance().resetCurrentView();
+                Navigator.Navigator.getInstance().navigateToPreviousView();
             }
             catch(Exception ex)
             {
@@ -413,7 +432,9 @@ namespace goTest
             try
             {
                 iniComponents.goTestController.updateSubject(iniComponents.
-                    updateSubjectViewAdapter.getResult().ElementAt(0).Id, textBox12.Text);
+                    updateSubjectViewAdapter.getResult().ElementAt(comboBox3.SelectedIndex).Id,
+                    textBox12.Text);
+                Navigator.Navigator.getInstance().resetCurrentView();
                 Navigator.Navigator.getInstance().navigateToPreviousView();
             }
             catch (Exception ex)
@@ -695,24 +716,27 @@ namespace goTest
         //Update selected subject on edit test view
         private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
         {
-            comboBox4.Items.Clear();
-            for (int i=0; i<iniComponents.questionsViewAdapter.getResult().Count; i++)
+            if (activateValueChangeListeners)
             {
-                if(iniComponents.questionsViewAdapter.getResult().
-                    ElementAt(i).getPosition() == comboBox5.SelectedIndex)
+                comboBox4.Items.Clear();
+                for (int i = 0; i < iniComponents.questionsViewAdapter.getResult().Count; i++)
                 {
-                    VSubject subject = iniComponents.questionsViewAdapter.getResult().ElementAt(i);
-                    for (int m=0; m<subject.Tests.Count(); m++)
+                    if (iniComponents.questionsViewAdapter.getResult().
+                        ElementAt(i).getPosition() == comboBox5.SelectedIndex)
                     {
-                        comboBox4.Items.Add(subject.Tests.ElementAt(m).Name);
+                        VSubject subject = iniComponents.questionsViewAdapter.getResult().ElementAt(i);
+                        for (int m = 0; m < subject.Tests.Count(); m++)
+                        {
+                            comboBox4.Items.Add(subject.Tests.ElementAt(m).Name);
+                        }
+                        comboBox4.Text = "";
+                        comboBox4.SelectedIndex = -1;
+                        return;
                     }
-                    comboBox4.Text = "";
-                    comboBox4.SelectedIndex = -1;
-                    return;
                 }
-            }
 
-            throw new GoTestObjectNotFound();
+                throw new GoTestObjectNotFound();
+            }
         }
 
         //Update test name
@@ -731,6 +755,7 @@ namespace goTest
                         Test test = iniComponents.questionsViewAdapter.
                             getResult().ElementAt(i).getSelectedTest().unRestore();
                         test.Name = textBox9.Text;
+                        test.IsSelected = true;
                         iniComponents.goTestController.update(test.Id, test);
 
                         return;
@@ -853,24 +878,85 @@ namespace goTest
         //Update selected subject on testing view
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            comboBox6.Items.Clear();
+            if (activateValueChangeListeners)
+            {
+                comboBox6.Items.Clear();
+                for (int i = 0; i < iniComponents.testingViewAdapter.getResult().Count; i++)
+                {
+                    if (iniComponents.testingViewAdapter.getResult().
+                        ElementAt(i).getPosition() == comboBox2.SelectedIndex)
+                    {
+                        VSubject subject = iniComponents.testingViewAdapter.getResult().ElementAt(i);
+                        for (int m = 0; m < subject.Tests.Count(); m++)
+                        {
+                            comboBox6.Items.Add(subject.Tests.ElementAt(m).Name);
+                        }
+                        comboBox6.Text = "";
+                        comboBox6.SelectedIndex = -1;
+                        return;
+                    }
+                }
+
+                throw new GoTestObjectNotFound();
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 10;
             for (int i = 0; i < iniComponents.testingViewAdapter.getResult().Count; i++)
             {
-                if (iniComponents.testingViewAdapter.getResult().
-                    ElementAt(i).getPosition() == comboBox2.SelectedIndex)
+                if (comboBox2.SelectedIndex == iniComponents.testingViewAdapter.
+                    getResult().ElementAt(i).getPosition())
                 {
-                    VSubject subject = iniComponents.testingViewAdapter.getResult().ElementAt(i);
-                    for (int m = 0; m < subject.Tests.Count(); m++)
+                    VSubject currentSubject = iniComponents.testingViewAdapter.
+                    getResult().ElementAt(i);
+                    currentSubject.IsSelected = true;
+                    for (int m = 0; m < currentSubject.Tests.Count; m++)
                     {
-                        comboBox6.Items.Add(subject.Tests.ElementAt(m).Name);
+                        if (currentSubject.Tests.ElementAt(m).getPosition() ==
+                            comboBox6.SelectedIndex)
+                        {
+                            VTest currenTest = currentSubject.Tests.ElementAt(m);
+                            activateValueChangeListeners = false;
+                            Navigator.Navigator.getInstance().resetCurrentView();
+                            Navigator.Navigator.getInstance().navigateTo("ProcessingTestingView");
+                            iniComponents.goTestController.loadTestForTesting(currenTest.Id);
+                            activateValueChangeListeners = true;
+                            return;
+                        }
                     }
-                    comboBox6.Text = "";
-                    comboBox6.SelectedIndex = -1;
+                }
+            }
+            throw new GoTestObjectNotFound();
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            RadioButton[] buttons = radioButtons;
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                if (buttons[i].Checked)
+                {
+                    iniComponents.goTestController.userUnswered(i);
                     return;
                 }
             }
+        }
 
-            throw new GoTestObjectNotFound();
+        private void button27_Click(object sender, EventArgs e)
+        {
+            Navigator.Navigator.getInstance().navigateTo("AutorizationSecurityView");
+        }
+
+        private void button28_Click(object sender, EventArgs e)
+        {
+            Navigator.Navigator.getInstance().navigateTo("AutorizationSecurityView");
+        }
+
+        private void button24_Click(object sender, EventArgs e)
+        {
+            Navigator.Navigator.getInstance().navigateToPreviousView();
         }
 
 
@@ -941,53 +1027,6 @@ namespace goTest
                 }
             }
             throw new GoTestObjectNotFound();
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            tabControl1.SelectedIndex = 10;
-            for (int i = 0; i < iniComponents.testingViewAdapter.getResult().Count; i++)
-            {
-                if (comboBox2.SelectedIndex == iniComponents.testingViewAdapter.
-                    getResult().ElementAt(i).getPosition())
-                {
-                    VSubject currentSubject = iniComponents.testingViewAdapter.
-                    getResult().ElementAt(i);
-                    currentSubject.IsSelected = true;
-                    for (int m = 0; m < currentSubject.Tests.Count; m++)
-                    {
-                        if (currentSubject.Tests.ElementAt(m).getPosition() ==
-                            comboBox6.SelectedIndex)
-                        {
-                            VTest currenTest = currentSubject.Tests.ElementAt(m);
-                            activateValueChangeListeners = false;
-                            Navigator.Navigator.getInstance().navigateTo("ProcessingTestingView");
-                            iniComponents.goTestController.loadTestForTesting(currenTest.Id);
-                            activateValueChangeListeners = true;
-                            return;
-                        }
-                    }
-                }
-            }
-            throw new GoTestObjectNotFound();
-        }
-
-        private void button12_Click(object sender, EventArgs e)
-        {
-            RadioButton[] buttons = radioButtons;
-            for(int i=0; i<buttons.Length; i++)
-            {
-                if(buttons[i].Checked)
-                {
-                    iniComponents.goTestController.userUnswered(i);
-                    return;
-                }
-            }
-        }
-
-        private void button27_Click(object sender, EventArgs e)
-        {
-            Navigator.Navigator.getInstance().navigateTo("AutorizationSecurityView");
         }
     }
 }

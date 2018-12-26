@@ -58,7 +58,12 @@ namespace goTest.Testing.Views
 
         public void reset()
         {
-            throw new NotImplementedException();
+            form.comboBox2Elem.SelectedIndex = -1;
+            form.comboBox2Elem.SelectedText = "";
+            form.comboBox2Elem.Items.Clear();
+            form.comboBox6Elem.SelectedIndex = -1;
+            form.comboBox6Elem.SelectedText = "";
+            form.comboBox6Elem.Items.Clear();
         }
     }
 }

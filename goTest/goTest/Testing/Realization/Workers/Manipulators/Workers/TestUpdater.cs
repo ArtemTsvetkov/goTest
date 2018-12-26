@@ -33,7 +33,7 @@ namespace goTest.Testing.Interfaces.Manipulators.Workers
                 throw new ObjectIsNotExistYet();
             }
             SqlLiteSimpleExecute.execute(queryConfigurator.updateTestName(
-                subjectId, test.Name));
+                test.Id, test.Name));
             int id = test.Id;
 
             SqlLiteSimpleExecute.execute(queryConfigurator.
