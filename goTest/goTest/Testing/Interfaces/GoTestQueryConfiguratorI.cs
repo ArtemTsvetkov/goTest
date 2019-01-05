@@ -26,6 +26,7 @@ namespace goTest.Testing.Interfaces
         string setUnswerContent(int unswerId, string content);
         string setUnswerType(int unswrId, UnswerType type);
         string updateSubjectName(int subjectId, string newName);
+        string updateTestsSubject(int testId, int subjectId);
         string updateTestName(int testId, string newName);
         string updateTestsQuestionsNumber(int testId, int count);
         string updateTestsRequeredUnswersNumber(int testId, int count);

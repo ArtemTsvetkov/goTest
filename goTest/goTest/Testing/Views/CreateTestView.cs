@@ -48,7 +48,8 @@ namespace goTest.Testing.Views
                 {
                     for (int s = 0; s < subjects.Count; s++)
                     {
-                        if (subjects.ElementAt(s).getPosition() == i)
+                        if (subjects.ElementAt(s).getPosition() == i & 
+                            subjects.ElementAt(i).Name!=null)
                         {
                             form.comboBox1Elem.Items.Add(subjects.ElementAt(i).Name);
                         }
@@ -60,7 +61,8 @@ namespace goTest.Testing.Views
                 {
                     for (int s = 0; s < subjects.ElementAt(i).Tests.Count; s++)
                     {
-                        if(subjects.ElementAt(i).Tests.ElementAt(s).Questions.Count>0)
+                        if(subjects.ElementAt(i).Tests.ElementAt(s).IsSelected
+                            || subjects.ElementAt(i).Tests.ElementAt(s).Questions.Count>0)
                         {
                             subjectPos = i;
                             testPos = s;
@@ -72,14 +74,24 @@ namespace goTest.Testing.Views
                         break;
                     }
                 }
-                form.comboBox1Elem.SelectedIndex = subjects.ElementAt(subjectPos).getPosition();
-                adapter.getResult().ElementAt(subjectPos).IsSelected = true;
-                adapter.getResult().ElementAt(subjectPos).Tests.ElementAt(testPos).IsSelected = true;
+                if (subjectPos != -1)
+                {
+                    try
+                    {
+                        form.comboBox1Elem.SelectedIndex = subjects.ElementAt(subjectPos).getPosition();
+                    }
+                    catch(Exception ex)
+                    {
 
-                VTest test = subjects.ElementAt(subjectPos).Tests.ElementAt(testPos);
-                form.textBox9Elem.Text = test.Name;
-                form.numericUpDown1Elem.Value = test.QuestionsNumber;
-                form.numericUpDown2Elem.Value = test.RequeredUnswersNumber;
+                    }
+                    adapter.getResult().ElementAt(subjectPos).IsSelected = true;
+                    adapter.getResult().ElementAt(subjectPos).Tests.ElementAt(testPos).IsSelected = true;
+
+                    VTest test = subjects.ElementAt(subjectPos).Tests.ElementAt(testPos);
+                    form.textBox9Elem.Text = test.Name;
+                    form.numericUpDown1Elem.Value = test.QuestionsNumber;
+                    form.numericUpDown2Elem.Value = test.RequeredUnswersNumber;
+                }
             }
         }
 

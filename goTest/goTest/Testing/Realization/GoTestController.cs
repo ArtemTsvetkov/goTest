@@ -12,7 +12,6 @@ namespace goTest.Testing.Realization
 {
     class GoTestController : GoTestControllerI
     {
-        //ДОБАВИТЬ БЛОКИ TRY CATCH
         private GoTestModel model;
 
         public GoTestController(GoTestModel model)
@@ -24,12 +23,6 @@ namespace goTest.Testing.Realization
         {
             model.createSubjectInBD(name);
         }
-
-        /*public void createTest(string name, int subjectId, int questionsNumber, 
-            int requeredUnswersNumber)
-        {
-            model.createTest(name, subjectId, questionsNumber, requeredUnswersNumber);
-        }*/
 
         public void deleteQuestion(int questionId)
         {
@@ -155,6 +148,16 @@ namespace goTest.Testing.Realization
         public void showTestResults()
         {
             model.showTestResults();
+        }
+
+        public void setSubjectForSelectedTest(int subjectId)
+        {
+            model.setSubjectForSelectedTest(subjectId);
+        }
+
+        public void addEmptyTest()
+        {
+            model.addEmptyTest();
         }
     }
 }

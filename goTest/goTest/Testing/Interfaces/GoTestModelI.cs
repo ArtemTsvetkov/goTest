@@ -11,8 +11,7 @@ namespace goTest.Testing.Interfaces
     interface GoTestModelI
     {
         void createSubjectInBD(string name);
-        /*void createTest(string name, int subjectId, int questionsNumber,
-            int requeredUnswersNumber);*/
+        void addEmptyTest();
         void addEmptyQuestion();
         void addEmptyUnswer(int questionId);
         void updateTestInBD();
@@ -22,6 +21,7 @@ namespace goTest.Testing.Interfaces
         void update(int id, Question newVersion);
         void update(int id, Unswer newVersion);
         void update(int id, Test test);
+        void setSubjectForSelectedTest(int subjectId);
         int[] getAllSubjectIds();
         Subject getSubjectFromBD(int id);
         void loadAllTestContentFromBD(int testId);

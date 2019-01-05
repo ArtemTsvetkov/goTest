@@ -277,6 +277,10 @@ namespace goTest
         private void button6_Click(object sender, EventArgs e)
         {
             Navigator.Navigator.getInstance().navigateTo("CreateTestView");
+            activateValueChangeListeners = false;
+            iniComponents.goTestController.loadAllSubjects();
+            iniComponents.goTestController.addEmptyTest();
+            activateValueChangeListeners = true;
         }
 
         //Go to create subject view button
@@ -370,6 +374,7 @@ namespace goTest
             Navigator.Navigator.getInstance().resetCurrentView();
             activateValueChangeListeners = true;
             Navigator.Navigator.getInstance().navigateToPreviousView();
+            Navigator.Navigator.getInstance().navigateToPreviousView();
         }
 
         //Cancel from change subject view
@@ -413,7 +418,7 @@ namespace goTest
                 {
                     for(int m=0; m<subjects.ElementAt(i).Tests.Count; m++)
                     {
-                        subjects.ElementAt(i).Tests.ElementAt(i).unRestore().isValid();
+                        subjects.ElementAt(i).Tests.ElementAt(m).unRestore().isValid();
                     }
                 }
                 iniComponents.goTestController.updateTestInBD();
@@ -771,12 +776,6 @@ namespace goTest
             }
         }
 
-        //Update test subject
-        private void comboBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         //Update test questions number
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
@@ -901,6 +900,7 @@ namespace goTest
             }
         }
 
+        //Go testing
         private void button5_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedIndex = 10;
@@ -931,6 +931,7 @@ namespace goTest
             throw new GoTestObjectNotFound();
         }
 
+        //Send unswer
         private void button12_Click(object sender, EventArgs e)
         {
             RadioButton[] buttons = radioButtons;
@@ -944,21 +945,36 @@ namespace goTest
             }
         }
 
+        //Go to menu
         private void button27_Click(object sender, EventArgs e)
         {
             Navigator.Navigator.getInstance().navigateTo("AutorizationSecurityView");
         }
 
+        //Exit from admin menu
         private void button28_Click(object sender, EventArgs e)
         {
             Navigator.Navigator.getInstance().navigateTo("AutorizationSecurityView");
         }
 
+        //Exit from view change admin password
         private void button24_Click(object sender, EventArgs e)
         {
             Navigator.Navigator.getInstance().navigateToPreviousView();
         }
 
+        //Update tests subject
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (activateValueChangeListeners)
+            {
+                VSubject sub = getSelectedSubject(
+                    iniComponents.questionsViewAdapter, comboBox1);
+                activateValueChangeListeners = false;
+                iniComponents.goTestController.setSubjectForSelectedTest(sub.Id);
+                activateValueChangeListeners = true;
+            }
+        }
 
         //
         //Other functions
@@ -1018,12 +1034,24 @@ namespace goTest
 
         private VQuestion getSelectedQuestion(GoTestAdapterI adapter)
         {
-            for (int i = 0; i < iniComponents.questionsViewAdapter.getResult().Count; i++)
+            for (int i = 0; i < adapter.getResult().Count; i++)
             {
-                if (iniComponents.questionsViewAdapter.getResult().ElementAt(i).IsSelected)
+                if (adapter.getResult().ElementAt(i).IsSelected)
                 {
                     return adapter.getResult().ElementAt(i).getSelectedTest().
                         getSelectedQuestion();
+                }
+            }
+            throw new GoTestObjectNotFound();
+        }
+
+        private VSubject getSelectedSubject(GoTestAdapterI adapter, ComboBox comboBox)
+        {
+            for (int i = 0; i < adapter.getResult().Count; i++)
+            {
+                if (adapter.getResult().ElementAt(i).getPosition() == comboBox.SelectedIndex)
+                {
+                    return adapter.getResult().ElementAt(i);
                 }
             }
             throw new GoTestObjectNotFound();

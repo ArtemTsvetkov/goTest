@@ -32,6 +32,10 @@ namespace goTest.Testing.Interfaces.Manipulators.Workers
             {
                 throw new ObjectIsNotExistYet();
             }
+
+            SqlLiteSimpleExecute.execute(queryConfigurator.updateTestsSubject(
+                test.Id, subjectId));
+
             SqlLiteSimpleExecute.execute(queryConfigurator.updateTestName(
                 test.Id, test.Name));
             int id = test.Id;

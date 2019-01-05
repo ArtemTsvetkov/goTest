@@ -201,17 +201,6 @@ namespace goTest.Testing.Realization
             config = copy(configData);
         }
 
-        private List<Subject> copy(List<Subject> obj)
-        {
-            List<Subject> copy = new List<Subject>();
-            for (int i = 0; i < obj.Count; i++)
-            {
-                copy.Add(obj.ElementAt(i).copy());
-            }
-
-            return copy;
-        }
-
         public void updateSubject(int id, string newName)
         {
             try
@@ -450,33 +439,6 @@ namespace goTest.Testing.Realization
             throw new GoTestObjectNotFound();
         }
 
-        private Test getCurrentTest()
-        {
-            for (int i = 0; i < store.Count; i++)
-            {
-                for (int m = 0; m < store.ElementAt(i).Tests.Count; m++)
-                {
-                    if (store.ElementAt(i).Tests.ElementAt(m).IsSelected)
-                    {
-                        return store.ElementAt(i).Tests.ElementAt(m);
-                    }
-                }
-            }
-            throw new GoTestObjectNotFound();
-        }
-
-        private int searchUnswerWithZeroIdInQuestionWithZeroId(Question question)
-        {
-            for (int i = 0; i < question.Unswers.Count; i++)
-            {
-                if (question.Unswers.ElementAt(i).Id == 0)
-                {
-                    return i;
-                }
-            }
-            throw new GoTestObjectNotFound();
-        }
-
         public void loadTestForTesting(int testId)
         {
             Subject newSubject = new Subject();
@@ -546,6 +508,98 @@ namespace goTest.Testing.Realization
         public void showTestResults()
         {
             notifyObservers();
+        }
+
+        public void addEmptyTest()
+        {
+            Subject newSubject = new Subject();
+            Test newTest = new Test();
+            newTest.IsSelected = true;
+            newSubject.Tests.Add(newTest);
+            config.Add(newSubject);
+            loadStore();
+        }
+
+        public void setSubjectForSelectedTest(int subjectId)
+        {
+            int currentSubjectIndex = getSelectedSubjectIndexBaseOnSelectedTest();
+            for (int m = 0; m < store.ElementAt(currentSubjectIndex).Tests.Count; m++)
+            {
+                if (store.ElementAt(currentSubjectIndex).Tests.ElementAt(m).IsSelected)
+                {
+                    Test currentTest = store.ElementAt(currentSubjectIndex).Tests.ElementAt(m);
+                    store.ElementAt(currentSubjectIndex).Tests.RemoveAt(m);
+                    store.ElementAt(getSubjectIndex(subjectId)).Tests.Add(currentTest);
+                    notifyObservers();
+                    return;
+                }
+            }
+            throw new GoTestObjectNotFound();
+        }
+
+        private List<Subject> copy(List<Subject> obj)
+        {
+            List<Subject> copy = new List<Subject>();
+            for (int i = 0; i < obj.Count; i++)
+            {
+                copy.Add(obj.ElementAt(i).copy());
+            }
+
+            return copy;
+        }
+
+        private int getSubjectIndex(int subjectId)
+        {
+            for (int m = 0; m < store.Count; m++)
+            {
+                if(store.ElementAt(m).Id==subjectId)
+                {
+                    return m;
+                }
+            }
+            throw new GoTestObjectNotFound();
+        }
+
+        private Test getCurrentTest()
+        {
+            for (int i = 0; i < store.Count; i++)
+            {
+                for (int m = 0; m < store.ElementAt(i).Tests.Count; m++)
+                {
+                    if (store.ElementAt(i).Tests.ElementAt(m).IsSelected)
+                    {
+                        return store.ElementAt(i).Tests.ElementAt(m);
+                    }
+                }
+            }
+            throw new GoTestObjectNotFound();
+        }
+
+        private int getSelectedSubjectIndexBaseOnSelectedTest()
+        {
+            for (int i = 0; i < store.Count; i++)
+            {
+                for (int m = 0; m < store.ElementAt(i).Tests.Count; m++)
+                {
+                    if (store.ElementAt(i).Tests.ElementAt(m).IsSelected)
+                    {
+                        return i;
+                    }
+                }
+            }
+            throw new GoTestObjectNotFound();
+        }
+
+        private int searchUnswerWithZeroIdInQuestionWithZeroId(Question question)
+        {
+            for (int i = 0; i < question.Unswers.Count; i++)
+            {
+                if (question.Unswers.ElementAt(i).Id == 0)
+                {
+                    return i;
+                }
+            }
+            throw new GoTestObjectNotFound();
         }
     }
 }

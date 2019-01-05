@@ -289,5 +289,10 @@ namespace goTest.Testing.Realization
         {
             return "SELECT COUNT(*) FROM OBJECTS WHERE id=" + objectId;
         }
+
+        public string updateTestsSubject(int testId, int subjectId)
+        {
+            return "update objects set parent_id=" + subjectId + " where id=" + testId;
+        }
     }
 }

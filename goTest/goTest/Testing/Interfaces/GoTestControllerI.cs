@@ -11,10 +11,10 @@ namespace goTest.Testing.Interfaces
     interface GoTestControllerI
     {
         void createSubject(string name);
-        /*void createTest(string name, int subjectId, int questionsNumber, 
-            int requeredUnswersNumber);*/
+        void setSubjectForSelectedTest(int subjectId);
         void addEmptyQuestion();
         void addEmptyUnswer(int questionId);
+        void addEmptyTest();
         void updateSubject(int id, string newName);
         void deleteQuestion(int id);   
         void deleteUnswer(int id);

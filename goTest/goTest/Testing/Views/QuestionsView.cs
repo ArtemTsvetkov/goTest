@@ -83,48 +83,51 @@ namespace goTest.Testing.Views
                         break;
                     }
                 }
-                adapter.getResult().ElementAt(subjectPos).IsSelected = true;
-                adapter.getResult().ElementAt(subjectPos).Tests.ElementAt(testPos).IsSelected = true;
-                form.dataGridView2Elem.Rows.Clear();
-                if (questionId != -1)
+                if (subjectPos != -1)
                 {
-                    try
+                    adapter.getResult().ElementAt(subjectPos).IsSelected = true;
+                    adapter.getResult().ElementAt(subjectPos).Tests.ElementAt(testPos).IsSelected = true;
+                    form.dataGridView2Elem.Rows.Clear();
+                    if (questionId != -1)
                     {
-                        TestObjectsSearcher searcher = new TestObjectsSearcher();
-                        int selectedSubjectPosition = searcher.getSelectedSubject(adapter.getResult());
-                        int selectedQuestionPosition = searcher.getQuestionPosition(
-                            adapter.getResult().ElementAt(selectedSubjectPosition).getSelectedTest().
-                            Questions, questionId);
-                        adapter.getResult().ElementAt(selectedSubjectPosition).getSelectedTest().
-                            Questions.ElementAt(selectedQuestionPosition).IsSelected = true;
-                        VQuestion question = adapter.getResult().ElementAt(selectedSubjectPosition).getSelectedTest().
-                            Questions.ElementAt(selectedQuestionPosition);
-                        form.dataGridView2Elem.Rows.Add(question.Unswers.Count);
-                        form.dataGridView2Elem.Rows[0].Selected = false;
-                    }
-                    catch(Exception ex)
-                    {
-
-                    }
-                }
-
-                VTest test = subjects.ElementAt(subjectPos).Tests.ElementAt(testPos);
-                form.dataGridView1Elem.Rows.Clear();
-                form.dataGridView1Elem.Rows.Add(test.Questions.Count);
-                for(int i=0; i<test.Questions.Count; i++)
-                {
-                    for (int s = 0; s < test.Questions.Count; s++)
-                    {
-                        if (test.Questions.ElementAt(s).getPosition() == i)
+                        try
                         {
-                            form.dataGridView1Elem.Rows[i].Cells[0].Value = test.Questions.
-                                ElementAt(s).QuestionsContent;
+                            TestObjectsSearcher searcher = new TestObjectsSearcher();
+                            int selectedSubjectPosition = searcher.getSelectedSubject(adapter.getResult());
+                            int selectedQuestionPosition = searcher.getQuestionPosition(
+                                adapter.getResult().ElementAt(selectedSubjectPosition).getSelectedTest().
+                                Questions, questionId);
+                            adapter.getResult().ElementAt(selectedSubjectPosition).getSelectedTest().
+                                Questions.ElementAt(selectedQuestionPosition).IsSelected = true;
+                            VQuestion question = adapter.getResult().ElementAt(selectedSubjectPosition).getSelectedTest().
+                                Questions.ElementAt(selectedQuestionPosition);
+                            form.dataGridView2Elem.Rows.Add(question.Unswers.Count);
+                            form.dataGridView2Elem.Rows[0].Selected = false;
                         }
-                    } 
-                }
-                if (form.dataGridView1Elem.RowCount > 0)
-                {
-                    form.dataGridView1Elem.Rows[0].Selected = false;
+                        catch (Exception ex)
+                        {
+
+                        }
+                    }
+
+                    VTest test = subjects.ElementAt(subjectPos).Tests.ElementAt(testPos);
+                    form.dataGridView1Elem.Rows.Clear();
+                    form.dataGridView1Elem.Rows.Add(test.Questions.Count);
+                    for (int i = 0; i < test.Questions.Count; i++)
+                    {
+                        for (int s = 0; s < test.Questions.Count; s++)
+                        {
+                            if (test.Questions.ElementAt(s).getPosition() == i)
+                            {
+                                form.dataGridView1Elem.Rows[i].Cells[0].Value = test.Questions.
+                                    ElementAt(s).QuestionsContent;
+                            }
+                        }
+                    }
+                    if (form.dataGridView1Elem.RowCount > 0)
+                    {
+                        form.dataGridView1Elem.Rows[0].Selected = false;
+                    }
                 }
             }
         }
