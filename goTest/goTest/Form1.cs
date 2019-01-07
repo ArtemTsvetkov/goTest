@@ -309,7 +309,7 @@ namespace goTest
             try
             {
                 if (!textBox9.Text.Equals("") & comboBox1.SelectedIndex != -1 &
-                    numericUpDown1.Value > 1 & numericUpDown2.Value <= numericUpDown1.Value)
+                    numericUpDown1.Value >= 1 & numericUpDown2.Value <= numericUpDown1.Value)
                 {
                     Navigator.Navigator.getInstance().navigateTo("QuestionsView");
                     if (dataGridView1.RowCount > 0)
@@ -553,8 +553,8 @@ namespace goTest
         {
             try
             {
-                List<VQuestion> questions = iniComponents.questionsViewAdapter.getResult().
-                    ElementAt(0).Tests.ElementAt(0).Questions;
+                VSubject sub = getSelectedSubject(iniComponents.questionsViewAdapter, comboBox1);
+                List<VQuestion> questions = sub.getSelectedTest().Questions;
                 for (int i = 0; i < questions.Count; i++)
                 {
                     questions.ElementAt(i).IsSelected = false;
@@ -621,8 +621,8 @@ namespace goTest
         {
             try
             {
-                List<VQuestion> questions = iniComponents.questionsViewAdapter.getResult().
-                    ElementAt(0).Tests.ElementAt(0).Questions;
+                VSubject sub = getSelectedSubject(iniComponents.questionsViewAdapter, comboBox1);
+                List<VQuestion> questions = sub.getSelectedTest().Questions;
                 for (int i = 0; i < questions.Count; i++)
                 {
                     if (questions.ElementAt(i).IsSelected)
@@ -761,7 +761,9 @@ namespace goTest
                             getResult().ElementAt(i).getSelectedTest().unRestore();
                         test.Name = textBox9.Text;
                         test.IsSelected = true;
+                        activateValueChangeListeners = false;
                         iniComponents.goTestController.update(test.Id, test);
+                        activateValueChangeListeners = true;
 
                         return;
                     }
@@ -794,7 +796,9 @@ namespace goTest
                         Test test = iniComponents.questionsViewAdapter.
                             getResult().ElementAt(i).getSelectedTest().unRestore();
                         test.QuestionsNumber = int.Parse(numericUpDown1.Value.ToString());
+                        activateValueChangeListeners = false;
                         iniComponents.goTestController.update(test.Id, test);
+                        activateValueChangeListeners = true;
 
                         return;
                     }
@@ -819,7 +823,7 @@ namespace goTest
                 return;
             }
             if (int.Parse(numericUpDown2.Value.ToString()) > 0 &&
-                int.Parse(numericUpDown1.Value.ToString()) > int.
+                int.Parse(numericUpDown1.Value.ToString()) >= int.
                 Parse(numericUpDown2.Value.ToString()))
             {
                 for (int i = 0; i < iniComponents.questionsViewAdapter.getResult().Count; i++)
@@ -829,7 +833,9 @@ namespace goTest
                         Test test = iniComponents.questionsViewAdapter.
                             getResult().ElementAt(i).getSelectedTest().unRestore();
                         test.RequeredUnswersNumber = int.Parse(numericUpDown2.Value.ToString());
+                        activateValueChangeListeners = false;
                         iniComponents.goTestController.update(test.Id, test);
+                        activateValueChangeListeners = true;
 
                         return;
                     }
@@ -966,14 +972,15 @@ namespace goTest
         //Update tests subject
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (activateValueChangeListeners)
+            if (!activateValueChangeListeners)
             {
-                VSubject sub = getSelectedSubject(
-                    iniComponents.questionsViewAdapter, comboBox1);
-                activateValueChangeListeners = false;
-                iniComponents.goTestController.setSubjectForSelectedTest(sub.Id);
-                activateValueChangeListeners = true;
+                return;
             }
+            VSubject sub = getSelectedSubject(
+                iniComponents.questionsViewAdapter, comboBox1);
+            activateValueChangeListeners = false;
+            iniComponents.goTestController.setSubjectForSelectedTest(sub.Id);
+            activateValueChangeListeners = true;
         }
 
         //

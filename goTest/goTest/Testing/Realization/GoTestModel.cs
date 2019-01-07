@@ -24,6 +24,7 @@ namespace goTest.Testing.Realization
     {
         private List<Subject> store;
         private int currentQuestionIndex;
+        private int currentNewObjectIndex = -1;
         private TestObjectsSearcher searcher;
         private GoTestQueryConfiguratorI queryConfigurator;
         private TestManipulatorI testManipulator;
@@ -103,50 +104,6 @@ namespace goTest.Testing.Realization
             view.show();
         }
 
-        /*public void createTest(string name, int subjectId, int questionsNumber, 
-            int requeredUnswersNumber)
-        {
-            try
-            {
-                try
-                {
-                    int[] id = DataSetConverter.fromDsToBuf.toIntBuf.convert(SqlLiteSimpleExecute.
-                    execute(queryConfigurator.getObjectIdsInDevelopStatus()));
-                    if(id.Length>0)
-                    {
-                        string ids = "";
-                        for (int i=0; i<id.Length; i++)
-                        {
-                            ids += id[i] + ";";
-                        }
-                        throw new NotApprowedObjectsFound("Нельзя создать тест, пока существуют "+
-                            "объекты без статуса Approve:"+ids);
-                    }
-                }
-                catch(СonversionError er)
-                {
-                }
-
-                Subject subject = new Subject();
-                Test currentTest = new Test();
-                currentTest.Name = name;
-                currentTest.RequeredUnswersNumber = requeredUnswersNumber;
-                currentTest.QuestionsNumber = questionsNumber;
-
-                subject.Id = subjectId;
-                subject.Tests.Add(currentTest);
-
-                List<Subject> newConfig = new List<Subject>();
-                newConfig.Add(subject);
-
-                setConfig(newConfig);
-            }
-            catch(Exception ex)
-            {
-                ExceptionHandler.getInstance().processing(ex);
-            }
-        }*/
-
         public void deleteQuestion(int id)
         {
             IntHierarchy hi = searcher.getQuestionPosition(store, id);
@@ -222,30 +179,14 @@ namespace goTest.Testing.Realization
             IntHierarchy hi = searcher.getQuestionPosition(store, id);
             if (!hi.getLastListType().Equals(new Question().GetType()))
             {
-                if (id == 0 && hi.getLastListType().Equals(new Test().GetType()))
-                {
-                    Test tst = store.ElementAt(hi.value).Tests.ElementAt(hi.getChild().value);
-                    for (int i = 0; i < tst.Questions.Count; i++)
-                    {
-                        if (tst.Questions.ElementAt(i).Id == 0)
-                        {
-                            questionIndex = i;
-                        }
-                    }
-                    if (questionIndex == -1)
-                    {
-                        throw new GoTestObjectNotFound();
-                    }
-                }
-                else
-                {
-                    throw new GoTestObjectNotFound();
-                }
+                throw new GoTestObjectNotFound();
             }
             else
             {
                 questionIndex = hi.getChild().getChild().value;
             }
+            newVersion.Id = store.ElementAt(hi.value).Tests.ElementAt(hi.getChild().value).
+                    Questions.ElementAt(questionIndex).Id;
             store.ElementAt(hi.value).Tests.ElementAt(hi.getChild().value).
                     Questions.RemoveAt(questionIndex);
             store.ElementAt(hi.value).Tests.ElementAt(hi.getChild().value).
@@ -260,44 +201,7 @@ namespace goTest.Testing.Realization
             int unswerIndex = -1;
             if (!hi.getLastListType().Equals(new Unswer().GetType()))
             {
-                if (id == 0 && hi.getLastListType().Equals(new Test().GetType()))
-                {
-                    Test tst = store.ElementAt(hi.value).Tests.ElementAt(hi.getChild().value);
-                    for (int i = 0; i < tst.Questions.Count; i++)
-                    {
-                        if (tst.Questions.ElementAt(i).Id == 0)
-                        {
-                            questionIndex = i;
-                            unswerIndex = searchUnswerWithZeroIdInQuestionWithZeroId(
-                                tst.Questions.ElementAt(i));
-                        }
-                    }
-                    if (questionIndex == -1)
-                    {
-                        throw new GoTestObjectNotFound();
-                    }
-                }
-                if (id == 0 && hi.getLastListType().Equals(new Question().GetType()))
-                {
-                    Question que = store.ElementAt(hi.value).Tests.ElementAt(hi.getChild().value).
-                    Questions.ElementAt(hi.getChild().getChild().value);
-                    for (int i = 0; i < que.Unswers.Count; i++)
-                    {
-                        if (que.Unswers.ElementAt(i).Id == 0)
-                        {
-                            questionIndex = hi.getChild().getChild().value;
-                            unswerIndex = i;
-                        }
-                    }
-                    if(unswerIndex==-1)
-                    {
-                        throw new GoTestObjectNotFound();
-                    }
-                }
-                else
-                {
-                    throw new GoTestObjectNotFound();
-                }
+                throw new GoTestObjectNotFound();
             }
             else
             {
@@ -323,6 +227,8 @@ namespace goTest.Testing.Realization
             {
                 question.QuestionsType = QuestionTypes.singleAnswer;
             }
+            newVersion.Id = store.ElementAt(hi.value).Tests.ElementAt(hi.getChild().value).
+                Questions.ElementAt(questionIndex).Unswers.ElementAt(unswerIndex).Id;
             store.ElementAt(hi.value).Tests.ElementAt(hi.getChild().value).
                 Questions.ElementAt(questionIndex).Unswers.
                 RemoveAt(unswerIndex);
@@ -345,6 +251,7 @@ namespace goTest.Testing.Realization
                 }
                 else
                 {
+                    test.Id = store.ElementAt(hi.value).Tests.ElementAt(hi.getChild().value).Id;
                     store.ElementAt(hi.value).Tests.RemoveAt(hi.getChild().value);
                     store.ElementAt(hi.value).Tests.Insert(hi.getChild().value, test);
                     notifyObservers();
@@ -420,7 +327,10 @@ namespace goTest.Testing.Realization
         public void addEmptyQuestion()
         {
             Test test = getCurrentTest();
-            test.Questions.Add(new Question());
+            Question newQuestion = new Question();
+            newQuestion.Id = currentNewObjectIndex;
+            currentNewObjectIndex--;
+            test.Questions.Add(newQuestion);
             notifyObservers();
         }
 
@@ -431,7 +341,10 @@ namespace goTest.Testing.Realization
             {
                 if(test.Questions.ElementAt(i).Id == questionId)
                 {
-                    test.Questions.ElementAt(i).Unswers.Add(new Unswer());
+                    Unswer newUnswer = new Unswer();
+                    newUnswer.Id = currentNewObjectIndex;
+                    test.Questions.ElementAt(i).Unswers.Add(newUnswer);
+                    currentNewObjectIndex--;
                     notifyObservers();
                     return;
                 }
@@ -515,7 +428,9 @@ namespace goTest.Testing.Realization
             Subject newSubject = new Subject();
             Test newTest = new Test();
             newTest.IsSelected = true;
+            newTest.Id = currentNewObjectIndex;
             newSubject.Tests.Add(newTest);
+            currentNewObjectIndex--;
             config.Add(newSubject);
             loadStore();
         }

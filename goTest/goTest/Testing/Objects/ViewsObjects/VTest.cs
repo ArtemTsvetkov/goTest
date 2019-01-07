@@ -40,6 +40,7 @@ namespace goTest.Testing.Objects.ViewsObjects
             test.QuestionsNumber = QuestionsNumber;
             test.RequeredUnswersNumber = RequeredUnswersNumber;
             test.Id = Id;
+            test.IsSelected = IsSelected;
 
             for (int i = 0; i < questions.Count; i++)
             {
