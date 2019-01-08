@@ -46,6 +46,7 @@ namespace goTest.Testing.Views
                 Equals(createTestView.getName()))
             {
                 int questionId = -1;
+                int selectedQuestionPosition=-1;
                 try
                 {
                     for(int i=0; i<adapter.getResult().Count; i++)
@@ -94,7 +95,7 @@ namespace goTest.Testing.Views
                         {
                             TestObjectsSearcher searcher = new TestObjectsSearcher();
                             int selectedSubjectPosition = searcher.getSelectedSubject(adapter.getResult());
-                            int selectedQuestionPosition = searcher.getQuestionPosition(
+                            selectedQuestionPosition = searcher.getQuestionPosition(
                                 adapter.getResult().ElementAt(selectedSubjectPosition).getSelectedTest().
                                 Questions, questionId);
                             adapter.getResult().ElementAt(selectedSubjectPosition).getSelectedTest().
@@ -103,6 +104,15 @@ namespace goTest.Testing.Views
                                 Questions.ElementAt(selectedQuestionPosition);
                             form.dataGridView2Elem.Rows.Add(question.Unswers.Count);
                             form.dataGridView2Elem.Rows[0].Selected = false;
+                            for(int i=0; i<question.Unswers.Count; i++)
+                            {
+                                form.dataGridView2Elem.Rows[i].Cells[0].Value = 
+                                    question.Unswers.ElementAt(i).Content;
+                                if(question.Unswers.ElementAt(i).IsRight)
+                                {
+                                    form.dataGridView2Elem.Rows[i].Cells[1].Value = "+";
+                                }
+                            }
                         }
                         catch (Exception ex)
                         {
@@ -127,6 +137,10 @@ namespace goTest.Testing.Views
                     if (form.dataGridView1Elem.RowCount > 0)
                     {
                         form.dataGridView1Elem.Rows[0].Selected = false;
+                    }
+                    if (selectedQuestionPosition != -1)
+                    {
+                        form.dataGridView1Elem.Rows[selectedQuestionPosition].Selected = true;
                     }
                 }
             }

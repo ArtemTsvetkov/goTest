@@ -470,7 +470,9 @@ namespace goTest
                 }
             }
             dataGridView1.Rows.Add(1);
+            activateValueChangeListeners = false;
             iniComponents.goTestController.addEmptyQuestion();
+            activateValueChangeListeners = true;
         }
 
         //Delete queston from table
@@ -482,8 +484,10 @@ namespace goTest
                         getResult());
                 VSubject subject = iniComponents.questionsViewAdapter.
                     getResult().ElementAt(pos);
+                activateValueChangeListeners = false;
                 iniComponents.goTestController.deleteQuestion(subject.getSelectedTest().
                     getSelectedQuestion().Id);
+                activateValueChangeListeners = true;
             }
             catch (Exception ex)
             {
@@ -521,7 +525,9 @@ namespace goTest
                 {
                     dataGridView2.Rows.Add(1);
                     VQuestion question = getSelectedQuestion(iniComponents.questionsViewAdapter);
+                    activateValueChangeListeners = false;
                     iniComponents.goTestController.addEmptyUnswer(question.Id);
+                    activateValueChangeListeners = true;
                 }
                 else
                 {
@@ -545,7 +551,9 @@ namespace goTest
         //Delete unswer from table
         private void button25_Click(object sender, EventArgs e)
         {
+            activateValueChangeListeners = false;
             deleteUnswer();
+            activateValueChangeListeners = true;
         }
 
         //Update question selection
@@ -708,8 +716,10 @@ namespace goTest
                         getResult());
                     VSubject subject = iniComponents.questionsViewAdapter.
                         getResult().ElementAt(pos);
+                    activateValueChangeListeners = false;
                     iniComponents.goTestController.update(subject.getSelectedTest().
                         getSelectedQuestion().getSelectedUnswer().Id, unswer);
+                    activateValueChangeListeners = true;
                 }
                 catch (Exception ex)
                 {
@@ -872,7 +882,9 @@ namespace goTest
                 Question question = getSelectedQuestion(iniComponents.questionsViewAdapter).
                     unRestore();
                 question.QuestionsContent = textBox11.Text;
+                activateValueChangeListeners = false;
                 iniComponents.goTestController.update(question.Id, question);
+                activateValueChangeListeners = true;
             }
             catch(Exception ex)
             {
