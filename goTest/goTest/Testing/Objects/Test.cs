@@ -20,15 +20,12 @@ namespace goTest.Testing.Objects
         public Test()
         {
             questions = new List<Question>();
+            questionsNumber = 1;
+            requeredUnswersNumber = 1;
         }
         
         public void isValid()
         {
-            if (id <= 0)
-            {
-                throw new ObjectNotValid("Тест не содержит идентификатор, обратитесь" +
-                    " к администратору");
-            }
             if (name == null)
             {
                 throw new ObjectNotValid("Для теста: "+id+" не задано имя");

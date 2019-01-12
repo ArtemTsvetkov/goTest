@@ -89,9 +89,12 @@ namespace goTest.CommonComponents.InitialyzerComponent
                 Navigator.Navigator.getInstance().addView(new CreateSubjectView(form, 
                     components.сreateSubjectViewAdapter));
                 //Navigator.Navigator.getInstance().addView(new CreateTestView(form,
-                    //components.сreateTestViewAdapter, goTestModel));
-                Navigator.Navigator.getInstance().addView(new CreateTestView(form,
-                    components.questionsViewAdapter, goTestModel));
+                //components.сreateTestViewAdapter, goTestModel));
+                CreateTestView createTestView = new CreateTestView(form,
+                    components.questionsViewAdapter, goTestModel);
+                goTestModel.subscribe(createTestView);
+                Navigator.Navigator.getInstance().addView(createTestView);
+
                 Navigator.Navigator.getInstance().addView(new QuestionsView(form,
                     components.questionsViewAdapter, goTestModel));
                 Navigator.Navigator.getInstance().navigateTo("AutorizationSecurityView");

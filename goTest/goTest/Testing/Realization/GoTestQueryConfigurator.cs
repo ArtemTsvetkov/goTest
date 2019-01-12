@@ -45,14 +45,15 @@ namespace goTest.Testing.Realization
         public string setTestsQuestionsNumber(int testId, int count)
         {
             return "INSERT INTO Parameters VALUES(" + testId + "," + 
-                getSubQueryForGettingAttrId(DbAttrs.questionsCount.getName()) + ",'" + "3" + "');";
+                getSubQueryForGettingAttrId(DbAttrs.questionsCount.getName()) + ",'" + 
+                count + "');";
         }
 
         public string setTestsRequeredUnswersNumber(int testId, int count)
         {
             return "INSERT INTO Parameters VALUES(" + testId + "," +
                 getSubQueryForGettingAttrId(DbAttrs.requiredQuestions.getName()) + ",'" + 
-                "3" + "');";
+                count + "');";
         }
 
         public string createQuestion(int testId)

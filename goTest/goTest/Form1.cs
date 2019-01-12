@@ -309,7 +309,8 @@ namespace goTest
             try
             {
                 if (!textBox9.Text.Equals("") & comboBox1.SelectedIndex != -1 &
-                    numericUpDown1.Value >= 1 & numericUpDown2.Value <= numericUpDown1.Value)
+                    numericUpDown1.Value >= 1 & numericUpDown2.Value <= numericUpDown1.Value
+                    & !comboBox1.SelectedItem.Equals(""))
                 {
                     Navigator.Navigator.getInstance().navigateTo("QuestionsView");
                     if (dataGridView1.RowCount > 0)
@@ -372,9 +373,13 @@ namespace goTest
         {
             activateValueChangeListeners = false;
             Navigator.Navigator.getInstance().resetCurrentView();
+            resetQuestionView();
             activateValueChangeListeners = true;
             Navigator.Navigator.getInstance().navigateToPreviousView();
-            Navigator.Navigator.getInstance().navigateToPreviousView();
+            if (Navigator.Navigator.getInstance().getCurrentViewsName().Equals("UpdateTestView"))
+            {
+                Navigator.Navigator.getInstance().navigateToPreviousView();
+            }
         }
 
         //Cancel from change subject view
@@ -418,11 +423,19 @@ namespace goTest
                 {
                     for(int m=0; m<subjects.ElementAt(i).Tests.Count; m++)
                     {
-                        subjects.ElementAt(i).Tests.ElementAt(m).unRestore().isValid();
+                        if (subjects.ElementAt(i).Tests.ElementAt(m).IsSelected)
+                        {
+                            subjects.ElementAt(i).Tests.ElementAt(m).unRestore().isValid();
+                            break;
+                        }
                     }
                 }
                 iniComponents.goTestController.updateTestInBD();
                 showMessage("Тест успешно обновлен");
+                activateValueChangeListeners = false;
+                Navigator.Navigator.getInstance().resetCurrentView();
+                resetQuestionView();
+                activateValueChangeListeners = true;
                 Navigator.Navigator.getInstance().navigateTo("AdminMenuView");
             }
             catch (Exception ex)
@@ -509,7 +522,16 @@ namespace goTest
                     return;
                 }
             }
-            if(dataGridView1.SelectedCells.Count == 0)
+            if (dataGridView2.RowCount >= 10)
+            {
+                MessageBox.Show(
+                        "Текущая версия приложения поддерживает максимум 10 вариантов ответа",
+                        "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information,
+                        MessageBoxDefaultButton.Button1,
+                        MessageBoxOptions.DefaultDesktopOnly);
+                return;
+            }
+            if (dataGridView1.SelectedCells.Count == 0)
             {
                 MessageBox.Show(
                         "Выберите вопрос",
@@ -990,15 +1012,34 @@ namespace goTest
             }
             VSubject sub = getSelectedSubject(
                 iniComponents.questionsViewAdapter, comboBox1);
-            activateValueChangeListeners = false;
-            iniComponents.goTestController.setSubjectForSelectedTest(sub.Id);
-            activateValueChangeListeners = true;
+            if (sub.Name != null && !sub.Name.Equals(""))
+            {
+                activateValueChangeListeners = false;
+                iniComponents.goTestController.setSubjectForSelectedTest(sub.Id);
+                activateValueChangeListeners = true;
+            }
+            else
+            {
+                showMessage("Нельзя выбрать пустой предмет");
+                if(comboBox1.Items.Count>0)
+                {
+                    comboBox1.SelectedIndex=0;
+                }
+            }
         }
 
         //
         //Other functions
         //
 
+        //Reset question view
+        private void resetQuestionView()
+        {
+            textBox11.Text = "";
+            dataGridView1.Rows.Clear();
+            dataGridView2.Rows.Clear();
+            label27.Visible = false;
+        }
 
         //Delete unswer from table
         private void deleteUnswer()

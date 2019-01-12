@@ -24,7 +24,6 @@ namespace goTest.Testing.Views
             this.form = form;
             this.adapter = adapter;
             this.model = model;
-            model.subscribe(this);
         }
 
         public void show()
@@ -46,6 +45,11 @@ namespace goTest.Testing.Views
                 form.comboBox1Elem.Items.Clear();
                 for (int i = 0; i < subjects.Count; i++)
                 {
+                    if (subjects.ElementAt(i).Name == null)
+                    {
+                        form.comboBox1Elem.Items.Add("");
+                        continue;
+                    }
                     for (int s = 0; s < subjects.Count; s++)
                     {
                         if (subjects.ElementAt(s).getPosition() == i & 
@@ -98,8 +102,25 @@ namespace goTest.Testing.Views
         public void reset()
         {
             form.textBox9Elem.Text = "";
-            form.numericUpDown1Elem.Value = 0;
-            form.numericUpDown2Elem.Value = 0;
+            form.comboBox1Elem.Items.Clear();
+            form.comboBox1Elem.SelectedIndex = -1;
+            form.comboBox1Elem.SelectedText = "";
+            form.numericUpDown1Elem.Value = 1;
+            form.numericUpDown2Elem.Value = 1;
+            List<VSubject> subjects = adapter.getResult();
+            for(int i=0; i<subjects.Count; i++)
+            {
+                for (int s = 0; s < subjects.ElementAt(i).Tests.Count; s++)
+                {
+                    if (subjects.ElementAt(i).Tests.ElementAt(s).IsSelected
+                        || subjects.ElementAt(i).Tests.ElementAt(s).Questions.Count > 0)
+                    {
+                        subjects.ElementAt(i).IsSelected = false;
+                        subjects.ElementAt(i).Tests.ElementAt(s).IsSelected = false;
+                        return;
+                    }
+                }
+            }
         }
     }
 }
