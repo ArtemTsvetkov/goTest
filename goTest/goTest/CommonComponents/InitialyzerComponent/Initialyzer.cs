@@ -1,6 +1,8 @@
-﻿using goTest.CommonComponents.ExceptionHandler.Realization;
+﻿using goTest.CommonComponents.DataConverters.Realization;
+using goTest.CommonComponents.ExceptionHandler.Realization;
 using goTest.CommonComponents.InitialyzerComponent.ReadConfig;
 using goTest.MenuComponent;
+using goTest.SecurityComponent.Encryption.Realization;
 using goTest.SecurityComponent.Realization;
 using goTest.SecurityComponent.Views;
 using goTest.Testing.Realization;
@@ -55,6 +57,12 @@ namespace goTest.CommonComponents.InitialyzerComponent
                 components.securityController = new SecurityController(securityModel);
                 AutorizationSecurityView securityView =
                     new AutorizationSecurityView(form, securityModel);
+
+                EncryptConfig conf = new EncryptConfig(new byte[]{0x7c,0x26,0xf0,0xc6,0x77,
+                0xaa,0xba,0x6a,0x66,0x7b,0x56,0x0f,0x98,0x43,0xba,0x2d,0xbb,0x06,0x0a,0xef,
+                0xad,0x32,0x88,0xb0,0x5d,0xfb,0xfe,0x98,0xa7,0xa7,0xa5,0x1a});
+                EncryptWorker.getInstance().setConfig(conf);
+                
                 //
                 //goTest component
                 //

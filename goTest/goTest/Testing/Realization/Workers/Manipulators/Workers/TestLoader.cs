@@ -1,5 +1,6 @@
 ﻿using goTest.CommonComponents.DataConverters.Realization;
 using goTest.CommonComponents.WorkWithData.Realization.WorkWithDataBase.SqlLite;
+using goTest.SecurityComponent.Encryption.Realization;
 using goTest.Testing.Objects;
 using System;
 using System.Collections.Generic;
@@ -31,8 +32,9 @@ namespace goTest.Testing.Interfaces.Manipulators.Workers
         {
             Test test = new Test();
             test.Id = testId;
-            test.Name = DataSetConverter.fromDsToSingle.toString.
-                convert(SqlLiteSimpleExecute.execute(queryConfigurator.loadTestName(testId)));
+            test.Name = EncryptWorker.getInstance().decrypt(
+                DataSetConverter.fromDsToSingle.toString.
+                convert(SqlLiteSimpleExecute.execute(queryConfigurator.loadTestName(testId))));
             if (!loadOnlyTestNames)
             {
                 test.QuestionsNumber = DataSetConverter.fromDsToSingle.toInt.

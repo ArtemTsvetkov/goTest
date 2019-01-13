@@ -1,6 +1,7 @@
 ﻿using goTest.CommonComponents.DataConverters.Exceptions;
 using goTest.CommonComponents.DataConverters.Realization;
 using goTest.CommonComponents.WorkWithData.Realization.WorkWithDataBase.SqlLite;
+using goTest.SecurityComponent.Encryption.Realization;
 using goTest.Testing.Exceptions;
 using goTest.Testing.Interfaces;
 using goTest.Testing.Interfaces.Manipulators;
@@ -31,8 +32,8 @@ namespace goTest.Testing.Realization.Workers.Manipulators.Workers
             SqlLiteSimpleExecute.execute(queryConfigurator.createQuestion(testId));
             question.Id = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
                 execute(queryConfigurator.getObjectIdInDevelopStatus(DbTypes.question)));
-            SqlLiteSimpleExecute.execute(queryConfigurator.setQuestionContent(question.Id, 
-                question.QuestionsContent));
+            SqlLiteSimpleExecute.execute(queryConfigurator.setQuestionContent(question.Id,
+                EncryptWorker.getInstance().encrypt(question.QuestionsContent)));
             SqlLiteSimpleExecute.execute(queryConfigurator.setQuestionType(question.Id,
                 question.QuestionsType));
 

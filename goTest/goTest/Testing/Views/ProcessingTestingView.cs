@@ -47,6 +47,7 @@ namespace goTest.Testing.Views
             if (Navigator.Navigator.getInstance().getCurrentViewsName().Equals(getName()))
             {
                 offRadioButtons();
+                offCheckBoxes();
                 try
                 {
                     Question question = model.getNextQuestion();

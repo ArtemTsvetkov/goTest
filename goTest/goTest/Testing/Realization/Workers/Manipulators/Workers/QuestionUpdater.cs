@@ -1,6 +1,7 @@
 ﻿using goTest.CommonComponents.DataConverters.Exceptions;
 using goTest.CommonComponents.DataConverters.Realization;
 using goTest.CommonComponents.WorkWithData.Realization.WorkWithDataBase.SqlLite;
+using goTest.SecurityComponent.Encryption.Realization;
 using goTest.Testing.Exceptions;
 using goTest.Testing.Interfaces;
 using goTest.Testing.Interfaces.Manipulators;
@@ -35,7 +36,7 @@ namespace goTest.Testing.Realization.Workers.Manipulators.Workers
                 throw new ObjectIsNotExistYet();
             }
             SqlLiteSimpleExecute.execute(queryConfigurator.updateQuestionContent(question.Id,
-                    question.QuestionsContent));
+                    EncryptWorker.getInstance().encrypt(question.QuestionsContent)));
 
 
             int rightUnswersCount = 0;

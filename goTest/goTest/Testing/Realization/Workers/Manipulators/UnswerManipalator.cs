@@ -12,6 +12,7 @@ using goTest.Testing.Exceptions;
 using goTest.Testing.Types.BasicDBObjects;
 using goTest.Testing.Types.Unswer.Interfaces;
 using goTest.CommonComponents.DataConverters.Exceptions;
+using goTest.SecurityComponent.Encryption.Realization;
 
 namespace goTest.Testing.Realization.Workers.Manipulators
 {
@@ -31,8 +32,8 @@ namespace goTest.Testing.Realization.Workers.Manipulators
                 SqlLiteSimpleExecute.execute(queryConfigurator.createUnswer(questionId));
                 unswer.Id = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
                     execute(queryConfigurator.getObjectIdInDevelopStatus(DbTypes.unswer)));
-                SqlLiteSimpleExecute.execute(queryConfigurator.setUnswerContent(unswer.Id, 
-                    unswer.Content));
+                SqlLiteSimpleExecute.execute(queryConfigurator.setUnswerContent(unswer.Id,
+                    EncryptWorker.getInstance().encrypt(unswer.Content)));
                 SqlLiteSimpleExecute.execute(queryConfigurator.setUnswerType(unswer.Id,
                     UnswerTypes.rightUnswer));
             }
@@ -42,7 +43,7 @@ namespace goTest.Testing.Realization.Workers.Manipulators
                 unswer.Id = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
                     execute(queryConfigurator.getObjectIdInDevelopStatus(DbTypes.unswer)));
                 SqlLiteSimpleExecute.execute(queryConfigurator.setUnswerContent(unswer.Id,
-                    unswer.Content));
+                    EncryptWorker.getInstance().encrypt(unswer.Content)));
                 SqlLiteSimpleExecute.execute(queryConfigurator.setUnswerType(unswer.Id,
                     UnswerTypes.unswer));
             }
@@ -58,8 +59,9 @@ namespace goTest.Testing.Realization.Workers.Manipulators
             try
             {
                 lastQuery = queryConfigurator.loadUnswerContent(id);
-                unswer.Content = DataSetConverter.fromDsToSingle.toString.convert(SqlLiteSimpleExecute.
-                        execute(queryConfigurator.loadUnswerContent(id)));
+                unswer.Content = EncryptWorker.getInstance().decrypt(
+                    DataSetConverter.fromDsToSingle.toString.convert(SqlLiteSimpleExecute.
+                        execute(queryConfigurator.loadUnswerContent(id))));
                 lastQuery = queryConfigurator.loadUnswerTypeId(id);
                 int typeId = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
                         execute(queryConfigurator.loadUnswerTypeId(id)));
@@ -96,14 +98,14 @@ namespace goTest.Testing.Realization.Workers.Manipulators
             if (unswer.IsRight)
             {
                 SqlLiteSimpleExecute.execute(queryConfigurator.updateUnswerContent(
-                    unswer.Id, unswer.Content));
+                    unswer.Id, EncryptWorker.getInstance().encrypt(unswer.Content)));
                 SqlLiteSimpleExecute.execute(queryConfigurator.updateUnswerType(
                     unswer.Id, DbObjects.rightUnswer));
             }
             else
             {
                 SqlLiteSimpleExecute.execute(queryConfigurator.updateUnswerContent(
-                    unswer.Id, unswer.Content));
+                    unswer.Id, EncryptWorker.getInstance().encrypt(unswer.Content)));
                 SqlLiteSimpleExecute.execute(queryConfigurator.updateUnswerType(
                     unswer.Id, DbObjects.unswer));
             }

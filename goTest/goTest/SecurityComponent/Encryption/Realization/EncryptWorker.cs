@@ -11,10 +11,54 @@ namespace goTest.SecurityComponent.Encryption.Realization
 {
     class EncryptWorker : EncryptWorkerInterface
     {
+        private static EncryptWorker encryptWorker;
         private EncryptConfig config;
         private GeneralConverter converter = new GeneralConverter();
 
-        byte[] encryptAes(byte[] data, byte[] key, byte[] initVector)
+        private EncryptWorker()
+        {
+
+        }
+
+        public static EncryptWorker getInstance()
+        {
+            if (encryptWorker == null)
+            {
+                encryptWorker = new EncryptWorker();
+            }
+
+            return encryptWorker;
+        }
+
+        public void setConfig(EncryptConfig config)
+        {
+            this.config = config.copy();
+        }
+
+        public string encrypt(string message)
+        {
+            using (Rijndael myRijndael = Rijndael.Create())
+            {
+                myRijndael.Key = config.getKey();
+                myRijndael.IV = config.getIV();
+                byte[] encrypted = encryptAes(converter.fromStringToBytesBufUtf8(message),
+                    myRijndael.Key, myRijndael.IV);
+                return converter.fromByteBufToString(encrypted);
+            }
+        }
+
+        public string decrypt(string message)
+        {
+            using (Rijndael myRijndael = Rijndael.Create())
+            {
+                myRijndael.Key = config.getKey();
+                myRijndael.IV = config.getIV();
+                return converter.fromBytesBufToStringUtf8(decryptAes(
+                    converter.fromStringToBytesBuf(message), myRijndael.Key, myRijndael.IV));
+            }
+        }
+
+        private byte[] encryptAes(byte[] data, byte[] key, byte[] initVector)
         {
             using (var aes = new AesManaged())
             {
@@ -33,7 +77,7 @@ namespace goTest.SecurityComponent.Encryption.Realization
             }
         }
 
-        byte[] decryptAes(byte[] data, byte[] key, byte[] initVector)
+        private byte[] decryptAes(byte[] data, byte[] key, byte[] initVector)
         {
             using (var aes = new AesManaged())
             {
@@ -52,34 +96,6 @@ namespace goTest.SecurityComponent.Encryption.Realization
                         }
                     }
                 }
-            }
-        }
-
-        public void setConfig(EncryptConfig config)
-        {
-            this.config = config.copy();
-        }
-
-        public string encrypt(string message)
-        {
-            using (Rijndael myRijndael = Rijndael.Create())
-            {
-                myRijndael.Key = config.getKey();
-                myRijndael.IV = config.getIV();
-                byte[] encrypted = encryptAes(converter.fromStringToBytesBufUtf8(message), 
-                    myRijndael.Key, myRijndael.IV);
-                return converter.fromByteBufToString(encrypted);
-            }
-        }
-
-        public string decrypt(string message)
-        {
-            using (Rijndael myRijndael = Rijndael.Create())
-            {
-                myRijndael.Key = config.getKey();
-                myRijndael.IV = config.getIV();
-                return converter.fromBytesBufToStringUtf8(decryptAes(
-                    converter.fromStringToBytesBuf(message), myRijndael.Key, myRijndael.IV));
             }
         }
     }

@@ -962,6 +962,12 @@ namespace goTest
             }
         }
 
+        //Update question content
+        private void textBox11_Leave(object sender, EventArgs e)
+        {
+
+        }
+
         //Update selected subject on testing view
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {

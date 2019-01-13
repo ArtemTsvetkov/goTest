@@ -1,5 +1,6 @@
 ﻿using goTest.CommonComponents.DataConverters.Realization;
 using goTest.CommonComponents.WorkWithData.Realization.WorkWithDataBase.SqlLite;
+using goTest.SecurityComponent.Encryption.Realization;
 using goTest.Testing.Exceptions;
 using goTest.Testing.Objects;
 using System;
@@ -37,7 +38,7 @@ namespace goTest.Testing.Interfaces.Manipulators.Workers
                 test.Id, subjectId));
 
             SqlLiteSimpleExecute.execute(queryConfigurator.updateTestName(
-                test.Id, test.Name));
+                test.Id, EncryptWorker.getInstance().encrypt(test.Name)));
             int id = test.Id;
 
             SqlLiteSimpleExecute.execute(queryConfigurator.

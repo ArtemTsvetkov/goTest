@@ -10,6 +10,7 @@ using goTest.Testing.Interfaces;
 using goTest.CommonComponents.DataConverters.Realization;
 using goTest.Testing.Types.BasicDBObjects;
 using goTest.Testing.Exceptions;
+using goTest.SecurityComponent.Encryption.Realization;
 
 namespace goTest.Testing.Realization.Workers.Manipulators
 {
@@ -28,7 +29,7 @@ namespace goTest.Testing.Realization.Workers.Manipulators
         public void create(Subject subject)
         {
             SqlLiteSimpleExecute.execute(queryConfigurator.createSubject(
-                subject.Name));
+                EncryptWorker.getInstance().encrypt(subject.Name)));
             for(int i=0; i<subject.Tests.Count; i++)
             {
                 testManipulator.create(subject.Tests.ElementAt(i), subject.Id);
@@ -44,7 +45,7 @@ namespace goTest.Testing.Realization.Workers.Manipulators
             Subject sub = new Subject();
             sub.Id = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
                 execute(queryConfigurator.getSubjectId(name)));
-            sub.Name = name;
+            sub.Name = EncryptWorker.getInstance().decrypt(name);
             int[] testIds = DataSetConverter.fromDsToBuf.toIntBuf.convert(SqlLiteSimpleExecute.
                 execute(queryConfigurator.loadSubjectTestIds(sub.Id)));
             for(int i=0; i<testIds.Length; i++)
@@ -59,7 +60,7 @@ namespace goTest.Testing.Realization.Workers.Manipulators
         public void update(Subject subject)
         {
             SqlLiteSimpleExecute.execute(queryConfigurator.updateSubjectName(
-            subject.Id, subject.Name));
+            subject.Id, EncryptWorker.getInstance().encrypt(subject.Name)));
 
             for(int i=0; i<subject.Tests.Count; i++)
             {
