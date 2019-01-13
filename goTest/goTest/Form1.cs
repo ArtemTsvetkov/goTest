@@ -825,7 +825,7 @@ namespace goTest
         }
 
         //Update test name
-        private void textBox9_TextChanged(object sender, EventArgs e)
+        private void textBox9_Leave(object sender, EventArgs e)
         {
             if (!activateValueChangeListeners)
             {
@@ -934,13 +934,13 @@ namespace goTest
         }
 
         //Update question content
-        private void textBox11_TextChanged(object sender, EventArgs e)
+        private void textBox11_Leave(object sender, EventArgs e)
         {
-            if(!activateValueChangeListeners)
+            if (!activateValueChangeListeners)
             {
                 return;
             }
-            if (textBox11.Text == null||textBox11.Text.Equals(""))
+            if (textBox11.Text == null || textBox11.Text.Equals(""))
             {
                 activateValueChangeListeners = false;
                 textBox11.Text = "some content";
@@ -956,16 +956,10 @@ namespace goTest
                 iniComponents.goTestController.update(question.Id, question);
                 activateValueChangeListeners = true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ExceptionHandler.getInstance().processing(ex);
             }
-        }
-
-        //Update question content
-        private void textBox11_Leave(object sender, EventArgs e)
-        {
-
         }
 
         //Update selected subject on testing view

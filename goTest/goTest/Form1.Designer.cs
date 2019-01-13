@@ -814,7 +814,7 @@
             this.textBox9.Name = "textBox9";
             this.textBox9.Size = new System.Drawing.Size(236, 32);
             this.textBox9.TabIndex = 25;
-            this.textBox9.TextChanged += new System.EventHandler(this.textBox9_TextChanged);
+            this.textBox9.Leave += new System.EventHandler(this.textBox9_Leave);
             // 
             // label17
             // 
@@ -1123,7 +1123,6 @@
             this.textBox11.Name = "textBox11";
             this.textBox11.Size = new System.Drawing.Size(381, 178);
             this.textBox11.TabIndex = 56;
-            this.textBox11.TextChanged += new System.EventHandler(this.textBox11_TextChanged);
             this.textBox11.Leave += new System.EventHandler(this.textBox11_Leave);
             // 
             // label24
