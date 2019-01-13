@@ -835,6 +835,7 @@ namespace goTest
             {
                 for (int i = 0; i < iniComponents.questionsViewAdapter.getResult().Count; i++)
                 {
+                    trySetSelection(iniComponents.questionsViewAdapter.getResult().ElementAt(i));
                     if (iniComponents.questionsViewAdapter.getResult().ElementAt(i).IsSelected)
                     {
                         Test test = iniComponents.questionsViewAdapter.
@@ -848,6 +849,7 @@ namespace goTest
                         return;
                     }
                 }
+                throw new GoTestObjectNotFound();
             }
             else
             {
@@ -1216,6 +1218,17 @@ namespace goTest
                 }
             }
             throw new GoTestObjectNotFound();
+        }
+
+        private void trySetSelection(VSubject sub)
+        {
+            for(int i=0; i<sub.Tests.Count; i++)
+            {
+                if(sub.Tests.ElementAt(i).IsSelected)
+                {
+                    sub.IsSelected = true;
+                }
+            }
         }
     }
 }
