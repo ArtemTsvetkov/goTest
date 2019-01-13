@@ -1,4 +1,5 @@
-﻿using System;
+﻿using goTest.Testing.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ namespace goTest.Testing.Objects.ViewsObjects
     {
         private int position;
         private List<VTest> tests;
+        private bool isSelected;
 
         public VSubject(int position, Subject subject)
         {
@@ -33,6 +35,19 @@ namespace goTest.Testing.Objects.ViewsObjects
             return position;
         }
 
+        public bool IsSelected
+        {
+            get
+            {
+                return isSelected;
+            }
+
+            set
+            {
+                isSelected = value;
+            }
+        }
+
         internal new List<VTest> Tests
         {
             get
@@ -44,6 +59,19 @@ namespace goTest.Testing.Objects.ViewsObjects
             {
                 tests = value;
             }
+        }
+
+        public VTest getSelectedTest()
+        {
+            for (int i = 0; i < tests.Count; i++)
+            {
+                if (tests.ElementAt(i).IsSelected)
+                {
+                    return tests.ElementAt(i);
+                }
+            }
+
+            throw new GoTestObjectNotFound();
         }
     }
 }

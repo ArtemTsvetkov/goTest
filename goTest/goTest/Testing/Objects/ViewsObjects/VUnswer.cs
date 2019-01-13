@@ -9,6 +9,7 @@ namespace goTest.Testing.Objects.ViewsObjects
     class VUnswer : Unswer
     {
         private int position;
+        private bool isSelected;
 
         public VUnswer(int position, Unswer unswer)
         {
@@ -23,9 +24,32 @@ namespace goTest.Testing.Objects.ViewsObjects
             IsRight = unswer.IsRight;
         }
 
+        public Unswer unRestore()
+        {
+            Unswer unswer = new Unswer();
+            unswer.Content = Content;
+            unswer.Id = Id;
+            unswer.IsRight = IsRight;
+
+            return unswer;
+        }
+
         public int getPosition()
         {
             return position;
+        }
+
+        public bool IsSelected
+        {
+            get
+            {
+                return isSelected;
+            }
+
+            set
+            {
+                isSelected = value;
+            }
         }
     }
 }

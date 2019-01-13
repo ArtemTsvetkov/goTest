@@ -10,7 +10,7 @@ namespace goTest.Testing.Interfaces
 {
     interface GoTestAdapterI
     {
-        void adapte(List<Subject> subject, int position);
+        void adapte(List<Subject> subject);
         List<VSubject> getResult();
     }
 }

@@ -17,12 +17,17 @@ using goTest.Testing.Objects;
 using goTest.Testing.Types;
 using goTest.Testing.Exceptions;
 using goTest.Testing.Objects.ViewsObjects;
+using goTest.CommonComponents.ExceptionHandler.View.Information.PopupWindow;
+using goTest.Testing.Realization.Workers;
+using goTest.Testing.Interfaces;
 
 namespace goTest
 {
     public partial class Form1 : Form
     {
         private InitComponents iniComponents;
+        private bool activateValueChangeListeners = true;
+        private TestObjectsSearcher searcher;
 
         public Form1()
         {
@@ -31,6 +36,7 @@ namespace goTest
             iniComponents = new InitComponents();
             Initialyzer init = new Initialyzer(iniComponents, this);
             init.init();
+            searcher = new TestObjectsSearcher();
         }
 
 
@@ -108,6 +114,11 @@ namespace goTest
             get { return textBox12; }
         }
 
+        public TextBox textBox13Elem
+        {
+            get { return textBox13; }
+        }
+
         public NumericUpDown numericUpDown1Elem
         {
             get { return numericUpDown1; }
@@ -121,6 +132,103 @@ namespace goTest
         public Label label27Elem
         {
             get { return label27; }
+        }
+
+        public Label label40Elem
+        {
+            get { return label40; }
+        }
+
+        public Label label41Elem
+        {
+            get { return label41; }
+        }
+
+        public Label label42Elem
+        {
+            get { return label42; }
+        }
+
+        public Label label43Elem
+        {
+            get { return label43; }
+        }
+
+        public ComboBox comboBox1Elem
+        {
+            get { return comboBox1; }
+        }
+
+        public ComboBox comboBox2Elem
+        {
+            get { return comboBox2; }
+        }
+
+        public ComboBox comboBox3Elem
+        {
+            get { return comboBox3; }
+        }
+
+        public ComboBox comboBox4Elem
+        {
+            get { return comboBox4; }
+        }
+
+        public ComboBox comboBox5Elem
+        {
+            get { return comboBox5; }
+        }
+
+        public ComboBox comboBox6Elem
+        {
+            get { return comboBox6; }
+        }
+
+        public RadioButton[] radioButtons
+        {
+            get {
+                RadioButton[] buttons = new RadioButton[10];
+                buttons[0] = radioButton1;
+                buttons[1] = radioButton2;
+                buttons[2] = radioButton3;
+                buttons[3] = radioButton4;
+                buttons[4] = radioButton5;
+                buttons[5] = radioButton6;
+                buttons[6] = radioButton7;
+                buttons[7] = radioButton8;
+                buttons[8] = radioButton9;
+                buttons[9] = radioButton10;
+                return buttons;
+            }
+        }
+
+        public CheckBox[] checkBoxes
+        {
+            get
+            {
+                CheckBox[] cb = new CheckBox[10];
+                cb[0] = checkBox1;
+                cb[1] = checkBox2;
+                cb[2] = checkBox3;
+                cb[3] = checkBox4;
+                cb[4] = checkBox5;
+                cb[5] = checkBox6;
+                cb[6] = checkBox7;
+                cb[7] = checkBox8;
+                cb[8] = checkBox9;
+                cb[9] = checkBox10;
+                return cb;
+            }
+        }
+
+        public Panel panel1Elem
+        {
+            get { return panel1; }
+        }
+
+        public Panel panel2Elem
+        {
+            get { return panel2; }
         }
 
         //
@@ -204,6 +312,8 @@ namespace goTest
             {
                 iniComponents.securityController.setConfig("Student", "Student");
                 iniComponents.securityController.signInAsStudent();
+                Navigator.Navigator.getInstance().navigateTo("TestingView");
+                iniComponents.goTestController.loadAllSubjects();
             }
             catch (Exception ex)
             {
@@ -215,6 +325,10 @@ namespace goTest
         private void button6_Click(object sender, EventArgs e)
         {
             Navigator.Navigator.getInstance().navigateTo("CreateTestView");
+            activateValueChangeListeners = false;
+            iniComponents.goTestController.loadAllSubjects();
+            iniComponents.goTestController.addEmptyTest();
+            activateValueChangeListeners = true;
         }
 
         //Go to create subject view button
@@ -227,26 +341,72 @@ namespace goTest
         private void button10_Click(object sender, EventArgs e)
         {
             Navigator.Navigator.getInstance().navigateTo("UpdateSubjectView");
+            iniComponents.goTestController.loadAllSubjects();
         }
 
         //Go to update test view button
         private void button7_Click(object sender, EventArgs e)
         {
             Navigator.Navigator.getInstance().navigateTo("UpdateTestView");
+            iniComponents.goTestController.loadAllSubjects();
         }
 
         //Go to questions view button
         private void button11_Click(object sender, EventArgs e)
         {
-            Navigator.Navigator.getInstance().navigateTo("QuestionsView");
+            try
+            {
+                if (!textBox9.Text.Equals("") & comboBox1.SelectedIndex != -1 &
+                    numericUpDown1.Value >= 1 & numericUpDown2.Value <= numericUpDown1.Value
+                    & !comboBox1.SelectedItem.Equals(""))
+                {
+                    Navigator.Navigator.getInstance().navigateTo("QuestionsView");
+                    if (dataGridView1.RowCount > 0)
+                    {
+                        dataGridView1.Rows[0].Selected = false;
+                    }
+                }
+                else
+                {
+                    throw new NotAllAreasIsFill();
+                }
+            }
+            catch(Exception ex)
+            {
+                ExceptionHandler.getInstance().processing(ex);
+            }
         }
 
         //Go to next update test view
         private void button23_Click(object sender, EventArgs e)
         {
-            Navigator.Navigator.getInstance().navigateTo("CreateTestView");
-            iniComponents.goTestController.getFullTestContent(iniComponents.
-                сreateTestViewAdapter.getResult().ElementAt(0).Tests.ElementAt(0).Id);
+            for (int i=0; i<iniComponents.questionsViewAdapter.getResult().Count; i++)
+            {
+                if(comboBox5.SelectedIndex == iniComponents.questionsViewAdapter.
+                    getResult().ElementAt(i).getPosition())
+                {
+                    VSubject currentSubject = iniComponents.questionsViewAdapter.
+                    getResult().ElementAt(i);
+                    currentSubject.IsSelected = true;
+                    for(int m=0; m<currentSubject.Tests.Count; m++)
+                    {
+                        if(currentSubject.Tests.ElementAt(m).getPosition()==
+                            comboBox4.SelectedIndex)
+                        {
+                            VTest currenTest = currentSubject.Tests.ElementAt(m);
+                            activateValueChangeListeners = false;
+                            Navigator.Navigator.getInstance().resetCurrentView();
+                            activateValueChangeListeners = true;
+                            Navigator.Navigator.getInstance().navigateTo("CreateTestView");
+                            activateValueChangeListeners = false;
+                            iniComponents.goTestController.getFullTestContent(currenTest.Id);
+                            activateValueChangeListeners = true;
+                            return;
+                        }
+                    }
+                }
+            }
+            throw new GoTestObjectNotFound();
         }
 
         //Cancel from create subject view
@@ -259,8 +419,15 @@ namespace goTest
         //Cancel from create test view
         private void button16_Click(object sender, EventArgs e)
         {
+            activateValueChangeListeners = false;
             Navigator.Navigator.getInstance().resetCurrentView();
+            resetQuestionView();
+            activateValueChangeListeners = true;
             Navigator.Navigator.getInstance().navigateToPreviousView();
+            if (Navigator.Navigator.getInstance().getCurrentViewsName().Equals("UpdateTestView"))
+            {
+                Navigator.Navigator.getInstance().navigateToPreviousView();
+            }
         }
 
         //Cancel from change subject view
@@ -270,17 +437,12 @@ namespace goTest
             Navigator.Navigator.getInstance().navigateToPreviousView();
         }
 
-        //Cancel from questions view
-        private void button12_Click(object sender, EventArgs e)
-        {
-            Navigator.Navigator.getInstance().resetCurrentView();
-            Navigator.Navigator.getInstance().navigateToPreviousView();
-        }
-
         //Cancel from change test view
         private void button22_Click(object sender, EventArgs e)
         {
+            activateValueChangeListeners = false;
             Navigator.Navigator.getInstance().resetCurrentView();
+            activateValueChangeListeners = true;
             Navigator.Navigator.getInstance().navigateToPreviousView();
         }
 
@@ -290,6 +452,8 @@ namespace goTest
             try
             {
                 iniComponents.goTestController.createSubject(textBox10.Text);
+                Navigator.Navigator.getInstance().resetCurrentView();
+                Navigator.Navigator.getInstance().navigateToPreviousView();
             }
             catch(Exception ex)
             {
@@ -302,9 +466,25 @@ namespace goTest
         {
             try
             {
-                iniComponents.goTestController.createTest(textBox9.Text, 
-                    comboBox1.Text, int.Parse(numericUpDown1.Value.ToString()), 
-                    int.Parse(numericUpDown2.Value.ToString()));
+                List<VSubject> subjects = iniComponents.questionsViewAdapter.getResult();
+                for(int i=0; i<subjects.Count; i++)
+                {
+                    for(int m=0; m<subjects.ElementAt(i).Tests.Count; m++)
+                    {
+                        if (subjects.ElementAt(i).Tests.ElementAt(m).IsSelected)
+                        {
+                            subjects.ElementAt(i).Tests.ElementAt(m).unRestore().isValid();
+                            break;
+                        }
+                    }
+                }
+                iniComponents.goTestController.updateTestInBD();
+                showMessage("Тест успешно обновлен");
+                activateValueChangeListeners = false;
+                Navigator.Navigator.getInstance().resetCurrentView();
+                resetQuestionView();
+                activateValueChangeListeners = true;
+                Navigator.Navigator.getInstance().navigateTo("AdminMenuView");
             }
             catch (Exception ex)
             {
@@ -318,7 +498,9 @@ namespace goTest
             try
             {
                 iniComponents.goTestController.updateSubject(iniComponents.
-                    updateSubjectViewAdapter.getResult().ElementAt(0).Id, textBox12.Text);
+                    updateSubjectViewAdapter.getResult().ElementAt(comboBox3.SelectedIndex).Id,
+                    textBox12.Text);
+                Navigator.Navigator.getInstance().resetCurrentView();
                 Navigator.Navigator.getInstance().navigateToPreviousView();
             }
             catch (Exception ex)
@@ -330,6 +512,7 @@ namespace goTest
         //Save questions (not cleaning)
         private void button14_Click(object sender, EventArgs e)
         {
+            label27.Visible = false;
             Navigator.Navigator.getInstance().navigateToPreviousView();
         }
 
@@ -338,12 +521,19 @@ namespace goTest
         {
             for (int i = 0; i < dataGridView1.RowCount; i++)
             {
-                if (dataGridView1.Rows[i].Cells[1].Value.ToString().Equals(""))
+                if (dataGridView1.Rows[i].Cells[0].Value == null)
+                {
+                    return;
+                }
+                if ( dataGridView1.Rows[i].Cells[0].Value.ToString().Equals(""))
                 {
                     return;
                 }
             }
             dataGridView1.Rows.Add(1);
+            activateValueChangeListeners = false;
+            iniComponents.goTestController.addEmptyQuestion();
+            activateValueChangeListeners = true;
         }
 
         //Delete queston from table
@@ -351,7 +541,14 @@ namespace goTest
         {
             try
             {
-                iniComponents.goTestController.deleteQuestion();
+                int pos = searcher.getSelectedSubject(iniComponents.questionsViewAdapter.
+                        getResult());
+                VSubject subject = iniComponents.questionsViewAdapter.
+                    getResult().ElementAt(pos);
+                activateValueChangeListeners = false;
+                iniComponents.goTestController.deleteQuestion(subject.getSelectedTest().
+                    getSelectedQuestion().Id);
+                activateValueChangeListeners = true;
             }
             catch (Exception ex)
             {
@@ -364,21 +561,58 @@ namespace goTest
         {
             for(int i=0; i<dataGridView2.RowCount; i++)
             {
-                if(dataGridView2.Rows[i].Cells[1].Value.ToString().Equals(""))
+                if (dataGridView2.Rows[i].Cells[0].Value == null)
+                {
+                    return;
+                }
+                if (dataGridView2.Rows[i].Cells[0].Value.ToString().Equals(""))
                 {
                     return;
                 }
             }
-            if (!dataGridView1.Rows[dataGridView1.SelectedRows[0].Index].Cells[0].Value.
-                ToString().Equals(""))
+            if (dataGridView2.RowCount >= 10)
             {
-                dataGridView2.Rows.Add(1);
+                MessageBox.Show(
+                        "Текущая версия приложения поддерживает максимум 10 вариантов ответа",
+                        "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information,
+                        MessageBoxDefaultButton.Button1,
+                        MessageBoxOptions.DefaultDesktopOnly);
+                return;
+            }
+            if (dataGridView1.SelectedCells.Count == 0)
+            {
+                MessageBox.Show(
+                        "Выберите вопрос",
+                        "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information,
+                        MessageBoxDefaultButton.Button1,
+                        MessageBoxOptions.DefaultDesktopOnly);
+                return;
+            }
+            if (dataGridView1.Rows[dataGridView1.SelectedCells[0].RowIndex].Cells[0].Value != null)
+            {
+                if (!dataGridView1.Rows[dataGridView1.SelectedCells[0].RowIndex].Cells[0].Value.
+                ToString().Equals(""))
+                {
+                    dataGridView2.Rows.Add(1);
+                    VQuestion question = getSelectedQuestion(iniComponents.questionsViewAdapter);
+                    activateValueChangeListeners = false;
+                    iniComponents.goTestController.addEmptyUnswer(question.Id);
+                    activateValueChangeListeners = true;
+                }
+                else
+                {
+                    MessageBox.Show(
+                        "Задайте текст для выбранного вопроса, прежде чем создавать ответ",
+                        "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information,
+                        MessageBoxDefaultButton.Button1,
+                        MessageBoxOptions.DefaultDesktopOnly);
+                }
             }
             else
             {
                 MessageBox.Show(
                     "Задайте текст для выбранного вопроса, прежде чем создавать ответ",
-                    "Сообщение", MessageBoxButtons.OK,MessageBoxIcon.Information,
+                    "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information,
                     MessageBoxDefaultButton.Button1,
                     MessageBoxOptions.DefaultDesktopOnly);
             }
@@ -387,14 +621,9 @@ namespace goTest
         //Delete unswer from table
         private void button25_Click(object sender, EventArgs e)
         {
-            try
-            {
-                iniComponents.goTestController.deleteUnswer();
-            }
-            catch (Exception ex)
-            {
-                ExceptionHandler.getInstance().processing(ex);
-            }
+            activateValueChangeListeners = false;
+            deleteUnswer();
+            activateValueChangeListeners = true;
         }
 
         //Update question selection
@@ -402,8 +631,8 @@ namespace goTest
         {
             try
             {
-                List<VQuestion> questions = iniComponents.questionsViewAdapter.getResult().
-                    ElementAt(0).Tests.ElementAt(0).Questions;
+                VSubject sub = getSelectedSubject(iniComponents.questionsViewAdapter, comboBox1);
+                List<VQuestion> questions = sub.getSelectedTest().Questions;
                 for (int i = 0; i < questions.Count; i++)
                 {
                     questions.ElementAt(i).IsSelected = false;
@@ -412,10 +641,31 @@ namespace goTest
                 {
                     if(questions.ElementAt(i).getPosition().Equals(e.RowIndex))
                     {
+                        activateValueChangeListeners = false;
                         questions.ElementAt(i).IsSelected = true;
-                        iniComponents.goTestController.setQuestionSelection(
-                            questions.ElementAt(i).Id);
-                        iniComponents.goTestController.getFullQuestionContent();
+                        textBox11.Text = questions.ElementAt(i).QuestionsContent;
+                        dataGridView2.Rows.Clear();
+                        if (questions.ElementAt(i).Unswers.Count > 0)
+                        {
+                            dataGridView2.Rows.Add(questions.ElementAt(i).Unswers.Count);
+                            for (int m = 0; m < questions.ElementAt(i).Unswers.Count; m++)
+                            {
+                                dataGridView2.Rows[m].Cells[0].Value =
+                                    questions.ElementAt(i).Unswers.ElementAt(m).Content;
+                                if (questions.ElementAt(i).Unswers.ElementAt(m).IsRight)
+                                {
+                                    dataGridView2.Rows[m].Cells[1].Value = "+";
+                                }
+                                questions.ElementAt(i).Unswers.ElementAt(m).IsSelected = false;
+                            }
+                        }
+                        if (dataGridView2.RowCount > 0)
+                        {
+                            dataGridView2.Rows[0].Selected = false;
+                        }
+                        label27.Visible = true;
+                        label27.Text = "Вопрос: " + (e.RowIndex+1) + "/" + dataGridView1.RowCount;
+
                         return;
                     }
                 }
@@ -423,35 +673,48 @@ namespace goTest
             }
             catch (GoTestObjectNotFound ex)
             {
-                if(!dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString().Equals(""))
+                if (e.RowIndex != -1)
                 {
-                    ExceptionHandler.getInstance().processing(ex);
+                    if (dataGridView1.Rows[e.RowIndex].Cells[0].Value != null)
+                    {
+                        if (!dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString().Equals(""))
+                        {
+                            ExceptionHandler.getInstance().processing(ex);
+                        }
+                    }
                 }
             }
             catch (Exception ex)
             {
                 ExceptionHandler.getInstance().processing(ex);
             }
+            finally
+            {
+                activateValueChangeListeners = true;
+            }
         }
 
-        //Update answer selection
-        private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
+        //Update unswer selection
+        private void dataGridView2_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
             try
             {
-                List<VQuestion> questions = iniComponents.questionsViewAdapter.getResult().
-                    ElementAt(0).Tests.ElementAt(0).Questions;
+                VSubject sub = getSelectedSubject(iniComponents.questionsViewAdapter, comboBox1);
+                List<VQuestion> questions = sub.getSelectedTest().Questions;
                 for (int i = 0; i < questions.Count; i++)
                 {
                     if (questions.ElementAt(i).IsSelected)
                     {
                         List<VUnswer> unswers = questions.ElementAt(i).Unswers;
-                        for(int n=0; n<unswers.Count(); n++)
+                        for (int n = 0; n < unswers.Count(); n++)
                         {
-                            if(unswers.ElementAt(n).getPosition().Equals(e.RowIndex))
+                            if (unswers.ElementAt(n).getPosition().Equals(e.RowIndex))
                             {
-                                iniComponents.goTestController.setUnswerSelection(
-                                    unswers.ElementAt(n).Id);
+                                for (int k = 0; k < unswers.Count; k++)
+                                {
+                                    unswers.ElementAt(k).IsSelected = false;
+                                }
+                                questions.ElementAt(i).Unswers.ElementAt(n).IsSelected = true;
                                 return;
                             }
                         }
@@ -462,9 +725,16 @@ namespace goTest
             }
             catch (GoTestObjectNotFound ex)
             {
-                if (!dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString().Equals(""))
+                if (e.RowIndex != -1)
                 {
-                    ExceptionHandler.getInstance().processing(ex);
+                    if (dataGridView2.Rows[e.RowIndex].Cells[0].Value != null)
+                    {
+                        if (!dataGridView2.Rows[e.RowIndex].Cells[0].Value.
+                                ToString().Equals(""))
+                        {
+                            ExceptionHandler.getInstance().processing(ex);
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -474,79 +744,478 @@ namespace goTest
         }
 
         //Update or create Unswer
-        private void dataGridView2_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView2_CellValueChanged_1(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex != -1)
+            if (e.RowIndex != -1 && activateValueChangeListeners)
             {
                 Unswer unswer = new Unswer();
-                if (dataGridView2.Rows[e.RowIndex].Cells[1].Value.ToString().Equals(""))
+                if (dataGridView2.Rows[e.RowIndex].Cells[0].Value == null)
                 {
-                    return;
+                    deleteUnswer();
+                }
+                unswer.Content = dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString();
+                if (dataGridView2.Rows[e.RowIndex].Cells[1].Value == null)
+                {
+                    unswer.IsRight = false;
                 }
                 else
                 {
-                    unswer.Content = dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString();
                     if (dataGridView2.Rows[e.RowIndex].Cells[1].Value.ToString().Equals("+"))
                     {
                         unswer.IsRight = true;
                     }
                     else
                     {
+                        if (!isSelectedQuestionHasMinimumOneRightUnswer())
+                        {
+                            activateValueChangeListeners = false;
+                            dataGridView2.Rows[e.RowIndex].Cells[1].Value = "+";
+                            activateValueChangeListeners = true;
+                            showMessage("Необходимо, чтобы вопрос имел хотя бы 1 правильный ответ");
+                            return;
+                        }
                         unswer.IsRight = false;
+                        activateValueChangeListeners = false;
+                        dataGridView2.Rows[e.RowIndex].Cells[1].Value = null;
+                        activateValueChangeListeners = true;
                     }
-                    try
+                }
+                try
+                {
+                    int pos = searcher.getSelectedSubject(iniComponents.questionsViewAdapter.
+                        getResult());
+                    VSubject subject = iniComponents.questionsViewAdapter.
+                        getResult().ElementAt(pos);
+                    activateValueChangeListeners = false;
+                    iniComponents.goTestController.update(subject.getSelectedTest().
+                        getSelectedQuestion().getSelectedUnswer().Id, unswer);
+                    activateValueChangeListeners = true;
+                }
+                catch (Exception ex)
+                {
+                    ExceptionHandler.getInstance().processing(ex);
+                }
+            }
+        }
+
+        //Update selected subject on edit test view
+        private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (activateValueChangeListeners)
+            {
+                comboBox4.Items.Clear();
+                for (int i = 0; i < iniComponents.questionsViewAdapter.getResult().Count; i++)
+                {
+                    if (iniComponents.questionsViewAdapter.getResult().
+                        ElementAt(i).getPosition() == comboBox5.SelectedIndex)
                     {
-                        iniComponents.goTestController.updateSelected(unswer);
+                        VSubject subject = iniComponents.questionsViewAdapter.getResult().ElementAt(i);
+                        for (int m = 0; m < subject.Tests.Count(); m++)
+                        {
+                            comboBox4.Items.Add(subject.Tests.ElementAt(m).Name);
+                        }
+                        comboBox4.Text = "";
+                        comboBox4.SelectedIndex = -1;
+                        return;
                     }
-                    catch (Exception ex)
+                }
+
+                throw new GoTestObjectNotFound();
+            }
+        }
+
+        //Update test name
+        private void textBox9_TextChanged(object sender, EventArgs e)
+        {
+            if (!activateValueChangeListeners)
+            {
+                return;
+            }
+            if (textBox9.Text != null && textBox9.Text != "")
+            {
+                for (int i = 0; i < iniComponents.questionsViewAdapter.getResult().Count; i++)
+                {
+                    if (iniComponents.questionsViewAdapter.getResult().ElementAt(i).IsSelected)
                     {
-                        ExceptionHandler.getInstance().processing(ex);
+                        Test test = iniComponents.questionsViewAdapter.
+                            getResult().ElementAt(i).getSelectedTest().unRestore();
+                        test.Name = textBox9.Text;
+                        test.IsSelected = true;
+                        activateValueChangeListeners = false;
+                        iniComponents.goTestController.update(test.Id, test);
+                        activateValueChangeListeners = true;
+
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                activateValueChangeListeners = false;
+                textBox9.Text = "some name";
+                activateValueChangeListeners = true;
+                showMessage("Пожалуйста, задайте тесту не пустое имя");
+            }
+        }
+
+        //Update test questions number
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            if (!activateValueChangeListeners)
+            {
+                return;
+            }
+            if (int.Parse(numericUpDown1.Value.ToString())>0 && 
+                int.Parse(numericUpDown1.Value.ToString())>int.
+                Parse(numericUpDown2.Value.ToString()))
+            {
+                for (int i = 0; i < iniComponents.questionsViewAdapter.getResult().Count; i++)
+                {
+                    if (iniComponents.questionsViewAdapter.getResult().ElementAt(i).IsSelected)
+                    {
+                        Test test = iniComponents.questionsViewAdapter.
+                            getResult().ElementAt(i).getSelectedTest().unRestore();
+                        test.QuestionsNumber = int.Parse(numericUpDown1.Value.ToString());
+                        activateValueChangeListeners = false;
+                        iniComponents.goTestController.update(test.Id, test);
+                        activateValueChangeListeners = true;
+
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                activateValueChangeListeners = false;
+                numericUpDown1.Value = 1;
+                numericUpDown2.Value = 1;
+                activateValueChangeListeners = true;
+                showMessage("Количество вопросов в тесте должно быть положительным числом и "+
+                    "оно должно быть больше или равно требуемому количеству правильных ответов");
+            }
+        }
+
+        //Update test required questions Number
+        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+            if (!activateValueChangeListeners)
+            {
+                return;
+            }
+            if (int.Parse(numericUpDown2.Value.ToString()) > 0 &&
+                int.Parse(numericUpDown1.Value.ToString()) >= int.
+                Parse(numericUpDown2.Value.ToString()))
+            {
+                for (int i = 0; i < iniComponents.questionsViewAdapter.getResult().Count; i++)
+                {
+                    if (iniComponents.questionsViewAdapter.getResult().ElementAt(i).IsSelected)
+                    {
+                        Test test = iniComponents.questionsViewAdapter.
+                            getResult().ElementAt(i).getSelectedTest().unRestore();
+                        test.RequeredUnswersNumber = int.Parse(numericUpDown2.Value.ToString());
+                        activateValueChangeListeners = false;
+                        iniComponents.goTestController.update(test.Id, test);
+                        activateValueChangeListeners = true;
+
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                activateValueChangeListeners = false;
+                numericUpDown1.Value = 1;
+                numericUpDown2.Value = 1;
+                activateValueChangeListeners = true;
+                showMessage("Требуемое количество правильных ответов должно быть "+
+                    "положительным числом и оно должно быть меньше или равно, чем "+
+                    "общее количество вопросов в тесте");
+            }
+        }
+
+        //Update question content
+        private void textBox11_TextChanged(object sender, EventArgs e)
+        {
+            if(!activateValueChangeListeners)
+            {
+                return;
+            }
+            if (textBox11.Text == null||textBox11.Text.Equals(""))
+            {
+                activateValueChangeListeners = false;
+                textBox11.Text = "some content";
+                activateValueChangeListeners = true;
+                return;
+            }
+            try
+            {
+                Question question = getSelectedQuestion(iniComponents.questionsViewAdapter).
+                    unRestore();
+                question.QuestionsContent = textBox11.Text;
+                activateValueChangeListeners = false;
+                iniComponents.goTestController.update(question.Id, question);
+                activateValueChangeListeners = true;
+            }
+            catch(Exception ex)
+            {
+                ExceptionHandler.getInstance().processing(ex);
+            }
+        }
+
+        //Update selected subject on testing view
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (activateValueChangeListeners)
+            {
+                comboBox6.Items.Clear();
+                for (int i = 0; i < iniComponents.testingViewAdapter.getResult().Count; i++)
+                {
+                    if (iniComponents.testingViewAdapter.getResult().
+                        ElementAt(i).getPosition() == comboBox2.SelectedIndex)
+                    {
+                        VSubject subject = iniComponents.testingViewAdapter.getResult().ElementAt(i);
+                        for (int m = 0; m < subject.Tests.Count(); m++)
+                        {
+                            comboBox6.Items.Add(subject.Tests.ElementAt(m).Name);
+                        }
+                        comboBox6.Text = "";
+                        comboBox6.SelectedIndex = -1;
+                        return;
+                    }
+                }
+
+                throw new GoTestObjectNotFound();
+            }
+        }
+
+        //Go testing
+        private void button5_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 10;
+            for (int i = 0; i < iniComponents.testingViewAdapter.getResult().Count; i++)
+            {
+                if (comboBox2.SelectedIndex == iniComponents.testingViewAdapter.
+                    getResult().ElementAt(i).getPosition())
+                {
+                    VSubject currentSubject = iniComponents.testingViewAdapter.
+                    getResult().ElementAt(i);
+                    currentSubject.IsSelected = true;
+                    for (int m = 0; m < currentSubject.Tests.Count; m++)
+                    {
+                        if (currentSubject.Tests.ElementAt(m).getPosition() ==
+                            comboBox6.SelectedIndex)
+                        {
+                            VTest currenTest = currentSubject.Tests.ElementAt(m);
+                            activateValueChangeListeners = false;
+                            Navigator.Navigator.getInstance().resetCurrentView();
+                            Navigator.Navigator.getInstance().navigateTo("ProcessingTestingView");
+                            iniComponents.goTestController.loadTestForTesting(currenTest.Id);
+                            activateValueChangeListeners = true;
+                            return;
+                        }
+                    }
+                }
+            }
+            throw new GoTestObjectNotFound();
+        }
+
+        //Send unswer
+        private void button12_Click(object sender, EventArgs e)
+        {
+            if(panel1.Visible)
+            {
+                sendSingleUnswer();
+            }
+            else
+            {
+                sendMultUnswer();
+            }
+        }
+
+        //Go to menu
+        private void button27_Click(object sender, EventArgs e)
+        {
+            Navigator.Navigator.getInstance().navigateTo("AutorizationSecurityView");
+        }
+
+        //Exit from admin menu
+        private void button28_Click(object sender, EventArgs e)
+        {
+            Navigator.Navigator.getInstance().navigateTo("AutorizationSecurityView");
+        }
+
+        //Exit from view change admin password
+        private void button24_Click(object sender, EventArgs e)
+        {
+            Navigator.Navigator.getInstance().navigateToPreviousView();
+        }
+
+        //Update tests subject
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!activateValueChangeListeners)
+            {
+                return;
+            }
+            VSubject sub = getSelectedSubject(
+                iniComponents.questionsViewAdapter, comboBox1);
+            if (sub.Name != null && !sub.Name.Equals(""))
+            {
+                activateValueChangeListeners = false;
+                iniComponents.goTestController.setSubjectForSelectedTest(sub.Id);
+                activateValueChangeListeners = true;
+            }
+            else
+            {
+                showMessage("Нельзя выбрать пустой предмет");
+                if(comboBox1.Items.Count>0)
+                {
+                    comboBox1.SelectedIndex=0;
+                }
+            }
+        }
+
+        //
+        //Other functions
+        //
+
+        //Send single unswer
+        private void sendSingleUnswer()
+        {
+            RadioButton[] buttons = radioButtons;
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                if (buttons[i].Checked)
+                {
+                    List<VSubject> subjects = iniComponents.testingViewAdapter.getResult();
+                    VQuestion question = subjects.ElementAt(0).Tests.ElementAt(0).
+                        Questions.ElementAt(0);
+                    for (int k = 0; k < question.Unswers.Count; k++)
+                    {
+                        if (question.Unswers.ElementAt(k).getPosition() == i)
+                        {
+                            int[] unsw = new int[1];
+                            unsw[0] = question.Unswers.ElementAt(k).Id;
+                            iniComponents.goTestController.userUnswered(unsw);
+                            return;
+                        }
                     }
                 }
             }
         }
 
-        //Update or create Question
-        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        //Send mult unser
+        private void sendMultUnswer()
         {
-            Question question = new Question();
-            question.Unswers = new List<Unswer>();
+            CheckBox[] buttons = checkBoxes;
+            List<int> unswList = new List<int>();
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                if (buttons[i].Checked)
+                {
+                    List<VSubject> subjects = iniComponents.testingViewAdapter.getResult();
+                    VQuestion question = subjects.ElementAt(0).Tests.ElementAt(0).
+                        Questions.ElementAt(0);
+                    for (int k = 0; k < question.Unswers.Count; k++)
+                    {
+                        if (question.Unswers.ElementAt(k).getPosition() == i)
+                        {
+                            unswList.Add(question.Unswers.ElementAt(k).Id);
+                        }
+                    }
+                }
+            }
+            int[] unsw = new int[unswList.Count];
+            for (int i = 0; i < unsw.Length; i++)
+            {
+                unsw[i] = unswList.ElementAt(i);
+            }
+            iniComponents.goTestController.userUnswered(unsw);
+        }
+
+        //Reset question view
+        private void resetQuestionView()
+        {
+            textBox11.Text = "";
+            dataGridView1.Rows.Clear();
+            dataGridView2.Rows.Clear();
+            label27.Visible = false;
+        }
+
+        //Delete unswer from table
+        private void deleteUnswer()
+        {
+            try
+            {
+                List<VSubject> subjects = iniComponents.questionsViewAdapter.getResult();
+                for (int i = 0; i < subjects.Count; i++)
+                {
+                    if (subjects.ElementAt(i).IsSelected)
+                    {
+                        VSubject subject = subjects.ElementAt(i);
+                        iniComponents.goTestController.deleteUnswer(subject.getSelectedTest().
+                            getSelectedQuestion().getSelectedUnswer().Id);
+                        return;
+                    }
+                }
+
+                throw new GoTestObjectNotFound();
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.getInstance().processing(ex);
+            }
+        }
+
+        //Check is selected question has minimum 1 right unswer
+        private bool isSelectedQuestionHasMinimumOneRightUnswer()
+        {
             for (int i = 0; i < dataGridView2.RowCount; i++)
             {
-                if (dataGridView2.Rows[i].Cells[0].Value == null)
+                if (dataGridView2.Rows[i].Cells[1].Value==null)
                 {
-                    return;
+                    return false;
                 }
-                Unswer unswer = new Unswer();
-                unswer.Content = dataGridView2.Rows[i].Cells[0].Value.ToString();
                 if (dataGridView2.Rows[i].Cells[1].Value.ToString().Equals("+"))
                 {
-                    unswer.IsRight = true;
+                    return true;
                 }
-                else
+            }
+
+            return false;
+        }
+
+        private void showMessage(string message)
+        {
+            InformationPopupWindow view = new InformationPopupWindow();
+            InformationPopupWindowConfig config = new InformationPopupWindowConfig(message);
+            view.setConfig(config);
+            view.show();
+        }
+
+        private VQuestion getSelectedQuestion(GoTestAdapterI adapter)
+        {
+            for (int i = 0; i < adapter.getResult().Count; i++)
+            {
+                if (adapter.getResult().ElementAt(i).IsSelected)
                 {
-                    unswer.IsRight = false;
+                    return adapter.getResult().ElementAt(i).getSelectedTest().
+                        getSelectedQuestion();
                 }
-                question.Unswers.Add(unswer);
             }
-            if (comboBox2.Text.Equals("Единственный ответ"))
+            throw new GoTestObjectNotFound();
+        }
+
+        private VSubject getSelectedSubject(GoTestAdapterI adapter, ComboBox comboBox)
+        {
+            for (int i = 0; i < adapter.getResult().Count; i++)
             {
-                question.QuestionsType = QuestionTypes.singleAnswer;
+                if (adapter.getResult().ElementAt(i).getPosition() == comboBox.SelectedIndex)
+                {
+                    return adapter.getResult().ElementAt(i);
+                }
             }
-            else
-            {
-                question.QuestionsType = QuestionTypes.multiplyAnswer;
-            }
-            if (dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString().Equals(""))
-            {
-                return;
-            }
-            else
-            {
-                question.QuestionsContent = dataGridView2.Rows[e.RowIndex].Cells[1].
-                    Value.ToString();
-                iniComponents.goTestController.updateSelected(question);
-            }
+            throw new GoTestObjectNotFound();
         }
     }
 }

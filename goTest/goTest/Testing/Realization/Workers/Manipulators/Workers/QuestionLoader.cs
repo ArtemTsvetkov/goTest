@@ -40,8 +40,10 @@ namespace goTest.Testing.Realization.Workers.Manipulators.Workers
                 question.Unswers.Add(unswerManipalator.load(unswersIds[i]));
             }
 
+            int questionTypeId = DataSetConverter.fromDsToSingle.toInt.convert(
+                SqlLiteSimpleExecute.execute(queryConfigurator.loadQuestionTypeId(id)));
             string questionType = DataSetConverter.fromDsToSingle.toString.convert(
-                SqlLiteSimpleExecute.execute(queryConfigurator.getObjectName(id)));
+                SqlLiteSimpleExecute.execute(queryConfigurator.getObjectName(questionTypeId)));
 
             if (questionType.Equals(QuestionTypes.multiplyAnswer.getType()))
             {

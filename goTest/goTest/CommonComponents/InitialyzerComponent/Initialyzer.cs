@@ -58,12 +58,14 @@ namespace goTest.CommonComponents.InitialyzerComponent
                 //
                 //goTest component
                 //
-                components.goTestController = new GoTestController();
+                GoTestModel goTestModel = new GoTestModel();
+                components.goTestController = new GoTestController(goTestModel);
                 components.questionsViewAdapter = new GoTestAdapter();
                 components.updateSubjectViewAdapter = new GoTestAdapter();
-                components.updateTestViewAdapter = new GoTestAdapter();
+                //components.updateTestViewAdapter = new GoTestAdapter();
                 components.сreateSubjectViewAdapter = new GoTestAdapter();
-                components.сreateTestViewAdapter = new GoTestAdapter();
+                components.testingViewAdapter = new GoTestAdapter();
+                //components.сreateTestViewAdapter = new GoTestAdapter();
                 //
                 //Navigator
                 //
@@ -72,16 +74,29 @@ namespace goTest.CommonComponents.InitialyzerComponent
                 Navigator.Navigator.getInstance().addView(new AdminMenuView(form));
                 Navigator.Navigator.getInstance().addView(new StudentMenuView(form));
                 Navigator.Navigator.getInstance().addView(new ChangePasswordView(form));
+                //Navigator.Navigator.getInstance().addView(new UpdateTestView(form,
+                    //components.updateTestViewAdapter, goTestModel));
                 Navigator.Navigator.getInstance().addView(new UpdateTestView(form,
-                    components.updateTestViewAdapter));
+                    components.questionsViewAdapter, goTestModel));
                 Navigator.Navigator.getInstance().addView(new UpdateSubjectView(form, 
-                    components.updateSubjectViewAdapter));
+                    components.updateSubjectViewAdapter, goTestModel));
+                Navigator.Navigator.getInstance().addView(new TestingView(form,
+                    components.testingViewAdapter, goTestModel));
+                Navigator.Navigator.getInstance().addView(new ProcessingTestingView(form,
+                    components.testingViewAdapter, goTestModel));
+                Navigator.Navigator.getInstance().addView(new ResultTestingView(form,
+                    goTestModel));
                 Navigator.Navigator.getInstance().addView(new CreateSubjectView(form, 
                     components.сreateSubjectViewAdapter));
-                Navigator.Navigator.getInstance().addView(new CreateTestView(form,
-                    components.сreateTestViewAdapter));
+                //Navigator.Navigator.getInstance().addView(new CreateTestView(form,
+                //components.сreateTestViewAdapter, goTestModel));
+                CreateTestView createTestView = new CreateTestView(form,
+                    components.questionsViewAdapter, goTestModel);
+                goTestModel.subscribe(createTestView);
+                Navigator.Navigator.getInstance().addView(createTestView);
+
                 Navigator.Navigator.getInstance().addView(new QuestionsView(form,
-                    components.questionsViewAdapter));
+                    components.questionsViewAdapter, goTestModel));
                 Navigator.Navigator.getInstance().navigateTo("AutorizationSecurityView");
                 //
                 //ReadConfig
@@ -93,6 +108,11 @@ namespace goTest.CommonComponents.InitialyzerComponent
                 components.securityController.checkDataBase();
                 form.button1Elem.Visible = true;
                 form.button8Elem.Visible = true;
+                //
+                //ТОЛЬКО ДЛЯ ОТЛАДКИ, ПОТОМ УБРАТЬ
+                //
+                form.textBox1Elem.Text = "Admin";
+                form.textBox2Elem.Text = "1234";
             }
             catch (Exception ex)
             {

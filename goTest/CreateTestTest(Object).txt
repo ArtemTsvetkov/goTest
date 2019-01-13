@@ -1,40 +1,48 @@
 INSERT INTO Objects VALUES(null, null, 'SubjectExample', (SELECT id FROM Types WHERE Name='Subject'));
 
-INSERT INTO Objects VALUES(null, 6, 'Test example', (SELECT id FROM Types WHERE Name='Test'));
-INSERT INTO Parameters VALUES(7,2,'3');
-INSERT INTO Parameters VALUES(7,3,'2');
+INSERT INTO Objects VALUES(null, 8, 'Test example', (SELECT id FROM Types WHERE Name='Test'));
+INSERT INTO Parameters VALUES(9,1,'3');
+INSERT INTO Parameters VALUES(9,2,'2');
 
-INSERT INTO Objects VALUES(null, 7, 'First Question', (SELECT id FROM Types WHERE Name='Question'));
-INSERT INTO Parameters VALUES(8, 5, 'First Question Content');
-INSERT INTO Objects_references VALUES(8, 2, 4);
+INSERT INTO Objects VALUES(null, 9, 'First Question', (SELECT id FROM Types WHERE Name='Question'));
+INSERT INTO Parameters VALUES(10, 4, 'First Question Content');
+INSERT INTO Objects_references VALUES(10, 2, 3);
 
-INSERT INTO Objects VALUES(null, 7, 'Second Question', (SELECT id FROM Types WHERE Name='Question'));
-INSERT INTO Parameters VALUES(9, 5, 'First Question Content');
-INSERT INTO Objects_references VALUES(9, 2, 4);
+INSERT INTO Objects VALUES(null, 9, 'Second Question', (SELECT id FROM Types WHERE Name='Question'));
+INSERT INTO Parameters VALUES(11, 4, 'Second Question Content');
+INSERT INTO Objects_references VALUES(11, 2, 3);
 
-INSERT INTO Objects VALUES(null, 7, 'Third Question', (SELECT id FROM Types WHERE Name='Question'));
-INSERT INTO Parameters VALUES(10, 5, 'First Question Content');
-INSERT INTO Objects_references VALUES(10, 3, 4);
+INSERT INTO Objects VALUES(null, 9, 'Third Question', (SELECT id FROM Types WHERE Name='Question'));
+INSERT INTO Parameters VALUES(12, 4, 'Third Question Content');
+INSERT INTO Objects_references VALUES(12, 3, 3);
 
-INSERT INTO OBJECTS VALUES(null, 8, 'First Unswer on First Question', (SELECT id FROM Types WHERE Name='Unswer'));
-INSERT INTO OBJECTS VALUES(null, 8, 'Second Unswer on First Question', (SELECT id FROM Types WHERE Name='Unswer'));
-INSERT INTO Parameters VALUES(11, 5, 'First Unswer on First Question Content');
-INSERT INTO Parameters VALUES(12, 5, 'Second Unswer on First Question Content');
-INSERT INTO Objects_references VALUES(11, 4, 6);
-INSERT INTO Objects_references VALUES(12, 5, 6);
-INSERT INTO OBJECTS VALUES(null, 9, 'First Unswer on Second Question', (SELECT id FROM Types WHERE Name='Unswer'));
-INSERT INTO OBJECTS VALUES(null, 9, 'Second Unswer on Second Question', (SELECT id FROM Types WHERE Name='Unswer'));
-INSERT INTO Parameters VALUES(13, 5, 'First Unswer on Second Question Content');
-INSERT INTO Parameters VALUES(14, 5, 'Second Unswer on Second Question Content');
-INSERT INTO Objects_references VALUES(13, 4, 6);
-INSERT INTO Objects_references VALUES(14, 5, 6);
-INSERT INTO OBJECTS VALUES(null, 10, 'First Unswer on Third Question', (SELECT id FROM Types WHERE Name='Unswer'));
-INSERT INTO OBJECTS VALUES(null, 10, 'Second Unswer on Third Question', (SELECT id FROM Types WHERE Name='Unswer'));
-INSERT INTO Parameters VALUES(15, 5, 'First Unswer on Third Question Content');
-INSERT INTO Parameters VALUES(16, 5, 'Second Unswer on Third Question Content');
-INSERT INTO Objects_references VALUES(13, 5, 6);
-INSERT INTO Objects_references VALUES(14, 5, 6);
+INSERT INTO OBJECTS VALUES(null, 10, 'First Unswer on First Question', (SELECT id FROM Types WHERE Name='Unswer'));
+INSERT INTO OBJECTS VALUES(null, 10, 'Second Unswer on First Question', (SELECT id FROM Types WHERE Name='Unswer'));
+INSERT INTO Parameters VALUES(13, 4, 'First Unswer on First Question Content');
+INSERT INTO Parameters VALUES(14, 4, 'Second Unswer on First Question Content');
+INSERT INTO Objects_references VALUES(13, 4, 5);
+INSERT INTO Objects_references VALUES(14, 5, 5);
+INSERT INTO OBJECTS VALUES(null, 11, 'First Unswer on Second Question', (SELECT id FROM Types WHERE Name='Unswer'));
+INSERT INTO OBJECTS VALUES(null, 11, 'Second Unswer on Second Question', (SELECT id FROM Types WHERE Name='Unswer'));
+INSERT INTO Parameters VALUES(15, 4, 'First Unswer on Second Question Content');
+INSERT INTO Parameters VALUES(16, 4, 'Second Unswer on Second Question Content');
+INSERT INTO Objects_references VALUES(15, 4, 5);
+INSERT INTO Objects_references VALUES(16, 5, 5);
+INSERT INTO OBJECTS VALUES(null, 12, 'First Unswer on Third Question', (SELECT id FROM Types WHERE Name='Unswer'));
+INSERT INTO OBJECTS VALUES(null, 12, 'Second Unswer on Third Question', (SELECT id FROM Types WHERE Name='Unswer'));
+INSERT INTO Parameters VALUES(17, 4, 'First Unswer on Third Question Content');
+INSERT INTO Parameters VALUES(18, 4, 'Second Unswer on Third Question Content');
+INSERT INTO Objects_references VALUES(17, 4, 5);
+INSERT INTO Objects_references VALUES(18, 4, 5);
 
-
-
-to get in develop status object id : SELECT id FROM Objects o WHERE Type=(SELECT id FROM Types WHERE Name='Subject') AND (SELECT count(*) FROM Objects_references r WHERE attr_id=(SELECT id FROM Attributes WHERE Name='Develop status')AND o.id=r.object_id)=0
+INSERT INTO objects_references VALUES(8,6,6);
+INSERT INTO objects_references VALUES(9,6,6);
+INSERT INTO objects_references VALUES(10,6,6);
+INSERT INTO objects_references VALUES(11,6,6);
+INSERT INTO objects_references VALUES(12,6,6);
+INSERT INTO objects_references VALUES(13,6,6);
+INSERT INTO objects_references VALUES(14,6,6);
+INSERT INTO objects_references VALUES(15,6,6);
+INSERT INTO objects_references VALUES(16,6,6);
+INSERT INTO objects_references VALUES(17,6,6);
+INSERT INTO objects_references VALUES(18,6,6);

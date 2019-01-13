@@ -11,6 +11,7 @@ using goTest.CommonComponents.WorkWithData.Realization.WorkWithDataBase.SqlLite;
 using goTest.Testing.Exceptions;
 using goTest.Testing.Types.BasicDBObjects;
 using goTest.Testing.Types.Unswer.Interfaces;
+using goTest.CommonComponents.DataConverters.Exceptions;
 
 namespace goTest.Testing.Realization.Workers.Manipulators
 {
@@ -53,26 +54,45 @@ namespace goTest.Testing.Realization.Workers.Manipulators
         {
             Unswer unswer = new Unswer();
             unswer.Id = id;
-            unswer.Content = DataSetConverter.fromDsToSingle.toString.convert(SqlLiteSimpleExecute.
-                    execute(queryConfigurator.loadUnswerContent(id)));
-            string type = DataSetConverter.fromDsToSingle.toString.convert(SqlLiteSimpleExecute.
-                    execute(queryConfigurator.getObjectName(id)));
-            if(type.Equals(DbObjects.rightUnswer.getName()))
+            string lastQuery = "";
+            try
             {
-                unswer.IsRight = true;
-                return unswer;
-            }
-            if(type.Equals(DbObjects.unswer.getName()))
-            {
-                unswer.IsRight = false;
-                return unswer;
-            }
+                lastQuery = queryConfigurator.loadUnswerContent(id);
+                unswer.Content = DataSetConverter.fromDsToSingle.toString.convert(SqlLiteSimpleExecute.
+                        execute(queryConfigurator.loadUnswerContent(id)));
+                lastQuery = queryConfigurator.loadUnswerTypeId(id);
+                int typeId = DataSetConverter.fromDsToSingle.toInt.convert(SqlLiteSimpleExecute.
+                        execute(queryConfigurator.loadUnswerTypeId(id)));
+                lastQuery = queryConfigurator.getObjectName(typeId);
+                string type = DataSetConverter.fromDsToSingle.toString.convert(SqlLiteSimpleExecute.
+                        execute(queryConfigurator.getObjectName(typeId)));
+                if (type.Equals(DbObjects.rightUnswer.getName()))
+                {
+                    unswer.IsRight = true;
+                    return unswer;
+                }
+                if (type.Equals(DbObjects.unswer.getName()))
+                {
+                    unswer.IsRight = false;
+                    return unswer;
+                }
 
+            }
+            catch(СonversionError err)
+            {
+                throw new СonversionError("Ошибка при обработке запроса:"+lastQuery+
+                    ". Обратитесь к администратору");
+            }
             throw new ParamsTypesExceptions();
         }
 
         public void update(Unswer unswer)
         {
+            if (DataSetConverter.fromDsToSingle.toInt.convert(
+                SqlLiteSimpleExecute.execute(queryConfigurator.countOfObject(unswer.Id))) == 0)
+            {
+                throw new ObjectIsNotExistYet();
+            }
             if (unswer.IsRight)
             {
                 SqlLiteSimpleExecute.execute(queryConfigurator.updateUnswerContent(

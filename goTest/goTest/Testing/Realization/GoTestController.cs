@@ -1,7 +1,6 @@
 ﻿using goTest.CommonComponents.ExceptionHandler.Realization;
 using goTest.Testing.Interfaces;
 using goTest.Testing.Objects;
-using goTest.Testing.Realization.Workers.Configs;
 using goTest.Testing.Types;
 using System;
 using System.Collections.Generic;
@@ -13,48 +12,26 @@ namespace goTest.Testing.Realization
 {
     class GoTestController : GoTestControllerI
     {
-        //ДОБАВИТЬ БЛОКИ TRY CATCH
         private GoTestModel model;
 
-        public GoTestController()
+        public GoTestController(GoTestModel model)
         {
-            model = new GoTestModel();
+            this.model = model;
         }
 
         public void createSubject(string name)
         {
-            model.createSubject(name);
+            model.createSubjectInBD(name);
         }
 
-        public void createTest(string name, string subject, int questionsNumber, 
-            int requeredUnswersNumber)
+        public void deleteQuestion(int questionId)
         {
-            model.createTest(name, subject, questionsNumber, requeredUnswersNumber);
+            model.deleteQuestion(questionId);
         }
 
-        public void deleteQuestion()
+        public void deleteUnswer(int unswerId)
         {
-            model.deleteQuestion();
-        }
-
-        public void deleteUnswer()
-        {
-            model.deleteUnswer();
-        }
-
-        public void getFullQuestionContent()
-        {
-            model.getQuestionsFullContent();
-        }
-
-        public void setUnswerSelection(int id)
-        {
-            model.setUnswerSelection(id);
-        }
-
-        public void setQuestionSelection(int id)
-        {
-            model.setQuestionSelection(id);
+            model.deleteUnswer(unswerId);
         }
 
         public void updateSubject(int id, string newName)
@@ -64,16 +41,16 @@ namespace goTest.Testing.Realization
 
         public void getFullTestContent(int testId)
         {
-            Config config = new GetTestContentConfig();
-            model.setConfig(config);
-            model.loadStore();
-        }
-
-        public void updateSelected(Question newVersion)
-        {
             try
             {
-                model.updateSelected(newVersion);
+                int[] ids = model.getAllSubjectIds();
+                List<Subject> subjects = new List<Subject>();
+                for (int i = 0; i < ids.Length; i++)
+                {
+                    subjects.Add(model.getSubjectFromBD(ids[i]));
+                }
+                model.setConfig(subjects);
+                model.loadAllTestContentFromBD(testId);
             }
             catch(Exception ex)
             {
@@ -81,16 +58,106 @@ namespace goTest.Testing.Realization
             }
         }
 
-        public void updateSelected(Unswer newVersion)
+        public void update(int questionId, Question newVersion)
         {
             try
             {
-                model.updateSelected(newVersion);
+                model.update(questionId, newVersion);
+            }
+            catch(Exception ex)
+            {
+                ExceptionHandler.getInstance().processing(ex);
+            }
+        }
+
+        public void update(int unswerId, Unswer newVersion)
+        {
+            try
+            {
+                model.update(unswerId, newVersion);
             }
             catch (Exception ex)
             {
                 ExceptionHandler.getInstance().processing(ex);
             }
+        }
+
+        public void update(int testId, Test newVersion)
+        {
+            try
+            {
+                model.update(testId, newVersion);
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.getInstance().processing(ex);
+            }
+        }
+
+        public void loadAllSubjects()
+        {
+            int[] ids = model.getAllSubjectIds();
+            List<Subject> subjects = new List<Subject>();
+            for (int i=0; i<ids.Length; i++)
+            {
+                subjects.Add(model.getSubjectFromBD(ids[i]));
+            }
+            model.setConfig(subjects);
+            model.loadStore();
+        }
+
+        public void updateTestInBD()
+        {
+            model.updateTestInBD();
+        }
+
+        public void addEmptyQuestion()
+        {
+            model.addEmptyQuestion();
+        }
+
+        public void addEmptyUnswer(int questionId)
+        {
+            model.addEmptyUnswer(questionId);
+        }
+
+        public void loadTestForTesting(int testId)
+        {
+            try
+            {
+                int[] ids = model.getAllSubjectIds();
+                List<Subject> subjects = new List<Subject>();
+                for (int i = 0; i < ids.Length; i++)
+                {
+                    subjects.Add(model.getSubjectFromBD(ids[i]));
+                }
+                model.setConfig(subjects);
+                model.loadTestForTesting(testId);
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.getInstance().processing(ex);
+            }
+        }
+
+        public void userUnswered(int[] id)
+        {
+            model.userUnswered(id);
+        }
+
+        public void showTestResults()
+        {
+            model.showTestResults();
+        }
+
+        public void setSubjectForSelectedTest(int subjectId)
+        {
+            model.setSubjectForSelectedTest(subjectId);
+        }
+
+        public void addEmptyTest()
+        {
+            model.addEmptyTest();
         }
     }
 }

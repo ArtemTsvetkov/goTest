@@ -1,4 +1,5 @@
-﻿using System;
+﻿using goTest.Testing.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,6 +33,21 @@ namespace goTest.Testing.Objects.ViewsObjects
             }
         }
 
+        public Question unRestore()
+        {
+            Question question = new Question();
+            question.QuestionsContent = QuestionsContent;
+            question.QuestionsType = QuestionsType;
+            question.Id = Id;
+
+            for (int i = 0; i < unswers.Count; i++)
+            {
+                question.Unswers.Add(unswers.ElementAt(i).unRestore());
+            }
+
+            return question;
+        }
+
         public int getPosition()
         {
             return position;
@@ -61,6 +77,20 @@ namespace goTest.Testing.Objects.ViewsObjects
             {
                 isSelected = value;
             }
+        }
+
+
+        public VUnswer getSelectedUnswer()
+        {
+            for (int i = 0; i < unswers.Count; i++)
+            {
+                if (unswers.ElementAt(i).IsSelected)
+                {
+                    return unswers.ElementAt(i);
+                }
+            }
+
+            throw new GoTestObjectNotFound();
         }
     }
 }

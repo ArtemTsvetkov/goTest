@@ -1,4 +1,5 @@
-﻿using System;
+﻿using goTest.Testing.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,6 +26,21 @@ namespace goTest.Testing.Objects
             }
         }
 
+        public void isValid()
+        {
+            if (content == null)
+            {
+                throw new ObjectNotValid("Ответ: " + id + " не содержит контент");
+            }
+            else
+            {
+                if (content.Equals(""))
+                {
+                    throw new ObjectNotValid("Ответ: " + id + " не содержит контент");
+                }
+            }
+        }
+
         public bool compare(Unswer unswer)
         {
             if (!unswer.content.Equals(content))
@@ -37,6 +53,16 @@ namespace goTest.Testing.Objects
             }
 
             return true;
+        }
+
+        public Unswer copy()
+        {
+            Unswer copy = new Unswer();
+            copy.content = content;
+            copy.id = id;
+            copy.isRight = isRight;
+
+            return copy;
         }
 
         public bool IsRight

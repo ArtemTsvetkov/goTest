@@ -10,17 +10,26 @@ namespace goTest.Testing.Interfaces
 {
     interface GoTestModelI
     {
-        void createSubject(string name);
-        void createTest(string name, string subject, int questionsNumber,
-            int requeredUnswersNumber);
+        void createSubjectInBD(string name);
+        void addEmptyTest();
+        void addEmptyQuestion();
+        void addEmptyUnswer(int questionId);
+        void updateTestInBD();
         void updateSubject(int id, string newName);
-        void deleteQuestion();
-        void deleteUnswer();
-        void getQuestionsFullContent();
-        void setQuestionSelection(int id);
-        void setUnswerSelection(int id);
-        void updateSelected(Question newVersion);
-        void updateSelected(Unswer newVersion);
-        void updateTest(Test test);
+        void deleteQuestion(int id);
+        void deleteUnswer(int unswerId);
+        void update(int id, Question newVersion);
+        void update(int id, Unswer newVersion);
+        void update(int id, Test test);
+        void setSubjectForSelectedTest(int subjectId);
+        int[] getAllSubjectIds();
+        Subject getSubjectFromBD(int id);
+        void loadAllTestContentFromBD(int testId);
+        void loadTestForTesting(int testId);
+        Question getNextQuestion();
+        void userUnswered(int[] id);
+        void showTestResults();
+        int getCountOfRightUnswersOnTest();
+        Test getCurrentTest();
     }
 }

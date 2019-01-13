@@ -45,14 +45,15 @@ namespace goTest.Testing.Realization
         public string setTestsQuestionsNumber(int testId, int count)
         {
             return "INSERT INTO Parameters VALUES(" + testId + "," + 
-                getSubQueryForGettingAttrId(DbAttrs.questionsCount.getName()) + ",'" + "3" + "');";
+                getSubQueryForGettingAttrId(DbAttrs.questionsCount.getName()) + ",'" + 
+                count + "');";
         }
 
         public string setTestsRequeredUnswersNumber(int testId, int count)
         {
             return "INSERT INTO Parameters VALUES(" + testId + "," +
                 getSubQueryForGettingAttrId(DbAttrs.requiredQuestions.getName()) + ",'" + 
-                "3" + "');";
+                count + "');";
         }
 
         public string createQuestion(int testId)
@@ -96,14 +97,14 @@ namespace goTest.Testing.Realization
 
         public string getSubjectId(string name)
         {
-            return "SELECT id FROM Objects WHERE name=" + name + " AND type="+
+            return "SELECT id FROM Objects WHERE name='" + name + "' AND type="+
                 getSubQueryForGettingTypeId(DbTypes.subject.getName());
         }
 
         public string setApproveStatusToObject(DbObject objectName)
         {
-            return "INSERT INTO Objects_references VALUES(" + 
-                getObjectIdInDevelopStatus(objectName) + ", " +
+            return "INSERT INTO Objects_references VALUES((" + 
+                getObjectIdInDevelopStatus(objectName) + "), " +
                 getSubQueryForGettingObjectId(DbObjects.inApproveStatus, DbTypes.developStatus) + 
                 ", " +
                 getSubQueryForGettingAttrId(DbAttrs.developStatus.getName()) + ");";
@@ -220,6 +221,11 @@ namespace goTest.Testing.Realization
             return "SELECT parent_id FROM Objects WHERE id=" + testId;
         }
 
+        public string getAllSubjectIds()
+        {
+            return "select id from Objects where type="+getSubQueryForGettingTypeId("Subject");
+        }
+
         private string getQueryForLoadReference(int objectId, DbObject attr)
         {
             return "SELECT reference FROM Objects_references WHERE object_id=" + objectId +
@@ -278,6 +284,16 @@ namespace goTest.Testing.Realization
             return "(SELECT id FROM Objects WHERE Type" +
                 "=" + getSubQueryForGettingTypeId(DbTypes.unswerT.getName()) +
                 " AND name='" + type.getType() + "')";
+        }
+
+        public string countOfObject(int objectId)
+        {
+            return "SELECT COUNT(*) FROM OBJECTS WHERE id=" + objectId;
+        }
+
+        public string updateTestsSubject(int testId, int subjectId)
+        {
+            return "update objects set parent_id=" + subjectId + " where id=" + testId;
         }
     }
 }

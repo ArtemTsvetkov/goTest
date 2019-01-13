@@ -29,6 +29,11 @@ namespace goTest.Testing.Realization.Workers.Manipulators.Workers
 
         public void update(Question question)
         {
+            if (DataSetConverter.fromDsToSingle.toInt.convert(
+                SqlLiteSimpleExecute.execute(queryConfigurator.countOfObject(question.Id))) == 0)
+            {
+                throw new ObjectIsNotExistYet();
+            }
             SqlLiteSimpleExecute.execute(queryConfigurator.updateQuestionContent(question.Id,
                     question.QuestionsContent));
 
@@ -65,7 +70,14 @@ namespace goTest.Testing.Realization.Workers.Manipulators.Workers
 
             for (int i = 0; i < question.Unswers.Count; i++)
             {
-                unswerManipalator.update(question.Unswers.ElementAt(i));
+                try
+                {
+                    unswerManipalator.update(question.Unswers.ElementAt(i));
+                }
+                catch (ObjectIsNotExistYet ex)
+                {
+                    unswerManipalator.create(question.Unswers.ElementAt(i), question.Id);
+                }
             }
         }
     }

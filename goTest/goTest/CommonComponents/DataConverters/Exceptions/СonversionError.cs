@@ -12,13 +12,13 @@ namespace goTest.CommonComponents.DataConverters.Exceptions
     {
         public СonversionError() : base() { }
 
-        public СonversionError(string message) : base(message) { }
+        public СonversionError(string message) : base(message) {}
 
         public void processing(Exception ex)
         {
             ExceptionViewInterface<ErrorPopupWindowConfig> view = new ErrorPopupWindow();
             ErrorPopupWindowConfig config = new ErrorPopupWindowConfig(
-                "Ошибка преобразования типов. Обратитесь к администратору.");
+                "Ошибка преобразования типов. Обратитесь к администратору."+ ex.Message);
             view.setConfig(config);
             view.show();
         }
