@@ -140,7 +140,7 @@ namespace goTest.Testing.Realization
             }
         }
 
-        public void userUnswered(int id)
+        public void userUnswered(int[] id)
         {
             model.userUnswered(id);
         }

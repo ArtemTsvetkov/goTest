@@ -27,7 +27,9 @@ namespace goTest.Testing.Interfaces
         void loadAllTestContentFromBD(int testId);
         void loadTestForTesting(int testId);
         Question getNextQuestion();
-        void userUnswered(int id);
+        void userUnswered(int[] id);
         void showTestResults();
+        int getCountOfRightUnswersOnTest();
+        Test getCurrentTest();
     }
 }

@@ -134,6 +134,26 @@ namespace goTest
             get { return label27; }
         }
 
+        public Label label40Elem
+        {
+            get { return label40; }
+        }
+
+        public Label label41Elem
+        {
+            get { return label41; }
+        }
+
+        public Label label42Elem
+        {
+            get { return label42; }
+        }
+
+        public Label label43Elem
+        {
+            get { return label43; }
+        }
+
         public ComboBox comboBox1Elem
         {
             get { return comboBox1; }
@@ -182,6 +202,34 @@ namespace goTest
             }
         }
 
+        public CheckBox[] checkBoxes
+        {
+            get
+            {
+                CheckBox[] cb = new CheckBox[10];
+                cb[0] = checkBox1;
+                cb[1] = checkBox2;
+                cb[2] = checkBox3;
+                cb[3] = checkBox4;
+                cb[4] = checkBox5;
+                cb[5] = checkBox6;
+                cb[6] = checkBox7;
+                cb[7] = checkBox8;
+                cb[8] = checkBox9;
+                cb[9] = checkBox10;
+                return cb;
+            }
+        }
+
+        public Panel panel1Elem
+        {
+            get { return panel1; }
+        }
+
+        public Panel panel2Elem
+        {
+            get { return panel2; }
+        }
 
         //
         //Events
@@ -974,14 +1022,13 @@ namespace goTest
         //Send unswer
         private void button12_Click(object sender, EventArgs e)
         {
-            RadioButton[] buttons = radioButtons;
-            for (int i = 0; i < buttons.Length; i++)
+            if(panel1.Visible)
             {
-                if (buttons[i].Checked)
-                {
-                    iniComponents.goTestController.userUnswered(i);
-                    return;
-                }
+                sendSingleUnswer();
+            }
+            else
+            {
+                sendMultUnswer();
             }
         }
 
@@ -1031,6 +1078,60 @@ namespace goTest
         //
         //Other functions
         //
+
+        //Send single unswer
+        private void sendSingleUnswer()
+        {
+            RadioButton[] buttons = radioButtons;
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                if (buttons[i].Checked)
+                {
+                    List<VSubject> subjects = iniComponents.testingViewAdapter.getResult();
+                    VQuestion question = subjects.ElementAt(0).Tests.ElementAt(0).
+                        Questions.ElementAt(0);
+                    for (int k = 0; k < question.Unswers.Count; k++)
+                    {
+                        if (question.Unswers.ElementAt(k).getPosition() == i)
+                        {
+                            int[] unsw = new int[1];
+                            unsw[0] = question.Unswers.ElementAt(k).Id;
+                            iniComponents.goTestController.userUnswered(unsw);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
+        //Send mult unser
+        private void sendMultUnswer()
+        {
+            CheckBox[] buttons = checkBoxes;
+            List<int> unswList = new List<int>();
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                if (buttons[i].Checked)
+                {
+                    List<VSubject> subjects = iniComponents.testingViewAdapter.getResult();
+                    VQuestion question = subjects.ElementAt(0).Tests.ElementAt(0).
+                        Questions.ElementAt(0);
+                    for (int k = 0; k < question.Unswers.Count; k++)
+                    {
+                        if (question.Unswers.ElementAt(k).getPosition() == i)
+                        {
+                            unswList.Add(question.Unswers.ElementAt(k).Id);
+                        }
+                    }
+                }
+            }
+            int[] unsw = new int[unswList.Count];
+            for (int i = 0; i < unsw.Length; i++)
+            {
+                unsw[i] = unswList.ElementAt(i);
+            }
+            iniComponents.goTestController.userUnswered(unsw);
+        }
 
         //Reset question view
         private void resetQuestionView()

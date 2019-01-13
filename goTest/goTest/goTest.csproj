@@ -171,6 +171,7 @@
     <Compile Include="Testing\Objects\ViewsObjects\VSubject.cs" />
     <Compile Include="Testing\Objects\ViewsObjects\VTest.cs" />
     <Compile Include="Testing\Objects\ViewsObjects\VUnswer.cs" />
+    <Compile Include="Testing\Realization\GoTestTeacher.cs" />
     <Compile Include="Testing\Realization\Workers\GoTestAdapter.cs" />
     <Compile Include="Testing\Realization\Workers\IntHierarchy.cs" />
     <Compile Include="Testing\Realization\Workers\Manipulators\Workers\QuestionCreator.cs" />

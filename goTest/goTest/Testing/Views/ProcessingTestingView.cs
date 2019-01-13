@@ -7,6 +7,7 @@ using goTest.Testing.Interfaces;
 using goTest.Testing.Objects;
 using goTest.Testing.Objects.ViewsObjects;
 using goTest.Testing.Realization;
+using goTest.Testing.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,11 +50,33 @@ namespace goTest.Testing.Views
                 try
                 {
                     Question question = model.getNextQuestion();
-                    onRadioButtons(question.Unswers.Count);
-                    form.textBox13Elem.Text = question.QuestionsContent;
-                    for(int i=0; i<question.Unswers.Count; i++)
+                    List<Subject> subjects = new List<Subject>();
+                    Subject subject = new Subject();
+                    Test test = new Test();
+                    test.Questions.Add(question);
+                    subject.Tests.Add(test);
+                    subjects.Add(subject);
+                    adapter.adapte(subjects);
+                    if (question.QuestionsType.getType().Equals(
+                        QuestionTypes.singleAnswer.getType()))
                     {
-                        form.radioButtons[i].Text = question.Unswers.ElementAt(i).Content;
+                        onRadioButtons(question.Unswers.Count);
+                        offCheckBoxes();
+                        form.textBox13Elem.Text = question.QuestionsContent;
+                        for (int i = 0; i < question.Unswers.Count; i++)
+                        {
+                            form.radioButtons[i].Text = question.Unswers.ElementAt(i).Content;
+                        }
+                    }
+                    else
+                    {
+                        onCheckBoxes(question.Unswers.Count);
+                        offRadioButtons();
+                        form.textBox13Elem.Text = question.QuestionsContent;
+                        for (int i = 0; i < question.Unswers.Count; i++)
+                        {
+                            form.checkBoxes[i].Text = question.Unswers.ElementAt(i).Content;
+                        }
                     }
                 }
                 catch(QuestionsIsOver ex)
@@ -67,27 +90,66 @@ namespace goTest.Testing.Views
             }
         }
 
-        public void onRadioButtons(int count)
-        {
-            RadioButton[] buttons = form.radioButtons;
-            for (int i=0; i<count; i++)
-            {
-                buttons[i].Visible = true;
-            }
-        }
-
-        public void offRadioButtons()
-        {
-            RadioButton[] buttons = form.radioButtons;
-            for (int i = 0; i < buttons.Length; i++)
-            {
-                buttons[i].Visible = false;
-            }
-        }
 
         public void reset()
         {
             throw new NotImplementedException();
+        }
+
+        private void onRadioButtons(int count)
+        {
+            activatePanel(false);
+            RadioButton[] buttons = form.radioButtons;
+            for (int i=0; i<count; i++)
+            {
+                buttons[i].Visible = true;
+                buttons[i].Checked = false;
+            }
+        }
+
+        private void offRadioButtons()
+        {
+            RadioButton[] buttons = form.radioButtons;
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                buttons[i].Checked = false;
+                buttons[i].Visible = false;
+            }
+        }
+
+        private void onCheckBoxes(int count)
+        {
+            activatePanel(true);
+            CheckBox[] buttons = form.checkBoxes;
+            for (int i = 0; i < count; i++)
+            {
+                buttons[i].Visible = true;
+                buttons[i].Checked = false;
+            }
+        }
+
+        private void offCheckBoxes()
+        {
+            CheckBox[] buttons = form.checkBoxes;
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                buttons[i].Checked = false;
+                buttons[i].Visible = false;
+            }
+        }
+
+        private void activatePanel(bool onCheckBoxes)
+        {
+            if(onCheckBoxes)
+            {
+                form.panel2Elem.Visible = true;
+                form.panel1Elem.Visible = false;
+            }
+            else
+            {
+                form.panel2Elem.Visible = false;
+                form.panel1Elem.Visible = true;
+            }
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using goTest.CommonComponents.Interfaces;
 using goTest.Navigator.Basic;
 using goTest.Testing.Interfaces;
+using goTest.Testing.Objects;
+using goTest.Testing.Objects.ViewsObjects;
 using goTest.Testing.Realization;
 using System;
 using System.Collections.Generic;
@@ -36,6 +38,19 @@ namespace goTest.Testing.Views
         {
             if (Navigator.Navigator.getInstance().getCurrentViewsName().Equals(getName()))
             {
+                Test test = model.getCurrentTest();
+                int countOfRightUnswers = model.getCountOfRightUnswersOnTest();
+                form.label40Elem.Text = test.QuestionsNumber.ToString();
+                form.label41Elem.Text = test.RequeredUnswersNumber.ToString();
+                form.label42Elem.Text = countOfRightUnswers.ToString();
+                if (test.RequeredUnswersNumber <= countOfRightUnswers)
+                {
+                    form.label43Elem.Text = "Тест сдан";
+                }
+                else
+                {
+                    form.label43Elem.Text = "Тест не сдан";
+                }
                 int fsfsf = 0;
             }
         }

@@ -26,6 +26,7 @@ namespace goTest.Testing.Realization
         private int currentQuestionIndex;
         private int currentNewObjectIndex = -1;
         private TestObjectsSearcher searcher;
+        private GoTestTeacher teacher;
         private GoTestQueryConfiguratorI queryConfigurator;
         private TestManipulatorI testManipulator;
         private SubjectManipulatorI subjectManipulator;
@@ -397,6 +398,22 @@ namespace goTest.Testing.Realization
             }
             currentQuestionIndex = 0;
             loadStore();
+            teacher = new GoTestTeacher(loadTest);
+        }
+
+        public Test getCurrentTest()
+        {
+            for (int i = 0; i < store.Count; i++)
+            {
+                for (int m = 0; m < store.ElementAt(i).Tests.Count; m++)
+                {
+                    if (store.ElementAt(i).Tests.ElementAt(m).IsSelected)
+                    {
+                        return store.ElementAt(i).Tests.ElementAt(m);
+                    }
+                }
+            }
+            throw new GoTestObjectNotFound();
         }
 
         public Question getNextQuestion()
@@ -413,8 +430,9 @@ namespace goTest.Testing.Realization
             }
         }
 
-        public void userUnswered(int id)
+        public void userUnswered(int[] id)
         {
+            teacher.userUnswered(id);
             notifyObservers();
         }
 
@@ -475,21 +493,6 @@ namespace goTest.Testing.Realization
             throw new GoTestObjectNotFound();
         }
 
-        private Test getCurrentTest()
-        {
-            for (int i = 0; i < store.Count; i++)
-            {
-                for (int m = 0; m < store.ElementAt(i).Tests.Count; m++)
-                {
-                    if (store.ElementAt(i).Tests.ElementAt(m).IsSelected)
-                    {
-                        return store.ElementAt(i).Tests.ElementAt(m);
-                    }
-                }
-            }
-            throw new GoTestObjectNotFound();
-        }
-
         private int getSelectedSubjectIndexBaseOnSelectedTest()
         {
             for (int i = 0; i < store.Count; i++)
@@ -515,6 +518,11 @@ namespace goTest.Testing.Realization
                 }
             }
             throw new GoTestObjectNotFound();
+        }
+
+        public int getCountOfRightUnswersOnTest()
+        {
+            return teacher.getCountOfRightUnswers();
         }
     }
 }

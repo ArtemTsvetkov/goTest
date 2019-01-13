@@ -25,7 +25,7 @@ namespace goTest.Testing.Interfaces
         void update(int unswerId, Unswer newVersion);
         void update(int testId, Test newVersion);
         void updateTestInBD();
-        void userUnswered(int id);
+        void userUnswered(int[] id);
         void showTestResults();
     }
 }
