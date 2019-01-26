@@ -160,6 +160,8 @@
             this.label37 = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
+            this.button29 = new System.Windows.Forms.Button();
+            this.button30 = new System.Windows.Forms.Button();
             this.tabPage5.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -264,6 +266,8 @@
             // tabPage4
             // 
             this.tabPage4.BackgroundImage = global::goTest.Properties.Resources.bg;
+            this.tabPage4.Controls.Add(this.button30);
+            this.tabPage4.Controls.Add(this.button29);
             this.tabPage4.Controls.Add(this.button28);
             this.tabPage4.Controls.Add(this.button10);
             this.tabPage4.Controls.Add(this.button9);
@@ -282,7 +286,7 @@
             // button28
             // 
             this.button28.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button28.Location = new System.Drawing.Point(421, 413);
+            this.button28.Location = new System.Drawing.Point(421, 501);
             this.button28.Name = "button28";
             this.button28.Size = new System.Drawing.Size(251, 38);
             this.button28.TabIndex = 26;
@@ -293,7 +297,7 @@
             // button10
             // 
             this.button10.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button10.Location = new System.Drawing.Point(421, 369);
+            this.button10.Location = new System.Drawing.Point(421, 413);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(251, 38);
             this.button10.TabIndex = 25;
@@ -304,7 +308,7 @@
             // button9
             // 
             this.button9.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button9.Location = new System.Drawing.Point(421, 325);
+            this.button9.Location = new System.Drawing.Point(421, 369);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(251, 38);
             this.button9.TabIndex = 24;
@@ -1718,6 +1722,26 @@
             this.label35.TabIndex = 58;
             this.label35.Text = "Результаты теста";
             // 
+            // button29
+            // 
+            this.button29.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button29.Location = new System.Drawing.Point(421, 325);
+            this.button29.Name = "button29";
+            this.button29.Size = new System.Drawing.Size(251, 38);
+            this.button29.TabIndex = 27;
+            this.button29.Text = "Удалить тест";
+            this.button29.UseVisualStyleBackColor = true;
+            // 
+            // button30
+            // 
+            this.button30.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button30.Location = new System.Drawing.Point(421, 457);
+            this.button30.Name = "button30";
+            this.button30.Size = new System.Drawing.Size(251, 38);
+            this.button30.TabIndex = 28;
+            this.button30.Text = "Удалить дисциплину";
+            this.button30.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1899,6 +1923,8 @@
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button button30;
+        private System.Windows.Forms.Button button29;
     }
 }
 
