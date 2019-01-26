@@ -295,5 +295,20 @@ namespace goTest.Testing.Realization
         {
             return "update objects set parent_id=" + subjectId + " where id=" + testId;
         }
+
+        public string deleteObjectParameters(int object_id)
+        {
+            return "delete from parameters where object_id="+object_id;
+        }
+
+        public string deleteObjectReferences(int object_id)
+        {
+            return "delete from objects_references where object_id=" + object_id;
+        }
+
+        public string deleteObjectFromObjectsTable(int object_id)
+        {
+            return "delete from objects where id="+object_id;
+        }
     }
 }

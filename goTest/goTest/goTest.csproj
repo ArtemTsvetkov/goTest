@@ -227,6 +227,8 @@
     <Compile Include="Testing\Types\Unswer\UnswerTypes.cs" />
     <Compile Include="Testing\Views\CreateSubjectView.cs" />
     <Compile Include="Testing\Views\CreateTestView.cs" />
+    <Compile Include="Testing\Views\DeleteSubjectView.cs" />
+    <Compile Include="Testing\Views\DeleteTestView.cs" />
     <Compile Include="Testing\Views\ProcessingTestingView.cs" />
     <Compile Include="Testing\Views\QuestionsView.cs" />
     <Compile Include="Testing\Views\ResultTestingView.cs" />

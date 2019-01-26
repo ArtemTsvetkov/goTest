@@ -36,6 +36,8 @@
             this.label12 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.button30 = new System.Windows.Forms.Button();
+            this.button29 = new System.Windows.Forms.Button();
             this.button28 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
@@ -160,8 +162,20 @@
             this.label37 = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
-            this.button29 = new System.Windows.Forms.Button();
-            this.button30 = new System.Windows.Forms.Button();
+            this.tabPage13 = new System.Windows.Forms.TabPage();
+            this.comboBox7 = new System.Windows.Forms.ComboBox();
+            this.label44 = new System.Windows.Forms.Label();
+            this.comboBox8 = new System.Windows.Forms.ComboBox();
+            this.button31 = new System.Windows.Forms.Button();
+            this.button32 = new System.Windows.Forms.Button();
+            this.label45 = new System.Windows.Forms.Label();
+            this.label46 = new System.Windows.Forms.Label();
+            this.tabPage14 = new System.Windows.Forms.TabPage();
+            this.comboBox9 = new System.Windows.Forms.ComboBox();
+            this.button33 = new System.Windows.Forms.Button();
+            this.button34 = new System.Windows.Forms.Button();
+            this.label48 = new System.Windows.Forms.Label();
+            this.label49 = new System.Windows.Forms.Label();
             this.tabPage5.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -181,6 +195,8 @@
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabPage12.SuspendLayout();
+            this.tabPage13.SuspendLayout();
+            this.tabPage14.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabPage5
@@ -282,6 +298,28 @@
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "tabPage4";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // button30
+            // 
+            this.button30.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button30.Location = new System.Drawing.Point(421, 457);
+            this.button30.Name = "button30";
+            this.button30.Size = new System.Drawing.Size(251, 38);
+            this.button30.TabIndex = 28;
+            this.button30.Text = "Удалить дисциплину";
+            this.button30.UseVisualStyleBackColor = true;
+            this.button30.Click += new System.EventHandler(this.button30_Click);
+            // 
+            // button29
+            // 
+            this.button29.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button29.Location = new System.Drawing.Point(421, 325);
+            this.button29.Name = "button29";
+            this.button29.Size = new System.Drawing.Size(251, 38);
+            this.button29.TabIndex = 27;
+            this.button29.Text = "Удалить тест";
+            this.button29.UseVisualStyleBackColor = true;
+            this.button29.Click += new System.EventHandler(this.button29_Click);
             // 
             // button28
             // 
@@ -667,6 +705,8 @@
             this.tabControl1.Controls.Add(this.tabPage10);
             this.tabControl1.Controls.Add(this.tabPage11);
             this.tabControl1.Controls.Add(this.tabPage12);
+            this.tabControl1.Controls.Add(this.tabPage13);
+            this.tabControl1.Controls.Add(this.tabPage14);
             this.tabControl1.Location = new System.Drawing.Point(1, 1);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -1722,25 +1762,166 @@
             this.label35.TabIndex = 58;
             this.label35.Text = "Результаты теста";
             // 
-            // button29
+            // tabPage13
             // 
-            this.button29.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button29.Location = new System.Drawing.Point(421, 325);
-            this.button29.Name = "button29";
-            this.button29.Size = new System.Drawing.Size(251, 38);
-            this.button29.TabIndex = 27;
-            this.button29.Text = "Удалить тест";
-            this.button29.UseVisualStyleBackColor = true;
+            this.tabPage13.BackgroundImage = global::goTest.Properties.Resources.bg;
+            this.tabPage13.Controls.Add(this.comboBox7);
+            this.tabPage13.Controls.Add(this.label44);
+            this.tabPage13.Controls.Add(this.comboBox8);
+            this.tabPage13.Controls.Add(this.button31);
+            this.tabPage13.Controls.Add(this.button32);
+            this.tabPage13.Controls.Add(this.label45);
+            this.tabPage13.Controls.Add(this.label46);
+            this.tabPage13.Location = new System.Drawing.Point(4, 22);
+            this.tabPage13.Name = "tabPage13";
+            this.tabPage13.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage13.Size = new System.Drawing.Size(1092, 700);
+            this.tabPage13.TabIndex = 12;
+            this.tabPage13.Text = "tabPage13";
+            this.tabPage13.UseVisualStyleBackColor = true;
             // 
-            // button30
+            // comboBox7
             // 
-            this.button30.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button30.Location = new System.Drawing.Point(421, 457);
-            this.button30.Name = "button30";
-            this.button30.Size = new System.Drawing.Size(251, 38);
-            this.button30.TabIndex = 28;
-            this.button30.Text = "Удалить дисциплину";
-            this.button30.UseVisualStyleBackColor = true;
+            this.comboBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBox7.FormattingEnabled = true;
+            this.comboBox7.Location = new System.Drawing.Point(476, 197);
+            this.comboBox7.Name = "comboBox7";
+            this.comboBox7.Size = new System.Drawing.Size(236, 33);
+            this.comboBox7.TabIndex = 52;
+            this.comboBox7.SelectedIndexChanged += new System.EventHandler(this.comboBox7_SelectedIndexChanged);
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.BackColor = System.Drawing.Color.Transparent;
+            this.label44.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label44.Location = new System.Drawing.Point(332, 250);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(57, 26);
+            this.label44.TabIndex = 51;
+            this.label44.Text = "Тест";
+            // 
+            // comboBox8
+            // 
+            this.comboBox8.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBox8.FormattingEnabled = true;
+            this.comboBox8.Location = new System.Drawing.Point(476, 243);
+            this.comboBox8.Name = "comboBox8";
+            this.comboBox8.Size = new System.Drawing.Size(236, 33);
+            this.comboBox8.TabIndex = 50;
+            // 
+            // button31
+            // 
+            this.button31.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button31.Location = new System.Drawing.Point(282, 564);
+            this.button31.Name = "button31";
+            this.button31.Size = new System.Drawing.Size(131, 38);
+            this.button31.TabIndex = 49;
+            this.button31.Text = "Отмена";
+            this.button31.UseVisualStyleBackColor = true;
+            this.button31.Click += new System.EventHandler(this.button31_Click);
+            // 
+            // button32
+            // 
+            this.button32.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button32.Location = new System.Drawing.Point(680, 564);
+            this.button32.Name = "button32";
+            this.button32.Size = new System.Drawing.Size(131, 38);
+            this.button32.TabIndex = 48;
+            this.button32.Text = "Удалить";
+            this.button32.UseVisualStyleBackColor = true;
+            this.button32.Click += new System.EventHandler(this.button32_Click);
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.BackColor = System.Drawing.Color.Transparent;
+            this.label45.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label45.Location = new System.Drawing.Point(332, 200);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(138, 26);
+            this.label45.TabIndex = 46;
+            this.label45.Text = "Дисциплина";
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.BackColor = System.Drawing.Color.Transparent;
+            this.label46.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label46.Location = new System.Drawing.Point(460, 126);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(173, 26);
+            this.label46.TabIndex = 23;
+            this.label46.Text = "Удаление теста";
+            // 
+            // tabPage14
+            // 
+            this.tabPage14.BackgroundImage = global::goTest.Properties.Resources.bg;
+            this.tabPage14.Controls.Add(this.comboBox9);
+            this.tabPage14.Controls.Add(this.button33);
+            this.tabPage14.Controls.Add(this.button34);
+            this.tabPage14.Controls.Add(this.label48);
+            this.tabPage14.Controls.Add(this.label49);
+            this.tabPage14.Location = new System.Drawing.Point(4, 22);
+            this.tabPage14.Name = "tabPage14";
+            this.tabPage14.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage14.Size = new System.Drawing.Size(1092, 700);
+            this.tabPage14.TabIndex = 13;
+            this.tabPage14.Text = "tabPage14";
+            this.tabPage14.UseVisualStyleBackColor = true;
+            // 
+            // comboBox9
+            // 
+            this.comboBox9.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBox9.FormattingEnabled = true;
+            this.comboBox9.Location = new System.Drawing.Point(476, 197);
+            this.comboBox9.Name = "comboBox9";
+            this.comboBox9.Size = new System.Drawing.Size(236, 33);
+            this.comboBox9.TabIndex = 52;
+            // 
+            // button33
+            // 
+            this.button33.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button33.Location = new System.Drawing.Point(282, 564);
+            this.button33.Name = "button33";
+            this.button33.Size = new System.Drawing.Size(131, 38);
+            this.button33.TabIndex = 49;
+            this.button33.Text = "Отмена";
+            this.button33.UseVisualStyleBackColor = true;
+            this.button33.Click += new System.EventHandler(this.button33_Click);
+            // 
+            // button34
+            // 
+            this.button34.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button34.Location = new System.Drawing.Point(680, 564);
+            this.button34.Name = "button34";
+            this.button34.Size = new System.Drawing.Size(131, 38);
+            this.button34.TabIndex = 48;
+            this.button34.Text = "Удалить";
+            this.button34.UseVisualStyleBackColor = true;
+            this.button34.Click += new System.EventHandler(this.button34_Click);
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.BackColor = System.Drawing.Color.Transparent;
+            this.label48.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label48.Location = new System.Drawing.Point(332, 200);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(138, 26);
+            this.label48.TabIndex = 46;
+            this.label48.Text = "Дисциплина";
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.BackColor = System.Drawing.Color.Transparent;
+            this.label49.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label49.Location = new System.Drawing.Point(438, 126);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(217, 26);
+            this.label49.TabIndex = 23;
+            this.label49.Text = "Удаление предмета";
             // 
             // Form1
             // 
@@ -1785,6 +1966,10 @@
             this.panel1.PerformLayout();
             this.tabPage12.ResumeLayout(false);
             this.tabPage12.PerformLayout();
+            this.tabPage13.ResumeLayout(false);
+            this.tabPage13.PerformLayout();
+            this.tabPage14.ResumeLayout(false);
+            this.tabPage14.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1925,6 +2110,20 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button button30;
         private System.Windows.Forms.Button button29;
+        private System.Windows.Forms.TabPage tabPage13;
+        private System.Windows.Forms.ComboBox comboBox7;
+        private System.Windows.Forms.Label label44;
+        private System.Windows.Forms.ComboBox comboBox8;
+        private System.Windows.Forms.Button button31;
+        private System.Windows.Forms.Button button32;
+        private System.Windows.Forms.Label label45;
+        private System.Windows.Forms.Label label46;
+        private System.Windows.Forms.TabPage tabPage14;
+        private System.Windows.Forms.ComboBox comboBox9;
+        private System.Windows.Forms.Button button33;
+        private System.Windows.Forms.Button button34;
+        private System.Windows.Forms.Label label48;
+        private System.Windows.Forms.Label label49;
     }
 }
 

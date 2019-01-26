@@ -1,4 +1,7 @@
-﻿using goTest.Testing.Exceptions;
+﻿using goTest.CommonComponents.WorkWithData.Realization.WorkWithDataBase.SqlLite;
+using goTest.Testing.Exceptions;
+using goTest.Testing.Interfaces;
+using goTest.Testing.Realization;
 using goTest.Testing.Types;
 using System;
 using System.Collections.Generic;
@@ -159,6 +162,23 @@ namespace goTest.Testing.Objects
             {
                 id = value;
             }
+        }
+
+        public void delete()
+        {
+            for(int i=0; i<unswers.Count; i++)
+            {
+                unswers.ElementAt(i).delete();
+            }
+            deleteSelf();
+        }
+
+        private void deleteSelf()
+        {
+            GoTestQueryConfiguratorI queryConfigurator = new GoTestQueryConfigurator();
+            SqlLiteSimpleExecute.execute(queryConfigurator.deleteObjectReferences(id));
+            SqlLiteSimpleExecute.execute(queryConfigurator.deleteObjectParameters(id));
+            SqlLiteSimpleExecute.execute(queryConfigurator.deleteObjectFromObjectsTable(id));
         }
     }
 }

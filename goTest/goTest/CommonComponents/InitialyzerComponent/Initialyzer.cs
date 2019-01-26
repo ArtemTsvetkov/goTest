@@ -70,10 +70,10 @@ namespace goTest.CommonComponents.InitialyzerComponent
                 components.goTestController = new GoTestController(goTestModel);
                 components.questionsViewAdapter = new GoTestAdapter();
                 components.updateSubjectViewAdapter = new GoTestAdapter();
-                //components.updateTestViewAdapter = new GoTestAdapter();
                 components.сreateSubjectViewAdapter = new GoTestAdapter();
                 components.testingViewAdapter = new GoTestAdapter();
-                //components.сreateTestViewAdapter = new GoTestAdapter();
+                components.deletingSubjectViewAdapter = new GoTestAdapter();
+                components.deletingTestViewAdapter = new GoTestAdapter();
                 //
                 //Navigator
                 //
@@ -82,8 +82,10 @@ namespace goTest.CommonComponents.InitialyzerComponent
                 Navigator.Navigator.getInstance().addView(new AdminMenuView(form));
                 Navigator.Navigator.getInstance().addView(new StudentMenuView(form));
                 Navigator.Navigator.getInstance().addView(new ChangePasswordView(form));
-                //Navigator.Navigator.getInstance().addView(new UpdateTestView(form,
-                    //components.updateTestViewAdapter, goTestModel));
+                Navigator.Navigator.getInstance().addView(new DeleteSubjectView(form,
+                    components.deletingSubjectViewAdapter, goTestModel));
+                Navigator.Navigator.getInstance().addView(new DeleteTestView(form,
+                    components.deletingTestViewAdapter, goTestModel));
                 Navigator.Navigator.getInstance().addView(new UpdateTestView(form,
                     components.questionsViewAdapter, goTestModel));
                 Navigator.Navigator.getInstance().addView(new UpdateSubjectView(form, 
@@ -96,8 +98,6 @@ namespace goTest.CommonComponents.InitialyzerComponent
                     goTestModel));
                 Navigator.Navigator.getInstance().addView(new CreateSubjectView(form, 
                     components.сreateSubjectViewAdapter));
-                //Navigator.Navigator.getInstance().addView(new CreateTestView(form,
-                //components.сreateTestViewAdapter, goTestModel));
                 CreateTestView createTestView = new CreateTestView(form,
                     components.questionsViewAdapter, goTestModel);
                 goTestModel.subscribe(createTestView);
