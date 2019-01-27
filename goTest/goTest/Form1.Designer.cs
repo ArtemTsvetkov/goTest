@@ -253,9 +253,9 @@
             this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label32.Location = new System.Drawing.Point(356, 200);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(138, 26);
+            this.label32.Size = new System.Drawing.Size(103, 26);
             this.label32.TabIndex = 53;
-            this.label32.Text = "Дисциплина";
+            this.label32.Text = "Предмет";
             // 
             // label12
             // 
@@ -306,7 +306,7 @@
             this.button30.Name = "button30";
             this.button30.Size = new System.Drawing.Size(251, 38);
             this.button30.TabIndex = 28;
-            this.button30.Text = "Удалить дисциплину";
+            this.button30.Text = "Удалить предмет";
             this.button30.UseVisualStyleBackColor = true;
             this.button30.Click += new System.EventHandler(this.button30_Click);
             // 
@@ -339,7 +339,7 @@
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(251, 38);
             this.button10.TabIndex = 25;
-            this.button10.Text = "Изменить дисциплину";
+            this.button10.Text = "Изменить предмет";
             this.button10.UseVisualStyleBackColor = true;
             this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
@@ -350,7 +350,7 @@
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(251, 38);
             this.button9.TabIndex = 24;
-            this.button9.Text = "Создать дисциплину";
+            this.button9.Text = "Создать предмет";
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
@@ -847,9 +847,9 @@
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label18.Location = new System.Drawing.Point(308, 250);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(138, 26);
+            this.label18.Size = new System.Drawing.Size(103, 26);
             this.label18.TabIndex = 26;
-            this.label18.Text = "Дисциплина";
+            this.label18.Text = "Предмет";
             // 
             // textBox9
             // 
@@ -955,11 +955,11 @@
             this.label14.AutoSize = true;
             this.label14.BackColor = System.Drawing.Color.Transparent;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label14.Location = new System.Drawing.Point(424, 126);
+            this.label14.Location = new System.Drawing.Point(438, 126);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(244, 26);
+            this.label14.Size = new System.Drawing.Size(217, 26);
             this.label14.TabIndex = 23;
-            this.label14.Text = "Создание дисциплины";
+            this.label14.Text = "Создание предмета";
             // 
             // tabPage8
             // 
@@ -1045,11 +1045,11 @@
             this.label15.AutoSize = true;
             this.label15.BackColor = System.Drawing.Color.Transparent;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label15.Location = new System.Drawing.Point(417, 126);
+            this.label15.Location = new System.Drawing.Point(430, 126);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(259, 26);
+            this.label15.Size = new System.Drawing.Size(232, 26);
             this.label15.TabIndex = 23;
-            this.label15.Text = "Изменение дисциплины";
+            this.label15.Text = "Изменение предмета";
             // 
             // tabPage9
             // 
@@ -1315,9 +1315,9 @@
             this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label29.Location = new System.Drawing.Point(332, 200);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(138, 26);
+            this.label29.Size = new System.Drawing.Size(103, 26);
             this.label29.TabIndex = 46;
-            this.label29.Text = "Дисциплина";
+            this.label29.Text = "Предмет";
             // 
             // label30
             // 
@@ -1839,9 +1839,9 @@
             this.label45.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label45.Location = new System.Drawing.Point(332, 200);
             this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(138, 26);
+            this.label45.Size = new System.Drawing.Size(103, 26);
             this.label45.TabIndex = 46;
-            this.label45.Text = "Дисциплина";
+            this.label45.Text = "Предмет";
             // 
             // label46
             // 

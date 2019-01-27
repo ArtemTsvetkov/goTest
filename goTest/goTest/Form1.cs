@@ -395,6 +395,11 @@ namespace goTest
         //Go to next update test view
         private void button23_Click(object sender, EventArgs e)
         {
+            if (comboBox5.SelectedIndex == -1 || comboBox4.SelectedIndex == -1)
+            {
+                showMessage("Пожалуйста, выберите предмет и тест.");
+                return;
+            }
             for (int i=0; i<iniComponents.questionsViewAdapter.getResult().Count; i++)
             {
                 if(comboBox5.SelectedIndex == iniComponents.questionsViewAdapter.
@@ -510,6 +515,11 @@ namespace goTest
         //Update subject button
         private void button20_Click(object sender, EventArgs e)
         {
+            if (comboBox3.SelectedIndex == -1 || textBox12.Text==null || textBox12.Text.Equals(""))
+            {
+                showMessage("Пожалуйста, выберите предмет и введите новое название для него.");
+                return;
+            }
             try
             {
                 iniComponents.goTestController.updateSubject(iniComponents.
@@ -1008,6 +1018,11 @@ namespace goTest
         //Go testing
         private void button5_Click(object sender, EventArgs e)
         {
+            if(comboBox2.SelectedIndex == -1 || comboBox6.SelectedIndex ==-1)
+            {
+                showMessage("Пожалуйста, выберите предмет и тест.");
+                return;
+            }
             tabControl1.SelectedIndex = 10;
             for (int i = 0; i < iniComponents.testingViewAdapter.getResult().Count; i++)
             {
@@ -1154,6 +1169,11 @@ namespace goTest
         //Delete test button
         private void button32_Click(object sender, EventArgs e)
         {
+            if (comboBox7.SelectedIndex == -1 || comboBox8.SelectedIndex == -1)
+            {
+                showMessage("Пожалуйста, выберите предмет и тест.");
+                return;
+            }
             for (int i = 0; i < iniComponents.deletingTestViewAdapter.getResult().Count; i++)
             {
                 if (comboBox7.SelectedIndex == iniComponents.deletingTestViewAdapter.
@@ -1194,6 +1214,11 @@ namespace goTest
         //Delete subject button
         private void button34_Click(object sender, EventArgs e)
         {
+            if (comboBox9.SelectedIndex == -1)
+            {
+                showMessage("Пожалуйста, выберите предмет.");
+                return;
+            }
             for (int i = 0; i < iniComponents.deletingSubjectViewAdapter.getResult().Count; i++)
             {
                 if (comboBox9.SelectedIndex == iniComponents.deletingSubjectViewAdapter.
@@ -1205,7 +1230,7 @@ namespace goTest
                     activateValueChangeListeners = false;
                     Navigator.Navigator.getInstance().resetCurrentView();
                     if (MessageBox.Show(
-                        "Вы действительно хотите удалить этот предмет:"+currentSubject.Name+"?",
+                        "Вы действительно хотите удалить этот предмет: "+currentSubject.Name+"?",
                         "Сообщение",
                         MessageBoxButtons.OKCancel,
                         MessageBoxIcon.Question,

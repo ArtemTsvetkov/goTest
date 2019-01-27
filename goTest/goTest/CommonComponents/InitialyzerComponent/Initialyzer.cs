@@ -116,11 +116,13 @@ namespace goTest.CommonComponents.InitialyzerComponent
                 components.securityController.checkDataBase();
                 form.button1Elem.Visible = true;
                 form.button8Elem.Visible = true;
+                /*
                 //
                 //ТОЛЬКО ДЛЯ ОТЛАДКИ, ПОТОМ УБРАТЬ
                 //
                 form.textBox1Elem.Text = "Admin";
                 form.textBox2Elem.Text = "1234";
+                */
             }
             catch (Exception ex)
             {
