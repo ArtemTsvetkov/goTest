@@ -49,5 +49,8 @@ namespace goTest.Testing.Interfaces
         string getObjectName(int objectId);
         string getAllSubjectIds();
         string countOfObject(int objectId);
+        string deleteObjectParameters(int object_id);
+        string deleteObjectReferences(int object_id);
+        string deleteObjectFromObjectsTable(int object_id);
     }
 }

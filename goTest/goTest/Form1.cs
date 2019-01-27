@@ -184,6 +184,21 @@ namespace goTest
             get { return comboBox6; }
         }
 
+        public ComboBox comboBox7Elem
+        {
+            get { return comboBox7; }
+        }
+
+        public ComboBox comboBox8Elem
+        {
+            get { return comboBox8; }
+        }
+
+        public ComboBox comboBox9Elem
+        {
+            get { return comboBox9; }
+        }
+
         public RadioButton[] radioButtons
         {
             get {
@@ -380,6 +395,11 @@ namespace goTest
         //Go to next update test view
         private void button23_Click(object sender, EventArgs e)
         {
+            if (comboBox5.SelectedIndex == -1 || comboBox4.SelectedIndex == -1)
+            {
+                showMessage("Пожалуйста, выберите предмет и тест.");
+                return;
+            }
             for (int i=0; i<iniComponents.questionsViewAdapter.getResult().Count; i++)
             {
                 if(comboBox5.SelectedIndex == iniComponents.questionsViewAdapter.
@@ -495,6 +515,11 @@ namespace goTest
         //Update subject button
         private void button20_Click(object sender, EventArgs e)
         {
+            if (comboBox3.SelectedIndex == -1 || textBox12.Text==null || textBox12.Text.Equals(""))
+            {
+                showMessage("Пожалуйста, выберите предмет и введите новое название для него.");
+                return;
+            }
             try
             {
                 iniComponents.goTestController.updateSubject(iniComponents.
@@ -993,6 +1018,11 @@ namespace goTest
         //Go testing
         private void button5_Click(object sender, EventArgs e)
         {
+            if(comboBox2.SelectedIndex == -1 || comboBox6.SelectedIndex ==-1)
+            {
+                showMessage("Пожалуйста, выберите предмет и тест.");
+                return;
+            }
             tabControl1.SelectedIndex = 10;
             for (int i = 0; i < iniComponents.testingViewAdapter.getResult().Count; i++)
             {
@@ -1075,6 +1105,146 @@ namespace goTest
                     comboBox1.SelectedIndex=0;
                 }
             }
+        }
+
+        //Go to delete test form
+        private void button29_Click(object sender, EventArgs e)
+        {
+            Navigator.Navigator.getInstance().navigateTo("DeleteTestView");
+            iniComponents.goTestController.loadAllSubjects();
+        }
+
+        //Go to delete subject form
+        private void button30_Click(object sender, EventArgs e)
+        {
+            Navigator.Navigator.getInstance().navigateTo("DeleteSubjectView");
+            iniComponents.goTestController.loadAllSubjects();
+        }
+
+
+        private void comboBox7_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (activateValueChangeListeners)
+            {
+                comboBox8.Items.Clear();
+                for (int i = 0; i < iniComponents.deletingTestViewAdapter.getResult().Count; i++)
+                {
+                    if (iniComponents.deletingTestViewAdapter.getResult().
+                        ElementAt(i).getPosition() == comboBox7.SelectedIndex)
+                    {
+                        VSubject subject = iniComponents.deletingTestViewAdapter.getResult().ElementAt(i);
+                        for (int m = 0; m < subject.Tests.Count(); m++)
+                        {
+                            comboBox8.Items.Add(subject.Tests.ElementAt(m).Name);
+                        }
+                        comboBox8.Text = "";
+                        comboBox8.SelectedIndex = -1;
+                        return;
+                    }
+                }
+
+                throw new GoTestObjectNotFound();
+            }
+        }
+
+        //Go out from delete test view
+        private void button31_Click(object sender, EventArgs e)
+        {
+            activateValueChangeListeners = false;
+            Navigator.Navigator.getInstance().resetCurrentView();
+            activateValueChangeListeners = true;
+            Navigator.Navigator.getInstance().navigateToPreviousView();
+        }
+
+        //Go out from delete subject view
+        private void button33_Click(object sender, EventArgs e)
+        {
+            activateValueChangeListeners = false;
+            Navigator.Navigator.getInstance().resetCurrentView();
+            activateValueChangeListeners = true;
+            Navigator.Navigator.getInstance().navigateToPreviousView();
+        }
+
+
+        //Delete test button
+        private void button32_Click(object sender, EventArgs e)
+        {
+            if (comboBox7.SelectedIndex == -1 || comboBox8.SelectedIndex == -1)
+            {
+                showMessage("Пожалуйста, выберите предмет и тест.");
+                return;
+            }
+            for (int i = 0; i < iniComponents.deletingTestViewAdapter.getResult().Count; i++)
+            {
+                if (comboBox7.SelectedIndex == iniComponents.deletingTestViewAdapter.
+                    getResult().ElementAt(i).getPosition())
+                {
+                    VSubject currentSubject = iniComponents.deletingTestViewAdapter.
+                    getResult().ElementAt(i);
+                    currentSubject.IsSelected = true;
+                    for (int m = 0; m < currentSubject.Tests.Count; m++)
+                    {
+                        if (currentSubject.Tests.ElementAt(m).getPosition() ==
+                            comboBox8.SelectedIndex)
+                        {
+                            VTest currentTest = currentSubject.Tests.ElementAt(m);
+                            activateValueChangeListeners = false;
+                            Navigator.Navigator.getInstance().resetCurrentView();
+                            if (MessageBox.Show(
+                                "Вы действительно хотите удалить этот предмет:" + currentTest.Name 
+                                + "?",
+                                "Сообщение",
+                                MessageBoxButtons.OKCancel,
+                                MessageBoxIcon.Question,
+                                MessageBoxDefaultButton.Button1,
+                                MessageBoxOptions.DefaultDesktopOnly) == DialogResult.OK)
+                            {
+                                currentTest.delete();
+                            }
+                            activateValueChangeListeners = true;
+                            Navigator.Navigator.getInstance().navigateToPreviousView();
+                            return;
+                        }
+                    }
+                }
+            }
+            throw new GoTestObjectNotFound();
+        }
+
+        //Delete subject button
+        private void button34_Click(object sender, EventArgs e)
+        {
+            if (comboBox9.SelectedIndex == -1)
+            {
+                showMessage("Пожалуйста, выберите предмет.");
+                return;
+            }
+            for (int i = 0; i < iniComponents.deletingSubjectViewAdapter.getResult().Count; i++)
+            {
+                if (comboBox9.SelectedIndex == iniComponents.deletingSubjectViewAdapter.
+                    getResult().ElementAt(i).getPosition())
+                {
+                    VSubject currentSubject = iniComponents.deletingSubjectViewAdapter.
+                    getResult().ElementAt(i);
+                    currentSubject.IsSelected = true;
+                    activateValueChangeListeners = false;
+                    Navigator.Navigator.getInstance().resetCurrentView();
+                    if (MessageBox.Show(
+                        "Вы действительно хотите удалить этот предмет: "+currentSubject.Name+"?",
+                        "Сообщение",
+                        MessageBoxButtons.OKCancel,
+                        MessageBoxIcon.Question,
+                        MessageBoxDefaultButton.Button1,
+                        MessageBoxOptions.DefaultDesktopOnly) == DialogResult.OK)
+                    {
+                        currentSubject.delete();
+                    }
+                    activateValueChangeListeners = true;
+                    Navigator.Navigator.getInstance().navigateToPreviousView();
+                    return;
+                }
+            }
+            throw new GoTestObjectNotFound();
         }
 
         //
