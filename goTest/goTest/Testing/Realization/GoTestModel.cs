@@ -84,7 +84,7 @@ namespace goTest.Testing.Realization
                 try
                 {
                     subjectManipulator.create(subject);
-                    showInformationMessage("Дисциплина успешно добавлена");
+                    showInformationMessage("Предмет успешно добавлен.");
                 }
                 catch(Exception e)
                 {

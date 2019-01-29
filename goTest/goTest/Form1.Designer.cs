@@ -1908,9 +1908,9 @@
             this.label48.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label48.Location = new System.Drawing.Point(332, 200);
             this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(138, 26);
+            this.label48.Size = new System.Drawing.Size(103, 26);
             this.label48.TabIndex = 46;
-            this.label48.Text = "Дисциплина";
+            this.label48.Text = "Предмет";
             // 
             // label49
             // 
