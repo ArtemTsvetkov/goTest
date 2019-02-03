@@ -690,6 +690,7 @@ namespace goTest
                         }
                         label27.Visible = true;
                         label27.Text = "Вопрос: " + (e.RowIndex+1) + "/" + dataGridView1.RowCount;
+                        textBox11.ReadOnly = false;
 
                         return;
                     }

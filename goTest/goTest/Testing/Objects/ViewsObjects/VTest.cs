@@ -29,7 +29,10 @@ namespace goTest.Testing.Objects.ViewsObjects
 
             for(int i=0; i<test.Questions.Count; i++)
             {
-                questions.Add(new VQuestion(i, test.Questions.ElementAt(i)));
+                if (!test.Questions.ElementAt(i).IsDeleted)
+                {
+                    questions.Add(new VQuestion(i, test.Questions.ElementAt(i)));
+                }
             }
         }
 

@@ -16,6 +16,12 @@ namespace goTest.Testing.Objects
         private string content;
         private bool isRight;
         private int id;
+        private bool isDeleted;
+
+        public Unswer()
+        {
+            IsDeleted = false;
+        }
 
         public string Content
         {
@@ -65,6 +71,7 @@ namespace goTest.Testing.Objects
             copy.content = content;
             copy.id = id;
             copy.isRight = isRight;
+            copy.isDeleted = isDeleted;
 
             return copy;
         }
@@ -92,6 +99,19 @@ namespace goTest.Testing.Objects
             set
             {
                 id = value;
+            }
+        }
+
+        public bool IsDeleted
+        {
+            get
+            {
+                return isDeleted;
+            }
+
+            set
+            {
+                isDeleted = value;
             }
         }
 

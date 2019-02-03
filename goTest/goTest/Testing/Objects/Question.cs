@@ -17,10 +17,12 @@ namespace goTest.Testing.Objects
         private List<Unswer> unswers;
         private QuestionType questionsType;
         private int id;
+        private bool isDeleted;
 
         public Question()
         {
             unswers = new List<Unswer>();
+            IsDeleted = false;
         }
 
         public void isValid()
@@ -45,7 +47,7 @@ namespace goTest.Testing.Objects
                 throw new ObjectNotValid("Вопрос: " + questionsContent+" должен иметь хотя бы 2 "+
                     "варианта ответов");
             }
-            int countOfRightUnswer = 1;
+            int countOfRightUnswer = 0;
             for (int i = 0; i < unswers.Count; i++)
             {
                 if(unswers.ElementAt(i).IsRight)
@@ -121,7 +123,8 @@ namespace goTest.Testing.Objects
             {
                 copy.unswers.Add(unswers.ElementAt(i).copy());
             }
-
+            copy.isDeleted = isDeleted;
+            
             return copy;
         }
 
@@ -161,6 +164,19 @@ namespace goTest.Testing.Objects
             set
             {
                 id = value;
+            }
+        }
+
+        public bool IsDeleted
+        {
+            get
+            {
+                return isDeleted;
+            }
+
+            set
+            {
+                isDeleted = value;
             }
         }
 

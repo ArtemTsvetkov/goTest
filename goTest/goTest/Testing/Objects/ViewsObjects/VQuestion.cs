@@ -29,7 +29,10 @@ namespace goTest.Testing.Objects.ViewsObjects
 
             for(int i=0; i<question.Unswers.Count; i++)
             {
-                unswers.Add(new VUnswer(i, question.Unswers.ElementAt(i)));
+                if (!question.Unswers.ElementAt(i).IsDeleted)
+                {
+                    unswers.Add(new VUnswer(i, question.Unswers.ElementAt(i)));
+                }
             }
         }
 

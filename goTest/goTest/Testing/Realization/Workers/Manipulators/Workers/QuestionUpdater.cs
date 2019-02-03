@@ -73,7 +73,14 @@ namespace goTest.Testing.Realization.Workers.Manipulators.Workers
             {
                 try
                 {
-                    unswerManipalator.update(question.Unswers.ElementAt(i));
+                    if (question.Unswers.ElementAt(i).IsDeleted)
+                    {
+                        question.Unswers.ElementAt(i).delete();
+                    }
+                    else
+                    {
+                        unswerManipalator.update(question.Unswers.ElementAt(i));
+                    }
                 }
                 catch (ObjectIsNotExistYet ex)
                 {
