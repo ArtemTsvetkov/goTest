@@ -1,4 +1,5 @@
 ﻿using goTest.Testing.Interfaces;
+using goTest.Testing.Realization.Workers;
 using goTest.Testing.Types;
 using goTest.Testing.Types.BasicDBObjects;
 using goTest.Testing.Types.BasicDBObjects.Interfaces;
@@ -32,13 +33,14 @@ namespace goTest.Testing.Realization
 
         public string createSubject(string subjectName)
         {
-            return "INSERT INTO Objects VALUES(null, null, '" + subjectName + "', " +
-                getSubQueryForGettingTypeId(DbTypes.subject.getName()) + ");";
+            return "INSERT INTO Objects VALUES(null, null, '" + QueryFixer.fix(subjectName)
+                + "', " + getSubQueryForGettingTypeId(DbTypes.subject.getName()) + ");";
         }
 
         public string createTest(string testName, int subjectId)
         {
-            return "INSERT INTO Objects VALUES(null, " + subjectId + ", '" + testName + "', " +
+            return "INSERT INTO Objects VALUES(null, " + subjectId + ", '" + 
+                QueryFixer.fix(testName) + "', " +
                 getSubQueryForGettingTypeId(DbTypes.test.getName()) + ");";
         }
 
@@ -66,7 +68,7 @@ namespace goTest.Testing.Realization
         {
             return "INSERT INTO Parameters VALUES(" + questionId + ", " +
                 getSubQueryForGettingAttrId(DbAttrs.content.getName()) + 
-                ", '" + content + "');";
+                ", '" + QueryFixer.fix(content) + "');";
         }
 
         public string setQuestionType(int questionId, QuestionType type)
@@ -85,7 +87,8 @@ namespace goTest.Testing.Realization
         public string setUnswerContent(int unswerId, string content)
         {
             return "INSERT INTO Parameters VALUES(" + unswerId + ", " +
-                getSubQueryForGettingAttrId(DbAttrs.content.getName()) + ", '" + content + "');";
+                getSubQueryForGettingAttrId(DbAttrs.content.getName()) + ", '" + 
+                QueryFixer.fix(content) + "');";
         }
 
         public string setUnswerType(int unswrId, UnswerType type)
@@ -97,7 +100,7 @@ namespace goTest.Testing.Realization
 
         public string getSubjectId(string name)
         {
-            return "SELECT id FROM Objects WHERE name='" + name + "' AND type="+
+            return "SELECT id FROM Objects WHERE name='" + QueryFixer.fix(name) + "' AND type="+
                 getSubQueryForGettingTypeId(DbTypes.subject.getName());
         }
 
@@ -112,12 +115,13 @@ namespace goTest.Testing.Realization
 
         public string updateSubjectName(int subjectId, string newName)
         {
-            return "UPDATE Objects SET name='" + newName + "' WHERE id=" + subjectId;
+            return "UPDATE Objects SET name='" + QueryFixer.fix(newName)
+                + "' WHERE id=" + subjectId;
         }
 
         public string updateTestName(int testId, string newName)
         {
-            return "UPDATE Objects SET name='" + newName + "' WHERE id=" + testId;
+            return "UPDATE Objects SET name='" + QueryFixer.fix(newName) + "' WHERE id=" + testId;
         }
 
         public string updateTestsQuestionsNumber(int testId, int count)
@@ -134,7 +138,8 @@ namespace goTest.Testing.Realization
 
         public string updateQuestionContent(int questionId, string newContent)
         {
-            return getQueryForUpdateParameters(questionId, newContent, DbAttrs.content);
+            return getQueryForUpdateParameters(questionId, QueryFixer.fix(newContent)
+                , DbAttrs.content);
         }
 
         public string updateQuestionType(int questionId, DbObject questionType)
@@ -146,7 +151,8 @@ namespace goTest.Testing.Realization
 
         public string updateUnswerContent(int unswerId, string newContent)
         {
-            return getQueryForUpdateParameters(unswerId, newContent, DbAttrs.content);
+            return getQueryForUpdateParameters(unswerId, QueryFixer.fix(newContent),
+                DbAttrs.content);
         }
 
         public string updateUnswerType(int unswerId, DbObject unswerType)

@@ -84,7 +84,7 @@ namespace goTest.Testing.Realization
                 try
                 {
                     subjectManipulator.create(subject);
-                    showInformationMessage("Дисциплина успешно добавлена");
+                    showInformationMessage("Предмет успешно добавлен.");
                 }
                 catch(Exception e)
                 {
@@ -115,7 +115,7 @@ namespace goTest.Testing.Realization
             else
             {
                 store.ElementAt(hi.value).Tests.ElementAt(hi.getChild().value).
-                    Questions.RemoveAt(hi.getChild().getChild().value);
+                    Questions.ElementAt(hi.getChild().getChild().value).IsDeleted=true;
                 notifyObservers();
             }
         }
@@ -131,7 +131,7 @@ namespace goTest.Testing.Realization
             {
                 store.ElementAt(hi.value).Tests.ElementAt(hi.getChild().value).
                     Questions.ElementAt(hi.getChild().getChild().value).Unswers.
-                    RemoveAt(hi.getChild().getChild().getChild().value);
+                    ElementAt(hi.getChild().getChild().getChild().value).IsDeleted=true;
                 notifyObservers();
             }  
         }

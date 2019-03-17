@@ -20,6 +20,7 @@ using goTest.Testing.Objects.ViewsObjects;
 using goTest.CommonComponents.ExceptionHandler.View.Information.PopupWindow;
 using goTest.Testing.Realization.Workers;
 using goTest.Testing.Interfaces;
+using goTest.CommonComponents.WorkWithData.Realization.WorkWithDataBase.SqlLite;
 
 namespace goTest
 {
@@ -37,6 +38,19 @@ namespace goTest
             Initialyzer init = new Initialyzer(iniComponents, this);
             init.init();
             searcher = new TestObjectsSearcher();
+            /*try
+            {
+                string mconst = "INSERT INTO Parameters VALUES(10, (SELECT id FROM Attributes WHERE Name = 'Content'), '";
+                string b = "\"áK¦\u009c=\0\u0003®¸µ\u000fâ\u008fëï";
+                //string a = "INSERT INTO Parameters VALUES(10, (SELECT id FROM Attributes WHERE Name = 'Content'), '\"áK¦\u009c=\\0\u0003®¸µ\u000fâ\u008fëï')";
+                string newB = QueryFixer.fix(b);
+                string result = mconst + newB+ "')";
+                SqlLiteSimpleExecute.execute(result);
+            }
+            catch(Exception ex)
+            {
+                int fsfsf = 0;
+            }*/
         }
 
 
@@ -690,6 +704,7 @@ namespace goTest
                         }
                         label27.Visible = true;
                         label27.Text = "Вопрос: " + (e.RowIndex+1) + "/" + dataGridView1.RowCount;
+                        textBox11.ReadOnly = false;
 
                         return;
                     }
@@ -791,14 +806,6 @@ namespace goTest
                     }
                     else
                     {
-                        if (!isSelectedQuestionHasMinimumOneRightUnswer())
-                        {
-                            activateValueChangeListeners = false;
-                            dataGridView2.Rows[e.RowIndex].Cells[1].Value = "+";
-                            activateValueChangeListeners = true;
-                            showMessage("Необходимо, чтобы вопрос имел хотя бы 1 правильный ответ");
-                            return;
-                        }
                         unswer.IsRight = false;
                         activateValueChangeListeners = false;
                         dataGridView2.Rows[e.RowIndex].Cells[1].Value = null;
@@ -1397,6 +1404,22 @@ namespace goTest
                 if(sub.Tests.ElementAt(i).IsSelected)
                 {
                     sub.IsSelected = true;
+                }
+            }
+        }
+
+        private void dataGridView2_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if(e.ColumnIndex==1)
+            {
+                object value = dataGridView2.Rows[e.RowIndex].Cells[1].Value;
+                if (value == null || value.Equals(""))
+                {
+                    dataGridView2.Rows[e.RowIndex].Cells[1].Value = "+";
+                }
+                else
+                {
+                    dataGridView2.Rows[e.RowIndex].Cells[1].Value = "";
                 }
             }
         }

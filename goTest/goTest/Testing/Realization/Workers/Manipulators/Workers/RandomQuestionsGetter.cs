@@ -41,6 +41,15 @@ namespace goTest.Testing.Interfaces.Manipulators.Workers
                 throw new NotEnoughQuestions();
             }
             List<Question> questions = new List<Question>();
+            if (ids.Length == count)
+            {
+                for (int i = 0; i < ids.Length; i++)
+                {
+                    questions.Add(questionManipulator.load(ids[i]));
+                }
+
+                return questions;
+            }
 
             Random rand = new Random();
             List<int> alreadyAddedList = new List<int>();

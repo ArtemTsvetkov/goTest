@@ -192,6 +192,7 @@
     <Compile Include="Testing\Realization\Workers\Manipulators\SubjectManipulator.cs" />
     <Compile Include="Testing\Realization\Workers\Manipulators\TestManipulator.cs" />
     <Compile Include="Testing\Realization\Workers\Manipulators\UnswerManipalator.cs" />
+    <Compile Include="Testing\Realization\Workers\QueryFixer.cs" />
     <Compile Include="Testing\Realization\Workers\TestObjectsSearcher.cs" />
     <Compile Include="Testing\Types\BasicDBObjects\DbAttrs.cs" />
     <Compile Include="Testing\Types\BasicDBObjects\DbObjects.cs" />

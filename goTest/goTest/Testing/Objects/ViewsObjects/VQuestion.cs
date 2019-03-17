@@ -27,9 +27,14 @@ namespace goTest.Testing.Objects.ViewsObjects
             QuestionsType = question.QuestionsType;
             Id = question.Id;
 
-            for(int i=0; i<question.Unswers.Count; i++)
+            int position = 0;
+            for (int i=0; i<question.Unswers.Count; i++)
             {
-                unswers.Add(new VUnswer(i, question.Unswers.ElementAt(i)));
+                if (!question.Unswers.ElementAt(i).IsDeleted)
+                {
+                    unswers.Add(new VUnswer(position, question.Unswers.ElementAt(i)));
+                    position++;
+                }
             }
         }
 

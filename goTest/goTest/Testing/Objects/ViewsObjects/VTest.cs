@@ -27,9 +27,14 @@ namespace goTest.Testing.Objects.ViewsObjects
             Id = test.Id;
             IsSelected = test.IsSelected;
 
+            int position = 0;
             for(int i=0; i<test.Questions.Count; i++)
             {
-                questions.Add(new VQuestion(i, test.Questions.ElementAt(i)));
+                if (!test.Questions.ElementAt(i).IsDeleted)
+                {
+                    questions.Add(new VQuestion(position, test.Questions.ElementAt(i)));
+                    position++;
+                }
             }
         }
 

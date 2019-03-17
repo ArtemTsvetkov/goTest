@@ -102,8 +102,6 @@
             this.label15 = new System.Windows.Forms.Label();
             this.tabPage9 = new System.Windows.Forms.TabPage();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button25 = new System.Windows.Forms.Button();
             this.button26 = new System.Windows.Forms.Button();
             this.button21 = new System.Windows.Forms.Button();
@@ -176,6 +174,8 @@
             this.button34 = new System.Windows.Forms.Button();
             this.label48 = new System.Windows.Forms.Label();
             this.label49 = new System.Windows.Forms.Label();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage5.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -1085,25 +1085,13 @@
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn4});
             this.dataGridView2.Location = new System.Drawing.Point(176, 366);
+            this.dataGridView2.MultiSelect = false;
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.Size = new System.Drawing.Size(381, 175);
             this.dataGridView2.TabIndex = 64;
             this.dataGridView2.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellClick_1);
+            this.dataGridView2.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView2_CellMouseClick);
             this.dataGridView2.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellValueChanged_1);
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.HeaderText = "Ответ";
-            this.dataGridViewTextBoxColumn3.MinimumWidth = 235;
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.Width = 235;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.HeaderText = "Он правильный (1-да, 0-нет)";
-            this.dataGridViewTextBoxColumn4.MinimumWidth = 143;
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.Width = 143;
             // 
             // button25
             // 
@@ -1201,6 +1189,7 @@
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Questions});
             this.dataGridView1.Location = new System.Drawing.Point(689, 120);
+            this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(375, 421);
@@ -1214,6 +1203,7 @@
             this.Questions.Name = "Questions";
             this.Questions.ReadOnly = true;
             this.Questions.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Questions.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.Questions.Width = 371;
             // 
             // button14
@@ -1908,9 +1898,9 @@
             this.label48.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label48.Location = new System.Drawing.Point(332, 200);
             this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(138, 26);
+            this.label48.Size = new System.Drawing.Size(103, 26);
             this.label48.TabIndex = 46;
-            this.label48.Text = "Дисциплина";
+            this.label48.Text = "Предмет";
             // 
             // label49
             // 
@@ -1922,6 +1912,23 @@
             this.label49.Size = new System.Drawing.Size(217, 26);
             this.label49.TabIndex = 23;
             this.label49.Text = "Удаление предмета";
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.HeaderText = "Ответ";
+            this.dataGridViewTextBoxColumn3.MinimumWidth = 235;
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn3.Width = 235;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "Он правильный";
+            this.dataGridViewTextBoxColumn4.MinimumWidth = 143;
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn4.Width = 143;
             // 
             // Form1
             // 
@@ -2044,7 +2051,6 @@
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Button button14;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Questions;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.TextBox textBox11;
         private System.Windows.Forms.Label label24;
@@ -2063,8 +2069,6 @@
         private System.Windows.Forms.Button button25;
         private System.Windows.Forms.Button button26;
         private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.ComboBox comboBox6;
@@ -2124,6 +2128,9 @@
         private System.Windows.Forms.Button button34;
         private System.Windows.Forms.Label label48;
         private System.Windows.Forms.Label label49;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Questions;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
     }
 }
 

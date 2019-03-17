@@ -51,7 +51,14 @@ namespace goTest.Testing.Interfaces.Manipulators.Workers
             {
                 try
                 {
-                    questionManipulator.update(test.Questions.ElementAt(i));
+                    if (test.Questions.ElementAt(i).IsDeleted)
+                    {
+                        test.Questions.ElementAt(i).delete();
+                    }
+                    else
+                    {
+                        questionManipulator.update(test.Questions.ElementAt(i));
+                    }
                 }
                 catch(ObjectIsNotExistYet ex)
                 {

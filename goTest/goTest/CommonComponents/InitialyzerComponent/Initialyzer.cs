@@ -51,6 +51,10 @@ namespace goTest.CommonComponents.InitialyzerComponent
                 form.dataGridView1Elem.RowHeadersVisible = false;
                 form.dataGridView2Elem.RowHeadersVisible = false;
                 //
+                //Config other views components
+                //
+                form.textBox11Elem.ReadOnly = true;
+                //
                 //Security component
                 //
                 SecurityModel securityModel = new SecurityModel();
