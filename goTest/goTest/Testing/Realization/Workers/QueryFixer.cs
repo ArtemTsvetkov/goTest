@@ -11,6 +11,7 @@ namespace goTest.Testing.Realization.Workers
         public static string fix(string query)
         {
             query = query.Replace("'", "''");
+            query = query.Replace("\0", "Arts00000001\\0");
             return query;
         }
     }

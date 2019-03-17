@@ -49,6 +49,7 @@ namespace goTest.SecurityComponent.Encryption.Realization
 
         public string decrypt(string message)
         {
+            message = message.Replace("Arts00000001\\0", "\0");
             using (Rijndael myRijndael = Rijndael.Create())
             {
                 myRijndael.Key = config.getKey();

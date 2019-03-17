@@ -111,6 +111,7 @@
             this.label24 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Questions = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button14 = new System.Windows.Forms.Button();
             this.label16 = new System.Windows.Forms.Label();
             this.tabPage10 = new System.Windows.Forms.TabPage();
@@ -175,7 +176,6 @@
             this.label49 = new System.Windows.Forms.Label();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Questions = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage5.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -1090,6 +1090,7 @@
             this.dataGridView2.Size = new System.Drawing.Size(381, 175);
             this.dataGridView2.TabIndex = 64;
             this.dataGridView2.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellClick_1);
+            this.dataGridView2.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView2_CellMouseClick);
             this.dataGridView2.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellValueChanged_1);
             // 
             // button25
@@ -1194,6 +1195,16 @@
             this.dataGridView1.Size = new System.Drawing.Size(375, 421);
             this.dataGridView1.TabIndex = 44;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            // 
+            // Questions
+            // 
+            this.Questions.HeaderText = "                                  Краткое содержание вопроса";
+            this.Questions.MinimumWidth = 371;
+            this.Questions.Name = "Questions";
+            this.Questions.ReadOnly = true;
+            this.Questions.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Questions.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Questions.Width = 371;
             // 
             // button14
             // 
@@ -1912,21 +1923,12 @@
             // 
             // dataGridViewTextBoxColumn4
             // 
-            this.dataGridViewTextBoxColumn4.HeaderText = "Он правильный (1-да, 0-нет)";
+            this.dataGridViewTextBoxColumn4.HeaderText = "Он правильный";
             this.dataGridViewTextBoxColumn4.MinimumWidth = 143;
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
             this.dataGridViewTextBoxColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.dataGridViewTextBoxColumn4.Width = 143;
-            // 
-            // Questions
-            // 
-            this.Questions.HeaderText = "                                  Краткое содержание вопроса";
-            this.Questions.MinimumWidth = 371;
-            this.Questions.Name = "Questions";
-            this.Questions.ReadOnly = true;
-            this.Questions.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Questions.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Questions.Width = 371;
             // 
             // Form1
             // 
@@ -2126,9 +2128,9 @@
         private System.Windows.Forms.Button button34;
         private System.Windows.Forms.Label label48;
         private System.Windows.Forms.Label label49;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Questions;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Questions;
     }
 }
 
